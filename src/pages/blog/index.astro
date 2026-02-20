@@ -2,6 +2,7 @@
 import Layout from '../../layouts/Layout.astro';
 import Header from '../../components/Header.astro';
 import Footer from '../../components/Footer.astro';
+import ContactForm from '../../components/ContactForm.astro';
 import { getCollection } from 'astro:content';
 
 const posts = (await getCollection('blog')).sort(
@@ -98,6 +99,7 @@ const breadcrumbSchema = {
       </div>
     </div>
   </main>
+  <ContactForm />
   <Footer />
 
   <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />

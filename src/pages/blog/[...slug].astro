@@ -2,6 +2,7 @@
 import Layout from '../../layouts/Layout.astro';
 import Header from '../../components/Header.astro';
 import Footer from '../../components/Footer.astro';
+import ContactForm from '../../components/ContactForm.astro';
 import { getCollection } from 'astro:content';
 
 export async function getStaticPaths() {
@@ -149,7 +150,7 @@ const breadcrumbSchema = {
         <div class="bg-gold-50 border border-gold-200 rounded-2xl p-6 sm:p-8 text-center">
           <h3 class="text-xl font-bold text-navy-900 mb-2" style="font-family: 'Playfair Display', Georgia, serif;">Need Help Preparing?</h3>
           <p class="text-navy-600 mb-4">We've helped many students achieve their best results in Leaving Cert and grade exams.</p>
-          <a href="/#contact" class="inline-flex items-center gap-2 px-6 py-2.5 rounded-full text-sm font-semibold bg-gold-500 text-white hover:bg-gold-600 transition-colors shadow-sm">
+          <a href="#contact" class="inline-flex items-center gap-2 px-6 py-2.5 rounded-full text-sm font-semibold bg-gold-500 text-white hover:bg-gold-600 transition-colors shadow-sm">
             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
             </svg>
@@ -159,6 +160,7 @@ const breadcrumbSchema = {
       </div>
     </article>
   </main>
+  <ContactForm />
   <Footer />
 
   <script type="application/ld+json" set:html={JSON.stringify(blogPostingSchema)} />
