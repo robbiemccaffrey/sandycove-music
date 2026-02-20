@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200">
+  <circle cx="100" cy="100" r="90" fill="#169B62" stroke="#c9952e" stroke-width="3"/>
+  <circle cx="100" cy="100" r="78" fill="none" stroke="rgba(255,255,255,0.3)" stroke-width="1"/>
+  <!-- Shamrock/harp inspired -->
+  <path d="M100 50 L100 125" stroke="white" stroke-width="2.5"/>
+  <path d="M85 65 C75 55 65 60 65 72 C65 84 80 90 100 85" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round"/>
+  <path d="M115 65 C125 55 135 60 135 72 C135 84 120 90 100 85" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round"/>
+  <path d="M92 80 C82 90 78 100 85 108 C92 116 100 110 100 100" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round"/>
+  <path d="M108 80 C118 90 122 100 115 108 C108 116 100 110 100 100" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round"/>
+  <!-- Graduation cap -->
+  <polygon points="100,38 120,48 100,58 80,48" fill="white" opacity="0.9"/>
+  <line x1="120" y1="48" x2="120" y2="60" stroke="white" stroke-width="1.5"/>
+  <circle cx="120" cy="62" r="2" fill="white"/>
+  <text x="100" y="148" text-anchor="middle" font-family="Georgia, serif" font-size="11" font-weight="bold" fill="white">LEAVING</text>
+  <text x="100" y="165" text-anchor="middle" font-family="Georgia, serif" font-size="11" font-weight="bold" fill="white">CERT</text>
+</svg>

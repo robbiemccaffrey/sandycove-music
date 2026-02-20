@@ -6,11 +6,13 @@ import Accreditations from '../components/Accreditations.astro';
 import About from '../components/About.astro';
 import Lessons from '../components/Lessons.astro';
 import Pricing from '../components/Pricing.astro';
+import FAQ from '../components/FAQ.astro';
 import ContactForm from '../components/ContactForm.astro';
 import Footer from '../components/Footer.astro';
+import LocalBusinessSchema from '../components/LocalBusinessSchema.astro';
 ---
 
-<Layout title="Sandycove School of Music — Piano Lessons in Dun Laoghaire">
+<Layout title="Piano Lessons in Dun Laoghaire | Sandycove School of Music" description="Piano lessons in Dun Laoghaire, Co. Dublin. Expert preparation for RIAM, ABRSM, Trinity & Leaving Cert exams. All ages and levels. Book your first lesson at 50% off.">
   <Header />
   <main class="flex-1">
     <Hero />
@@ -18,7 +20,9 @@ import Footer from '../components/Footer.astro';
     <About />
     <Lessons />
     <Pricing />
+    <FAQ />
     <ContactForm />
   </main>
   <Footer />
+  <LocalBusinessSchema />
 </Layout>

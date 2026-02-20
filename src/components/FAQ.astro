@@ -1,0 +1,73 @@
+---
+const faqs = [
+  {
+    question: 'What age can my child start piano lessons?',
+    answer: 'We accept students from age 5 upwards. Younger children benefit from shorter lessons (30 minutes) where we focus on building a love of music through fun, age-appropriate exercises. There\'s no upper age limit — we teach adult learners too.',
+  },
+  {
+    question: 'Do you prepare students for RIAM, ABRSM, and Trinity exams?',
+    answer: 'Yes, we specialise in preparing students for all major exam boards including RIAM (Royal Irish Academy of Music), ABRSM (Associated Board of the Royal Schools of Music), and Trinity College London. We also prepare students for the Leaving Certificate Music performance exam.',
+  },
+  {
+    question: 'Do you offer online piano lessons?',
+    answer: 'Yes, we offer high-quality online piano lessons via video call. Online lessons follow the same structure and standard as our in-person sessions, making them a great option if you can\'t travel to our studio in Dun Laoghaire.',
+  },
+  {
+    question: 'How long does it take to reach Grade 5?',
+    answer: 'Every student is different, but with regular practice and weekly lessons, most students can reach Grade 5 in around 3 to 4 years. Some progress faster depending on their age, prior experience, and the amount of time they dedicate to practice.',
+  },
+  {
+    question: 'What styles of piano do you teach?',
+    answer: 'We teach a wide range of styles including classical, jazz, contemporary, and pop. Many of our students explore multiple styles, which helps develop a well-rounded musicality. We\'ll work with you to focus on the styles you enjoy most.',
+  },
+  {
+    question: 'Do I need my own piano to take lessons?',
+    answer: 'You\'ll need access to a piano or keyboard for practice at home. A full-size digital piano with weighted keys is a good starting point if you\'re not ready to invest in an acoustic piano. We can advise on the best options for your budget.',
+  },
+  {
+    question: 'How much do piano lessons cost?',
+    answer: 'Individual lessons start from €30 for 30 minutes, €40 for 40 minutes, and €50 for a full hour. We also offer discounted packages of 10 lessons — 10×30 min for €270, 10×40 min for €330, and 10×1 hour for €400. Your first lesson is available at 50% off.',
+  },
+];
+
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faqs.map(({ question, answer }) => ({
+    '@type': 'Question',
+    name: question,
+    acceptedAnswer: {
+      '@type': 'Answer',
+      text: answer,
+    },
+  })),
+};
+---
+
+<section id="faq" class="py-20 bg-navy-50">
+  <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="text-center mb-12">
+      <h2 class="text-3xl sm:text-4xl font-bold text-navy-900 mb-4" style="font-family: 'Playfair Display', Georgia, serif;">Frequently Asked Questions</h2>
+      <div class="w-16 h-1 bg-gold-500 mx-auto mb-6"></div>
+      <p class="text-navy-600 text-lg">Everything you need to know about piano lessons at Sandycove School of Music.</p>
+    </div>
+
+    <div class="space-y-4">
+      {faqs.map(({ question, answer }, i) => (
+        <details class="group rounded-2xl border border-navy-100 bg-white shadow-sm overflow-hidden">
+          <summary class="flex items-center justify-between cursor-pointer px-6 py-5 text-left font-semibold text-navy-900 hover:text-gold-600 transition-colors">
+            <span>{question}</span>
+            <svg class="w-5 h-5 text-navy-400 group-open:rotate-180 transition-transform shrink-0 ml-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+            </svg>
+          </summary>
+          <div class="px-6 pb-5 text-navy-600 leading-relaxed">
+            {answer}
+          </div>
+        </details>
+      ))}
+    </div>
+  </div>
+</section>
+
+<script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
