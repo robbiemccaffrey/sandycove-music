@@ -1,0 +1,61 @@
+---
+const individual = [
+  { duration: '30 minutes', price: '€30' },
+  { duration: '40 minutes', price: '€40' },
+  { duration: '1 hour', price: '€50' },
+];
+
+const packages = [
+  { sessions: '10 × 30 min', price: '€270', saving: 'Save €30' },
+  { sessions: '10 × 40 min', price: '€330', saving: 'Save €70' },
+  { sessions: '10 × 1 hour', price: '€400', saving: 'Save €100' },
+];
+---
+
+<section id="pricing" class="py-20 bg-navy-950">
+  <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="max-w-3xl mx-auto text-center mb-12">
+      <h2 class="text-3xl sm:text-4xl font-bold text-white mb-4">Pricing</h2>
+      <div class="w-16 h-1 bg-gold-500 mx-auto mb-6"></div>
+      <p class="text-gray-300 text-lg">Straightforward pricing with no hidden fees. Save with our lesson packages.</p>
+    </div>
+
+    <div class="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+      <!-- Individual Lessons -->
+      <div class="rounded-xl border border-white/10 bg-navy-900/50 p-8">
+        <h3 class="text-xl font-semibold text-white mb-6 text-center">Individual Lessons</h3>
+        <div class="space-y-4">
+          {individual.map(({ duration, price }) => (
+            <div class="flex items-center justify-between py-3 border-b border-white/10 last:border-0">
+              <span class="text-gray-300">{duration}</span>
+              <span class="text-xl font-bold text-white">{price}</span>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <!-- Package Deals -->
+      <div class="rounded-xl border border-gold-500/30 bg-navy-900/50 p-8 relative">
+        <div class="absolute -top-3 left-1/2 -translate-x-1/2 px-3 py-1 bg-gold-500 text-navy-950 text-xs font-bold rounded-full uppercase tracking-wider">
+          Best Value
+        </div>
+        <h3 class="text-xl font-semibold text-white mb-6 text-center">Lesson Packages</h3>
+        <div class="space-y-4">
+          {packages.map(({ sessions, price, saving }) => (
+            <div class="flex items-center justify-between py-3 border-b border-white/10 last:border-0">
+              <div>
+                <span class="text-gray-300 block">{sessions}</span>
+                <span class="text-gold-400 text-xs font-medium">{saving}</span>
+              </div>
+              <span class="text-xl font-bold text-white">{price}</span>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+
+    <p class="text-center text-gray-400 text-sm mt-8">
+      All prices are inclusive. First lesson available at 50% off — <a href="#contact" class="text-gold-400 hover:text-gold-300 underline">get in touch</a> to avail.
+    </p>
+  </div>
+</section>
