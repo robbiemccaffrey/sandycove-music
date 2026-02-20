@@ -28,7 +28,7 @@ Some things to consider:
 
 Consistency is key to musical progress, so think about logistics. A teacher who's a 45-minute drive away might seem worth it at first, but after a few months of weekly trips, it can become a barrier.
 
-In Dublin, you've got plenty of options across the city and suburbs. In the Dun Laoghaire area, we're based in Albert Park — easy to reach from Sandycove, Glasthule, Dalkey, Monkstown, and Blackrock. We also offer online lessons for those who prefer to learn from home.
+In Dublin, you've got plenty of options across the city and suburbs. We're based in Sandycove, Co. Dublin — easy to reach from Glasthule, Dalkey, Dun Laoghaire, Monkstown, and Blackrock. We also offer online lessons for those who prefer to learn from home.
 
 ## Trial Lessons
 
