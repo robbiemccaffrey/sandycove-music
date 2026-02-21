@@ -1,0 +1,257 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import Accreditations from '../components/Accreditations.astro';
+import ContactForm from '../components/ContactForm.astro';
+import Footer from '../components/Footer.astro';
+import LocalBusinessSchema from '../components/LocalBusinessSchema.astro';
+
+const kidsFaqs = [
+  {
+    question: 'What age can my child start music lessons?',
+    answer: 'We accept children from age 5 upwards. At this age, children have developed enough fine motor skills and concentration to begin learning piano in a structured way.',
+  },
+  {
+    question: 'How long should my child practise each day?',
+    answer: "For beginners aged 5-7, we recommend 10-15 minutes daily. As they progress, this naturally increases to 20-30 minutes. The key is consistent, focused practice rather than long sessions. We'll give your child clear practice goals after each lesson.",
+  },
+  {
+    question: 'Does my child need to do exams?',
+    answer: 'Exams are entirely optional. Many children thrive with the structure and sense of achievement that exams provide, but others prefer to learn at their own pace without that pressure. We follow your child\'s lead.',
+  },
+  {
+    question: 'What if my child wants to stop?',
+    answer: "It's normal for children to have periods where motivation dips. Our teachers are experienced at keeping lessons engaging and fun. If your child is struggling, we'll work with you to find a solution — whether that's adjusting the repertoire, shortening lessons, or taking a short break.",
+  },
+  {
+    question: 'Do you teach instruments other than piano?',
+    answer: 'We currently specialise in piano tuition. Piano is an excellent first instrument for children — it builds a strong foundation in music theory, reading, and coordination that transfers to any instrument they may want to learn later.',
+  },
+];
+
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: kidsFaqs.map(({ question, answer }) => ({
+    '@type': 'Question',
+    name: question,
+    acceptedAnswer: {
+      '@type': 'Answer',
+      text: answer,
+    },
+  })),
+};
+---
+
+<Layout
+  title="Music Lessons for Kids Dublin | Ages 5+ | Sandycove"
+  description="Fun, structured music lessons for children in Dun Laoghaire. Piano for kids ages 5+. Patient, experienced teaching. Free trial lesson."
+>
+  <Header />
+  <main class="flex-1">
+    <!-- Hero -->
+    <section class="relative pt-16 py-20 bg-gradient-to-br from-navy-900 via-navy-800 to-navy-900 overflow-hidden">
+      <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_50%_40%,_rgba(201,149,46,0.07)_0%,_transparent_60%)]"></div>
+      <div class="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center py-16">
+        <h1 class="text-4xl sm:text-5xl lg:text-6xl font-bold text-white leading-tight mb-6" style="font-family: 'Playfair Display', Georgia, serif;">
+          Music Lessons for Kids<br class="hidden sm:block" /> in Dublin — Ages 5+
+        </h1>
+        <p class="text-xl sm:text-2xl text-navy-200 max-w-2xl mx-auto mb-8 leading-relaxed">
+          Fun, structured piano lessons that build confidence, creativity, and a lifelong love of music.
+        </p>
+        <div class="flex flex-col sm:flex-row gap-4 justify-center">
+          <a href="/contact" class="inline-flex items-center justify-center gap-2 px-8 py-3.5 rounded-full text-lg font-semibold bg-gold-500 text-white hover:bg-gold-600 transition-colors shadow-lg shadow-gold-500/25">
+            Book a Free Trial
+          </a>
+          <a href="tel:+353868729764" class="inline-flex items-center justify-center gap-2 px-8 py-3.5 rounded-full text-lg font-semibold border-2 border-white/30 text-white hover:bg-white/10 transition-colors">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/></svg>
+            Call 086 872 9764
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Why Music for Kids -->
+    <section class="py-20 bg-white">
+      <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="max-w-3xl mx-auto text-center mb-12">
+          <h2 class="text-3xl sm:text-4xl font-bold text-navy-900 mb-4" style="font-family: 'Playfair Display', Georgia, serif;">Why Music Lessons for Children?</h2>
+          <div class="w-16 h-1 bg-gold-500 mx-auto"></div>
+        </div>
+        <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-5xl mx-auto">
+          {[
+            { title: 'Cognitive Development', desc: 'Learning music strengthens memory, problem-solving, and mathematical thinking. Studies consistently link music education to improved academic performance.' },
+            { title: 'Discipline & Focus', desc: 'Regular practice teaches children the value of consistent effort, patience, and working towards goals — skills they carry into school and beyond.' },
+            { title: 'Confidence & Self-Expression', desc: 'Performing and creating music builds self-confidence and gives children a powerful outlet for expressing themselves.' },
+            { title: 'Coordination', desc: 'Piano develops fine motor skills and hand-eye coordination as children learn to read music and coordinate both hands independently.' },
+            { title: 'Creativity', desc: 'Music opens up a world of creative thinking — from interpreting a piece to improvising and eventually composing their own music.' },
+            { title: 'A Lifelong Skill', desc: "Learning piano is a gift that lasts a lifetime. The skills and joy your child gains now will stay with them long after they've left the classroom." },
+          ].map(({ title, desc }) => (
+            <div class="p-6 rounded-2xl bg-navy-50 border border-navy-100 hover:border-gold-400 hover:shadow-lg transition-all">
+              <h3 class="text-lg font-semibold text-navy-900 mb-2">{title}</h3>
+              <p class="text-navy-500 text-sm leading-relaxed">{desc}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- Our Approach -->
+    <section class="py-20 bg-navy-50">
+      <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid md:grid-cols-2 gap-12 items-center">
+          <div>
+            <h2 class="text-3xl sm:text-4xl font-bold text-navy-900 mb-4" style="font-family: 'Playfair Display', Georgia, serif;">An Age-Appropriate Approach</h2>
+            <div class="w-16 h-1 bg-gold-500 mb-6"></div>
+            <p class="text-navy-700 leading-relaxed mb-6">
+              Children learn differently to adults, and our teaching methods reflect that. For younger students (ages 5-7), lessons are shorter, more playful, and focused on building enthusiasm. We use a mix of games, songs, and structured exercises to keep things engaging.
+            </p>
+            <p class="text-navy-700 leading-relaxed mb-6">
+              As children grow (ages 8+), lessons become more structured with a clear progression path. Students begin working through grades, developing sight-reading skills, and expanding their repertoire across different styles.
+            </p>
+            <p class="text-navy-700 leading-relaxed">
+              Throughout, our approach is patient and encouraging. We celebrate progress, set achievable goals, and make sure every child feels supported and motivated.
+            </p>
+          </div>
+          <div class="space-y-4">
+            {[
+              { age: 'Ages 5–7', format: '30-minute lessons', focus: 'Building enthusiasm, basic note reading, simple melodies, rhythm games, and correct posture.' },
+              { age: 'Ages 8–11', format: '30 or 40-minute lessons', focus: 'Working through grades, sight reading, music theory basics, and developing a varied repertoire.' },
+              { age: 'Ages 12+', format: '40-minute or 1-hour lessons', focus: 'Exam preparation, advanced technique, performance skills, and exploring personal musical interests.' },
+            ].map(({ age, format, focus }) => (
+              <div class="p-5 rounded-xl bg-white border border-navy-100 shadow-sm">
+                <div class="flex items-center gap-3 mb-2">
+                  <span class="px-3 py-1 rounded-full bg-gold-50 border border-gold-200 text-gold-700 text-xs font-bold">{age}</span>
+                  <span class="text-navy-400 text-sm">{format}</span>
+                </div>
+                <p class="text-navy-600 text-sm leading-relaxed">{focus}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- What Kids Learn -->
+    <section class="py-20 bg-white">
+      <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="max-w-3xl mx-auto text-center mb-12">
+          <h2 class="text-3xl sm:text-4xl font-bold text-navy-900 mb-4" style="font-family: 'Playfair Display', Georgia, serif;">What Your Child Will Learn</h2>
+          <div class="w-16 h-1 bg-gold-500 mx-auto"></div>
+        </div>
+        <div class="max-w-3xl mx-auto">
+          <div class="grid sm:grid-cols-2 gap-4">
+            {[
+              'Correct hand position and posture',
+              'Reading music notation',
+              'Scales and finger exercises',
+              'Playing songs they enjoy',
+              'Music theory fundamentals',
+              'Rhythm and timing',
+              'Sight reading skills',
+              'Performance confidence',
+            ].map((item) => (
+              <div class="flex items-start gap-3 p-3">
+                <svg class="w-5 h-5 text-gold-500 shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+                <span class="text-navy-700">{item}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Exam Pathways -->
+    <section class="py-20 bg-navy-50">
+      <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="max-w-3xl mx-auto text-center mb-12">
+          <h2 class="text-3xl sm:text-4xl font-bold text-navy-900 mb-4" style="font-family: 'Playfair Display', Georgia, serif;">Exam Pathways</h2>
+          <div class="w-16 h-1 bg-gold-500 mx-auto mb-6"></div>
+          <p class="text-navy-600 text-lg">Optional graded exams give children clear goals and a real sense of achievement.</p>
+        </div>
+        <Accreditations />
+        <div class="max-w-3xl mx-auto mt-12">
+          <p class="text-navy-700 leading-relaxed mb-6">
+            Graded exams are entirely optional, but many of our young students find them motivating. Working towards an exam gives children a tangible goal and a wonderful sense of accomplishment when they pass.
+          </p>
+          <p class="text-navy-700 leading-relaxed">
+            We prepare students for RIAM, ABRSM, and Trinity College London examinations from the preparatory grades upwards. Our students consistently achieve high marks, and we celebrate every result — whether it's a pass, merit, or distinction.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Info for Parents -->
+    <section class="py-20 bg-white">
+      <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="max-w-3xl mx-auto text-center mb-12">
+          <h2 class="text-3xl sm:text-4xl font-bold text-navy-900 mb-4" style="font-family: 'Playfair Display', Georgia, serif;">Information for Parents</h2>
+          <div class="w-16 h-1 bg-gold-500 mx-auto"></div>
+        </div>
+        <div class="max-w-3xl mx-auto space-y-6">
+          <div class="p-6 rounded-2xl bg-navy-50 border border-navy-100">
+            <h3 class="font-semibold text-navy-900 mb-2">What to expect in the first lesson</h3>
+            <p class="text-navy-600 text-sm leading-relaxed">The first lesson is a free trial where we assess your child's current level (if any), discuss their interests, and begin making music straight away. Parents are welcome to sit in.</p>
+          </div>
+          <div class="p-6 rounded-2xl bg-navy-50 border border-navy-100">
+            <h3 class="font-semibold text-navy-900 mb-2">Practice at home</h3>
+            <p class="text-navy-600 text-sm leading-relaxed">Your child will need access to a piano or keyboard at home for practice. A full-size digital piano with weighted keys is a great starting point. We provide clear practice notes after each lesson so you know what your child should be working on.</p>
+          </div>
+          <div class="p-6 rounded-2xl bg-navy-50 border border-navy-100">
+            <h3 class="font-semibold text-navy-900 mb-2">Lesson location</h3>
+            <p class="text-navy-600 text-sm leading-relaxed">Lessons take place at our studio in Sandycove, Dun Laoghaire. We also offer online lessons via video call if travelling isn't convenient. Students come from across South Dublin including Dalkey, Glasthule, Monkstown, Blackrock, and Killiney.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="py-20 bg-navy-50">
+      <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-12">
+          <h2 class="text-3xl sm:text-4xl font-bold text-navy-900 mb-4" style="font-family: 'Playfair Display', Georgia, serif;">Kids' Lessons — FAQs</h2>
+          <div class="w-16 h-1 bg-gold-500 mx-auto mb-6"></div>
+        </div>
+        <div class="space-y-4">
+          {kidsFaqs.map(({ question, answer }) => (
+            <details class="group rounded-2xl border border-navy-100 bg-white shadow-sm overflow-hidden">
+              <summary class="flex items-center justify-between cursor-pointer px-6 py-5 text-left font-semibold text-navy-900 hover:text-gold-600 transition-colors">
+                <span>{question}</span>
+                <svg class="w-5 h-5 text-navy-400 group-open:rotate-180 transition-transform shrink-0 ml-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                </svg>
+              </summary>
+              <div class="px-6 pb-5 text-navy-600 leading-relaxed">
+                {answer}
+              </div>
+            </details>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="py-20 bg-navy-900">
+      <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+        <h2 class="text-3xl sm:text-4xl font-bold text-white mb-4" style="font-family: 'Playfair Display', Georgia, serif;">Give Your Child the Gift of Music</h2>
+        <div class="w-16 h-1 bg-gold-500 mx-auto mb-6"></div>
+        <p class="text-navy-200 text-lg mb-8 max-w-2xl mx-auto">
+          Book a free trial lesson and see how your child takes to the piano. No commitment, no pressure — just music.
+        </p>
+        <div class="flex flex-col sm:flex-row gap-4 justify-center">
+          <a href="/contact" class="inline-flex items-center justify-center gap-2 px-8 py-3.5 rounded-full text-lg font-semibold bg-gold-500 text-white hover:bg-gold-600 transition-colors shadow-lg shadow-gold-500/25">
+            Book a Free Trial
+          </a>
+          <a href="/piano-lessons" class="inline-flex items-center justify-center gap-2 px-8 py-3.5 rounded-full text-lg font-semibold border-2 border-white/30 text-white hover:bg-white/10 transition-colors">
+            View Piano Lessons
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <ContactForm />
+  </main>
+  <Footer />
+  <LocalBusinessSchema />
+  <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+</Layout>
