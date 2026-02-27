@@ -1,0 +1,41 @@
+---
+const accreditations = [
+  {
+    name: 'RIAM',
+    full: 'Royal Irish Academy of Music',
+    logo: '/images/riam-logo.svg',
+  },
+  {
+    name: 'ABRSM',
+    full: 'Associated Board of the Royal Schools of Music',
+    logo: '/images/abrsm-logo.svg',
+  },
+  {
+    name: 'Trinity',
+    full: 'Trinity College London',
+    logo: '/images/trinity-logo.svg',
+  },
+  {
+    name: 'Leaving Cert',
+    full: 'Leaving Certificate Music',
+    logo: '/images/leaving-cert-logo.svg',
+  },
+];
+---
+
+<section class="py-14 bg-navy-50 border-y border-navy-100">
+  <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+    <p class="text-center text-sm text-navy-500 uppercase tracking-widest mb-8 font-medium">Accredited Exam Preparation</p>
+    <div class="flex flex-wrap justify-center items-center gap-10 sm:gap-16">
+      {accreditations.map(({ name, full, logo }) => (
+        <div class="text-center group" title={full}>
+          <div class="w-24 h-24 sm:w-28 sm:h-28 rounded-full overflow-hidden mx-auto mb-3 shadow-md group-hover:shadow-lg transition-shadow">
+            <img src={logo} alt={`${name} — ${full}`} class="w-full h-full object-cover" />
+          </div>
+          <p class="text-sm font-semibold text-navy-700">{name}</p>
+          <p class="text-xs text-navy-400 max-w-[140px] mx-auto">{full}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>

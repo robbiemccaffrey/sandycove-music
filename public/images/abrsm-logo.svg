@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200">
+  <circle cx="100" cy="100" r="90" fill="#8B1A32" stroke="#c9952e" stroke-width="3"/>
+  <circle cx="100" cy="100" r="78" fill="none" stroke="rgba(255,255,255,0.3)" stroke-width="1"/>
+  <!-- Lyre symbol -->
+  <path d="M80 70 C80 50 100 40 100 40 C100 40 120 50 120 70" fill="none" stroke="white" stroke-width="3" stroke-linecap="round"/>
+  <path d="M80 70 C75 90 80 110 100 120 C120 110 125 90 120 70" fill="none" stroke="white" stroke-width="3" stroke-linecap="round"/>
+  <line x1="100" y1="55" x2="100" y2="120" stroke="white" stroke-width="2"/>
+  <line x1="90" y1="60" x2="90" y2="115" stroke="white" stroke-width="1.5"/>
+  <line x1="110" y1="60" x2="110" y2="115" stroke="white" stroke-width="1.5"/>
+  <text x="100" y="148" text-anchor="middle" font-family="Georgia, serif" font-size="14" font-weight="bold" fill="white">ABRSM</text>
+  <text x="100" y="165" text-anchor="middle" font-family="Georgia, serif" font-size="8" fill="rgba(255,255,255,0.7)">Associated Board</text>
+</svg>

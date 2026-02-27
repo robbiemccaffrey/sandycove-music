@@ -1,0 +1,86 @@
+---
+const schema = {
+  '@context': 'https://schema.org',
+  '@type': ['MusicSchool', 'LocalBusiness'],
+  name: 'Sandycove School of Music',
+  description: 'Tailored, effective piano tutoring in Dun Laoghaire, Co. Dublin. Expert preparation for RIAM, ABRSM, Trinity College London, and Leaving Certificate Music examinations. All ages and levels welcome.',
+  url: 'https://sandycoveschoolofmusic.com',
+  email: 'info@sandycoveschoolofmusic.com',
+  telephone: '+353868729764',
+  image: 'https://sandycoveschoolofmusic.com/og-image.svg',
+  address: {
+    '@type': 'PostalAddress',
+    addressLocality: 'Sandycove',
+    addressRegion: 'Co. Dublin',
+    addressCountry: 'IE',
+  },
+  geo: {
+    '@type': 'GeoCoordinates',
+    latitude: 53.2945,
+    longitude: -6.1341,
+  },
+  areaServed: [
+    { '@type': 'City', name: 'Dun Laoghaire' },
+    { '@type': 'City', name: 'Dublin' },
+    { '@type': 'City', name: 'Sandycove' },
+    { '@type': 'City', name: 'Dalkey' },
+    { '@type': 'City', name: 'Glasthule' },
+    { '@type': 'City', name: 'Monkstown' },
+    { '@type': 'City', name: 'Blackrock' },
+    { '@type': 'City', name: 'Killiney' },
+    { '@type': 'City', name: 'Booterstown' },
+  ],
+  openingHoursSpecification: [
+    {
+      '@type': 'OpeningHoursSpecification',
+      dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'],
+      opens: '09:00',
+      closes: '21:00',
+    },
+    {
+      '@type': 'OpeningHoursSpecification',
+      dayOfWeek: 'Saturday',
+      opens: '09:00',
+      closes: '18:00',
+    },
+  ],
+  priceRange: '€30 - €50',
+  currenciesAccepted: 'EUR',
+  hasOfferCatalog: {
+    '@type': 'OfferCatalog',
+    name: 'Piano Lessons',
+    itemListElement: [
+      {
+        '@type': 'Offer',
+        itemOffered: {
+          '@type': 'Service',
+          name: '30-Minute Piano Lesson',
+        },
+        price: '30',
+        priceCurrency: 'EUR',
+      },
+      {
+        '@type': 'Offer',
+        itemOffered: {
+          '@type': 'Service',
+          name: '40-Minute Piano Lesson',
+        },
+        price: '40',
+        priceCurrency: 'EUR',
+      },
+      {
+        '@type': 'Offer',
+        itemOffered: {
+          '@type': 'Service',
+          name: '1-Hour Piano Lesson',
+        },
+        price: '50',
+        priceCurrency: 'EUR',
+      },
+    ],
+  },
+  sameAs: [],
+};
+---
+
+<script type="application/ld+json" set:html={JSON.stringify(schema)} />

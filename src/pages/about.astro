@@ -1,0 +1,172 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import Accreditations from '../components/Accreditations.astro';
+import ContactForm from '../components/ContactForm.astro';
+import Footer from '../components/Footer.astro';
+import LocalBusinessSchema from '../components/LocalBusinessSchema.astro';
+---
+
+<Layout
+  title="About Us | Sandycove School of Music, Dun Laoghaire"
+  description="Meet the team at Sandycove School of Music. Qualified, experienced music teachers in Dun Laoghaire, South Dublin. Our story & approach."
+>
+  <Header />
+  <main class="flex-1">
+    <!-- Hero -->
+    <section class="relative pt-16 py-20 bg-gradient-to-br from-navy-900 via-navy-800 to-navy-900 overflow-hidden">
+      <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_50%_40%,_rgba(201,149,46,0.07)_0%,_transparent_60%)]"></div>
+      <div class="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center py-16">
+        <h1 class="text-4xl sm:text-5xl lg:text-6xl font-bold text-white leading-tight mb-6" style="font-family: 'Playfair Display', Georgia, serif;">
+          About Sandycove<br class="hidden sm:block" /> School of Music
+        </h1>
+        <p class="text-xl sm:text-2xl text-navy-200 max-w-2xl mx-auto leading-relaxed">
+          Qualified, experienced teaching in the heart of Dun Laoghaire since day one.
+        </p>
+      </div>
+    </section>
+
+    <!-- Our Story -->
+    <section class="py-20 bg-white">
+      <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="max-w-3xl mx-auto">
+          <h2 class="text-3xl sm:text-4xl font-bold text-navy-900 mb-4" style="font-family: 'Playfair Display', Georgia, serif;">Our Story</h2>
+          <div class="w-16 h-1 bg-gold-500 mb-8"></div>
+          <p class="text-navy-700 text-lg leading-relaxed mb-6">
+            Sandycove School of Music was founded with a simple belief: that everyone deserves access to high-quality, personalised music education. Based in Sandycove, Dun Laoghaire, we've built a welcoming studio where students of all ages and abilities can develop their musical skills and confidence.
+          </p>
+          <p class="text-navy-700 text-lg leading-relaxed mb-6">
+            We specialise in piano tuition — from complete beginners taking their first steps at the keyboard to advanced students preparing for diploma-level examinations. Our students come from across South Dublin, including Dalkey, Glasthule, Monkstown, Blackrock, and Killiney.
+          </p>
+          <p class="text-navy-700 text-lg leading-relaxed">
+            Whether you're five or fifty-five, learning for fun or working towards a grade, our approach is the same: patient, encouraging, and tailored to your individual goals.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Teaching Philosophy -->
+    <section class="py-20 bg-navy-50">
+      <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="max-w-3xl mx-auto text-center mb-12">
+          <h2 class="text-3xl sm:text-4xl font-bold text-navy-900 mb-4" style="font-family: 'Playfair Display', Georgia, serif;">Our Teaching Philosophy</h2>
+          <div class="w-16 h-1 bg-gold-500 mx-auto"></div>
+        </div>
+        <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-5xl mx-auto">
+          {[
+            {
+              title: 'Personalised Learning',
+              desc: 'No two students are the same. Every lesson plan is built around your goals, your pace, and the styles of music that inspire you.',
+            },
+            {
+              title: 'Strong Foundations',
+              desc: 'We believe in getting the fundamentals right — technique, posture, music theory, and sight reading — so you can play with confidence at any level.',
+            },
+            {
+              title: 'Encouragement Over Pressure',
+              desc: "Music should be enjoyable. We set achievable goals, celebrate progress, and create a supportive environment where mistakes are part of the learning process.",
+            },
+            {
+              title: 'Breadth of Style',
+              desc: "Classical, jazz, pop, contemporary — we encourage students to explore different styles. A well-rounded musician is a confident musician.",
+            },
+            {
+              title: 'Goal-Oriented',
+              desc: 'Whether your goal is passing Grade 8, playing at a family event, or simply learning your favourite song, we build a clear path to get you there.',
+            },
+            {
+              title: 'Lifelong Learning',
+              desc: "We don't just teach piano — we aim to give every student the skills and enthusiasm to keep making music for the rest of their lives.",
+            },
+          ].map(({ title, desc }) => (
+            <div class="p-6 rounded-2xl bg-white border border-navy-100 hover:border-gold-400 hover:shadow-lg transition-all">
+              <h3 class="text-lg font-semibold text-navy-900 mb-2">{title}</h3>
+              <p class="text-navy-500 text-sm leading-relaxed">{desc}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- Qualifications -->
+    <section class="py-20 bg-white">
+      <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="max-w-3xl mx-auto text-center mb-12">
+          <h2 class="text-3xl sm:text-4xl font-bold text-navy-900 mb-4" style="font-family: 'Playfair Display', Georgia, serif;">Qualifications & Experience</h2>
+          <div class="w-16 h-1 bg-gold-500 mx-auto mb-6"></div>
+        </div>
+        <div class="max-w-3xl mx-auto">
+          <div class="flex flex-wrap gap-4 justify-center mb-10">
+            {[
+              '25+ years teaching experience',
+              'BA in Music',
+              'All grades & levels',
+              'RIAM, ABRSM & Trinity preparation',
+              'Leaving Cert Music specialist',
+            ].map((item) => (
+              <div class="flex items-center gap-2 text-sm text-navy-600 bg-navy-50 px-4 py-2 rounded-full">
+                <svg class="w-4 h-4 text-gold-500" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+                {item}
+              </div>
+            ))}
+          </div>
+          <p class="text-navy-700 leading-relaxed mb-6">
+            Our teachers hold a BA in Music and bring over 25 years of combined teaching experience. We have deep expertise in preparing students for examinations across all the major boards — RIAM, ABRSM, and Trinity College London — with consistently high pass rates and distinctions.
+          </p>
+          <p class="text-navy-700 leading-relaxed">
+            We're passionate about continuous professional development and stay current with the latest teaching methods and examination syllabi to give our students the best possible preparation.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Accreditations -->
+    <Accreditations />
+
+    <!-- Location -->
+    <section class="py-20 bg-white">
+      <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="max-w-3xl mx-auto text-center mb-12">
+          <h2 class="text-3xl sm:text-4xl font-bold text-navy-900 mb-4" style="font-family: 'Playfair Display', Georgia, serif;">Our Location</h2>
+          <div class="w-16 h-1 bg-gold-500 mx-auto"></div>
+        </div>
+        <div class="max-w-3xl mx-auto">
+          <p class="text-navy-700 leading-relaxed mb-6">
+            We're based in Sandycove, in the heart of the Dun Laoghaire area of South Dublin. Our studio is easily accessible from surrounding areas including Dalkey, Glasthule, Monkstown, Blackrock, Killiney, and Booterstown.
+          </p>
+          <p class="text-navy-700 leading-relaxed mb-8">
+            Can't make it in person? We also offer high-quality online lessons via video call, bringing the same standard of tuition to students anywhere in Ireland.
+          </p>
+          <div class="flex flex-wrap gap-3 justify-center">
+            {['Sandycove', 'Dun Laoghaire', 'Dalkey', 'Glasthule', 'Monkstown', 'Blackrock', 'Killiney', 'Booterstown'].map((area) => (
+              <span class="px-4 py-2 rounded-full bg-navy-50 border border-navy-100 text-navy-600 text-sm">{area}</span>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="py-20 bg-navy-900">
+      <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+        <h2 class="text-3xl sm:text-4xl font-bold text-white mb-4" style="font-family: 'Playfair Display', Georgia, serif;">Start Your Musical Journey</h2>
+        <div class="w-16 h-1 bg-gold-500 mx-auto mb-6"></div>
+        <p class="text-navy-200 text-lg mb-8 max-w-2xl mx-auto">
+          Get in touch to book a free trial lesson, or learn more about our piano lessons for all ages and levels.
+        </p>
+        <div class="flex flex-col sm:flex-row gap-4 justify-center">
+          <a href="/contact" class="inline-flex items-center justify-center gap-2 px-8 py-3.5 rounded-full text-lg font-semibold bg-gold-500 text-white hover:bg-gold-600 transition-colors shadow-lg shadow-gold-500/25">
+            Get in Touch
+          </a>
+          <a href="/piano-lessons" class="inline-flex items-center justify-center gap-2 px-8 py-3.5 rounded-full text-lg font-semibold border-2 border-white/30 text-white hover:bg-white/10 transition-colors">
+            View Piano Lessons
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <ContactForm />
+  </main>
+  <Footer />
+  <LocalBusinessSchema />
+</Layout>

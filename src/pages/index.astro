@@ -1,0 +1,64 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import Hero from '../components/Hero.astro';
+import Accreditations from '../components/Accreditations.astro';
+import About from '../components/About.astro';
+import Lessons from '../components/Lessons.astro';
+import Pricing from '../components/Pricing.astro';
+import FAQ from '../components/FAQ.astro';
+import ContactForm from '../components/ContactForm.astro';
+import Footer from '../components/Footer.astro';
+import LocalBusinessSchema from '../components/LocalBusinessSchema.astro';
+---
+
+<Layout title="Music Lessons in Dublin | Sandycove School of Music" description="Piano lessons in Dun Laoghaire, South Dublin. RIAM, ABRSM & Trinity exam prep. All ages. Book a free trial lesson today.">
+  <Header />
+  <main class="flex-1">
+    <Hero />
+    <Accreditations />
+    <About />
+
+    <!-- Services Overview -->
+    <section class="py-20 bg-navy-50">
+      <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="max-w-3xl mx-auto text-center mb-12">
+          <h2 class="text-3xl sm:text-4xl font-bold text-navy-900 mb-4" style="font-family: 'Playfair Display', Georgia, serif;">Our Lessons</h2>
+          <div class="w-16 h-1 bg-gold-500 mx-auto mb-6"></div>
+          <p class="text-navy-600 text-lg">Explore our tailored music programmes for students of all ages.</p>
+        </div>
+        <div class="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+          <a href="/piano-lessons" class="group p-8 rounded-2xl bg-white border border-navy-100 hover:border-gold-400 hover:shadow-lg transition-all">
+            <div class="w-12 h-12 rounded-xl bg-gold-50 border border-gold-200 flex items-center justify-center mb-4 group-hover:bg-gold-500 group-hover:border-gold-500 transition-colors">
+              <svg class="w-6 h-6 text-gold-600 group-hover:text-white transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19V6l12-3v13M9 19c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zm12-3c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zM9 10l12-3" /></svg>
+            </div>
+            <h3 class="text-xl font-semibold text-navy-900 mb-2 group-hover:text-gold-600 transition-colors">Piano Lessons</h3>
+            <p class="text-navy-500 text-sm leading-relaxed mb-4">Expert piano tuition for all ages and levels. Classical, jazz and pop styles. From €30 per lesson.</p>
+            <span class="inline-flex items-center gap-1 text-gold-600 font-semibold text-sm group-hover:gap-2 transition-all">
+              Learn more
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+            </span>
+          </a>
+          <a href="/kids-music-lessons" class="group p-8 rounded-2xl bg-white border border-navy-100 hover:border-gold-400 hover:shadow-lg transition-all">
+            <div class="w-12 h-12 rounded-xl bg-gold-50 border border-gold-200 flex items-center justify-center mb-4 group-hover:bg-gold-500 group-hover:border-gold-500 transition-colors">
+              <svg class="w-6 h-6 text-gold-600 group-hover:text-white transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" /></svg>
+            </div>
+            <h3 class="text-xl font-semibold text-navy-900 mb-2 group-hover:text-gold-600 transition-colors">Kids' Music Lessons</h3>
+            <p class="text-navy-500 text-sm leading-relaxed mb-4">Fun, structured lessons for children ages 5+. Patient teaching that builds confidence and a lifelong love of music.</p>
+            <span class="inline-flex items-center gap-1 text-gold-600 font-semibold text-sm group-hover:gap-2 transition-all">
+              Learn more
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+            </span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <Lessons />
+    <Pricing />
+    <FAQ />
+    <ContactForm />
+  </main>
+  <Footer />
+  <LocalBusinessSchema />
+</Layout>

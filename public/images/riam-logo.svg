@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200">
+  <circle cx="100" cy="100" r="90" fill="#1a3a5c" stroke="#c9952e" stroke-width="3"/>
+  <circle cx="100" cy="100" r="78" fill="none" stroke="#c9952e" stroke-width="1"/>
+  <!-- Harp symbol -->
+  <path d="M90 55 C75 55 65 70 65 90 C65 110 75 130 90 140" fill="none" stroke="#c9952e" stroke-width="3" stroke-linecap="round"/>
+  <path d="M90 55 L90 140" stroke="#c9952e" stroke-width="2.5"/>
+  <path d="M90 55 C105 55 115 65 120 80" fill="none" stroke="#c9952e" stroke-width="3" stroke-linecap="round"/>
+  <line x1="90" y1="70" x2="110" y2="65" stroke="#c9952e" stroke-width="1.5"/>
+  <line x1="90" y1="85" x2="115" y2="73" stroke="#c9952e" stroke-width="1.5"/>
+  <line x1="90" y1="100" x2="117" y2="80" stroke="#c9952e" stroke-width="1.5"/>
+  <line x1="90" y1="115" x2="115" y2="85" stroke="#c9952e" stroke-width="1.5"/>
+  <text x="100" y="168" text-anchor="middle" font-family="Georgia, serif" font-size="13" font-weight="bold" fill="white">RIAM</text>
+</svg>

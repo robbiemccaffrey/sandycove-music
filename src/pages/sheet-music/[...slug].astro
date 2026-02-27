@@ -1,0 +1,261 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+import ContactForm from '../../components/ContactForm.astro';
+import pieces from '../../data/pieces.json';
+
+export function getStaticPaths() {
+  return pieces.map((piece) => ({
+    params: { slug: piece.slug },
+    props: { piece },
+  }));
+}
+
+const { piece } = Astro.props;
+
+const relatedPieces = piece.related_slugs
+  .map((slug: string) => pieces.find((p) => p.slug === slug))
+  .filter(Boolean);
+
+const canonicalURL = new URL(`/sheet-music/${piece.slug}`, Astro.site ?? 'https://sandycoveschoolofmusic.com');
+
+const difficultyColors: Record<string, string> = {
+  Beginner: 'bg-green-50 text-green-700 border-green-200',
+  Intermediate: 'bg-gold-50 text-gold-600 border-gold-200',
+  Advanced: 'bg-red-50 text-red-700 border-red-200',
+};
+
+const musicCompositionSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'MusicComposition',
+  name: piece.piece_title,
+  composer: {
+    '@type': 'Person',
+    name: piece.composer,
+  },
+  dateCreated: String(piece.year),
+  musicalKey: undefined,
+  genre: piece.era,
+  url: canonicalURL.toString(),
+  isPartOf: {
+    '@type': 'CreativeWork',
+    name: 'Free Piano Sheet Music Collection',
+    url: 'https://sandycoveschoolofmusic.com/sheet-music',
+  },
+};
+
+const breadcrumbSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    {
+      '@type': 'ListItem',
+      position: 1,
+      name: 'Home',
+      item: 'https://sandycoveschoolofmusic.com',
+    },
+    {
+      '@type': 'ListItem',
+      position: 2,
+      name: 'Sheet Music',
+      item: 'https://sandycoveschoolofmusic.com/sheet-music',
+    },
+    {
+      '@type': 'ListItem',
+      position: 3,
+      name: piece.piece_title,
+      item: canonicalURL.toString(),
+    },
+  ],
+};
+
+const descriptionParagraphs = piece.description.split('\n\n');
+---
+
+<Layout
+  title={`${piece.piece_title} — Free Piano Sheet Music`}
+  description={`Download free piano sheet music for ${piece.piece_title} by ${piece.composer}. ${piece.difficulty} level, ${piece.era} era. Public domain scores via IMSLP.`}
+  ogType="article"
+>
+  <Header />
+  <main class="flex-1 pt-24 pb-20">
+    <article class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+      <!-- Breadcrumbs -->
+      <nav aria-label="Breadcrumb" class="mb-8">
+        <ol class="flex items-center gap-2 text-sm text-navy-400">
+          <li>
+            <a href="/" class="hover:text-gold-500 transition-colors">Home</a>
+          </li>
+          <li aria-hidden="true">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+            </svg>
+          </li>
+          <li>
+            <a href="/sheet-music" class="hover:text-gold-500 transition-colors">Sheet Music</a>
+          </li>
+          <li aria-hidden="true">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+            </svg>
+          </li>
+          <li class="text-navy-600 font-medium truncate max-w-[200px] sm:max-w-none" aria-current="page">
+            {piece.piece_title}
+          </li>
+        </ol>
+      </nav>
+
+      <!-- Header -->
+      <header class="mb-10">
+        <div class="flex items-center gap-3 mb-4 flex-wrap">
+          <span class={`text-xs px-2.5 py-0.5 rounded-full border font-medium ${difficultyColors[piece.difficulty] ?? 'bg-navy-50 text-navy-600 border-navy-200'}`}>
+            {piece.difficulty}
+          </span>
+          <span class="text-xs px-2.5 py-0.5 rounded-full bg-navy-50 text-navy-600 border border-navy-200 font-medium">
+            {piece.era}
+          </span>
+          <span class="text-xs text-navy-400">{piece.year}</span>
+        </div>
+        <h1 class="text-3xl sm:text-4xl font-bold text-navy-900 leading-tight mb-3" style="font-family: 'Playfair Display', Georgia, serif;">
+          {piece.piece_title}
+        </h1>
+        <p class="text-lg text-navy-600">
+          {piece.composer} <span class="text-navy-400">({piece.composer_lifespan})</span>
+        </p>
+      </header>
+
+      <!-- Description -->
+      <div class="space-y-4 mb-10">
+        {descriptionParagraphs.map((paragraph: string) => (
+          <p class="text-navy-700 leading-relaxed">{paragraph}</p>
+        ))}
+      </div>
+
+      <!-- Listen -->
+      <div class="mb-10">
+        <h2 class="text-xl font-bold text-navy-900 mb-4" style="font-family: 'Playfair Display', Georgia, serif;">Listen to This Piece</h2>
+        <div class="flex flex-col sm:flex-row gap-3">
+          <a
+            href={`https://www.youtube.com/results?search_query=${encodeURIComponent(piece.piece_title + ' ' + piece.composer + ' piano')}`}
+            target="_blank"
+            rel="noopener"
+            class="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-full text-sm font-semibold bg-[#FF0000] text-white hover:bg-[#cc0000] transition-colors shadow-sm"
+          >
+            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0C.488 3.45.029 5.804 0 12c.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0C23.512 20.55 23.971 18.196 24 12c-.029-6.185-.484-8.549-4.385-8.816zM9 16V8l8 4-8 4z"/>
+            </svg>
+            Watch on YouTube
+          </a>
+          <a
+            href={`https://open.spotify.com/search/${encodeURIComponent(piece.piece_title + ' ' + piece.composer)}`}
+            target="_blank"
+            rel="noopener"
+            class="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-full text-sm font-semibold bg-[#1DB954] text-white hover:bg-[#1aa34a] transition-colors shadow-sm"
+          >
+            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z"/>
+            </svg>
+            Listen on Spotify
+          </a>
+        </div>
+      </div>
+
+      <!-- Action buttons -->
+      <div class="flex flex-col sm:flex-row gap-3 mb-10">
+        <a
+          href={piece.source_url}
+          target="_blank"
+          rel="noopener"
+          class="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-full text-sm font-semibold bg-gold-500 text-white hover:bg-gold-600 transition-colors shadow-sm"
+        >
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/>
+          </svg>
+          View on {piece.source_site}
+        </a>
+        <a
+          href={piece.scores_url}
+          target="_blank"
+          rel="noopener"
+          class="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-full text-sm font-semibold border-2 border-navy-200 text-navy-700 hover:border-gold-400 hover:text-gold-600 transition-colors"
+        >
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+          </svg>
+          Go to Scores
+        </a>
+      </div>
+
+      <!-- Embed (if enabled) -->
+      {piece.embed && (
+        <div class="mb-10 rounded-2xl border border-navy-100 overflow-hidden">
+          <iframe
+            src={piece.source_url}
+            title={`${piece.piece_title} sheet music on ${piece.source_site}`}
+            class="w-full h-[600px] border-0"
+            loading="lazy"
+          ></iframe>
+        </div>
+      )}
+
+      <!-- Legal notice -->
+      <div class="mb-12 p-5 rounded-xl bg-navy-50 border border-navy-100">
+        <div class="flex gap-3">
+          <svg class="w-5 h-5 text-navy-400 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+          </svg>
+          <div class="text-sm text-navy-600 space-y-2">
+            <p>We do not host any files. Sheet music downloads are provided by the source site ({piece.source_site}).</p>
+            <p>{piece.composer} died over 70 years ago, placing their works in the public domain under EU law. However, specific editions and engravings may carry separate copyright. Always check the source site's licensing notes before downloading or distributing.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Related pieces -->
+      {relatedPieces.length > 0 && (
+        <section class="mb-12">
+          <h2 class="text-xl font-bold text-navy-900 mb-4" style="font-family: 'Playfair Display', Georgia, serif;">You Might Also Like</h2>
+          <div class="grid sm:grid-cols-2 gap-4">
+            {relatedPieces.map((related: typeof pieces[number]) => (
+              <a
+                href={`/sheet-music/${related.slug}`}
+                class="group rounded-2xl border border-navy-100 bg-white p-5 shadow-sm hover:shadow-md hover:border-gold-400 transition-all"
+              >
+                <div class="flex items-center gap-2 mb-2">
+                  <span class={`text-xs px-2 py-0.5 rounded-full border font-medium ${difficultyColors[related.difficulty] ?? 'bg-navy-50 text-navy-600 border-navy-200'}`}>
+                    {related.difficulty}
+                  </span>
+                  <span class="text-xs px-2 py-0.5 rounded-full bg-navy-50 text-navy-600 border border-navy-200 font-medium">
+                    {related.era}
+                  </span>
+                </div>
+                <h3 class="font-bold text-navy-900 group-hover:text-gold-600 transition-colors mb-1" style="font-family: 'Playfair Display', Georgia, serif;">
+                  {related.piece_title}
+                </h3>
+                <p class="text-sm text-navy-500">{related.composer}</p>
+              </a>
+            ))}
+          </div>
+        </section>
+      )}
+
+      <!-- CTA -->
+      <div class="bg-gold-50 border border-gold-200 rounded-2xl p-6 sm:p-8 text-center">
+        <h3 class="text-xl font-bold text-navy-900 mb-2" style="font-family: 'Playfair Display', Georgia, serif;">Want to Learn This Piece?</h3>
+        <p class="text-navy-600 mb-4">Our piano teachers can help you master {piece.piece_title} — from first notes to performance-ready.</p>
+        <a href="#contact" class="inline-flex items-center gap-2 px-6 py-2.5 rounded-full text-sm font-semibold bg-gold-500 text-white hover:bg-gold-600 transition-colors shadow-sm">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+          </svg>
+          Book a Lesson
+        </a>
+      </div>
+    </article>
+  </main>
+  <ContactForm />
+  <Footer />
+
+  <script type="application/ld+json" set:html={JSON.stringify(musicCompositionSchema)} />
+  <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />
+</Layout>

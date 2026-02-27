@@ -1,0 +1,168 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+import ContactForm from '../../components/ContactForm.astro';
+import { getCollection } from 'astro:content';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('blog');
+  return posts.map((post) => ({
+    params: { slug: post.slug },
+    props: post,
+  }));
+}
+
+const post = Astro.props;
+const { Content } = await post.render();
+
+const formattedDate = new Intl.DateTimeFormat('en-IE', {
+  day: 'numeric',
+  month: 'long',
+  year: 'numeric',
+}).format(post.data.date);
+
+const isoDate = post.data.date.toISOString();
+const canonicalURL = new URL(`/blog/${post.slug}`, Astro.site ?? 'https://sandycoveschoolofmusic.com');
+
+const blogPostingSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'BlogPosting',
+  headline: post.data.title,
+  description: post.data.description,
+  datePublished: isoDate,
+  dateModified: isoDate,
+  url: canonicalURL.toString(),
+  author: {
+    '@type': 'Organization',
+    name: 'Sandycove School of Music',
+    url: 'https://sandycoveschoolofmusic.com',
+  },
+  publisher: {
+    '@type': 'Organization',
+    name: 'Sandycove School of Music',
+    url: 'https://sandycoveschoolofmusic.com',
+    logo: {
+      '@type': 'ImageObject',
+      url: 'https://sandycoveschoolofmusic.com/og-image.svg',
+    },
+  },
+  mainEntityOfPage: {
+    '@type': 'WebPage',
+    '@id': canonicalURL.toString(),
+  },
+  keywords: post.data.tags.join(', '),
+};
+
+const breadcrumbSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    {
+      '@type': 'ListItem',
+      position: 1,
+      name: 'Home',
+      item: 'https://sandycoveschoolofmusic.com',
+    },
+    {
+      '@type': 'ListItem',
+      position: 2,
+      name: 'Blog',
+      item: 'https://sandycoveschoolofmusic.com/blog',
+    },
+    {
+      '@type': 'ListItem',
+      position: 3,
+      name: post.data.title,
+      item: canonicalURL.toString(),
+    },
+  ],
+};
+---
+
+<Layout
+  title={`${post.data.title} — Sandycove School of Music`}
+  description={post.data.description}
+  ogType="article"
+>
+  <Header />
+  <main class="flex-1 pt-24 pb-20">
+    <article class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+      <!-- Breadcrumbs -->
+      <nav aria-label="Breadcrumb" class="mb-8">
+        <ol class="flex items-center gap-2 text-sm text-navy-400">
+          <li>
+            <a href="/" class="hover:text-gold-500 transition-colors">Home</a>
+          </li>
+          <li aria-hidden="true">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+            </svg>
+          </li>
+          <li>
+            <a href="/blog" class="hover:text-gold-500 transition-colors">Blog</a>
+          </li>
+          <li aria-hidden="true">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+            </svg>
+          </li>
+          <li class="text-navy-600 font-medium truncate max-w-[200px] sm:max-w-none" aria-current="page">
+            {post.data.title}
+          </li>
+        </ol>
+      </nav>
+
+      <header class="mb-10">
+        <div class="flex items-center gap-3 mb-4">
+          <time datetime={isoDate} class="text-sm text-navy-400">
+            {formattedDate}
+          </time>
+          {post.data.tags.length > 0 && (
+            <div class="flex gap-2">
+              {post.data.tags.map((tag) => (
+                <span class="text-xs px-2 py-0.5 rounded-full bg-gold-50 text-gold-600 border border-gold-200 font-medium">
+                  {tag}
+                </span>
+              ))}
+            </div>
+          )}
+        </div>
+        <h1 class="text-3xl sm:text-4xl font-bold text-navy-900 leading-tight" style="font-family: 'Playfair Display', Georgia, serif;">
+          {post.data.title}
+        </h1>
+      </header>
+
+      <div class="prose prose-lg max-w-none
+        prose-headings:text-navy-900 prose-headings:font-bold
+        prose-h2:text-2xl prose-h2:mt-10 prose-h2:mb-4
+        prose-h3:text-xl prose-h3:mt-8 prose-h3:mb-3
+        prose-p:text-navy-700 prose-p:leading-relaxed
+        prose-li:text-navy-700
+        prose-strong:text-navy-900
+        prose-a:text-gold-500 prose-a:no-underline hover:prose-a:text-gold-600 hover:prose-a:underline
+        prose-ul:space-y-1
+      ">
+        <Content />
+      </div>
+
+      <div class="mt-16 pt-8 border-t border-navy-100">
+        <div class="bg-gold-50 border border-gold-200 rounded-2xl p-6 sm:p-8 text-center">
+          <h3 class="text-xl font-bold text-navy-900 mb-2" style="font-family: 'Playfair Display', Georgia, serif;">Need Help Preparing?</h3>
+          <p class="text-navy-600 mb-4">We've helped many students achieve their best results in Leaving Cert and grade exams.</p>
+          <a href="#contact" class="inline-flex items-center gap-2 px-6 py-2.5 rounded-full text-sm font-semibold bg-gold-500 text-white hover:bg-gold-600 transition-colors shadow-sm">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+            </svg>
+            Get in Touch
+          </a>
+        </div>
+      </div>
+    </article>
+  </main>
+  <ContactForm />
+  <Footer />
+
+  <script type="application/ld+json" set:html={JSON.stringify(blogPostingSchema)} />
+  <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />
+</Layout>

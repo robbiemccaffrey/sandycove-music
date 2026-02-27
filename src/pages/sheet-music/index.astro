@@ -1,0 +1,220 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+import ContactForm from '../../components/ContactForm.astro';
+import pieces from '../../data/pieces.json';
+
+const sortedPieces = [...pieces].sort((a, b) => a.piece_title.localeCompare(b.piece_title));
+
+const difficulties = [...new Set(pieces.map((p) => p.difficulty))].sort();
+const eras = [...new Set(pieces.map((p) => p.era))].sort();
+const composers = [...new Set(pieces.map((p) => p.composer))].sort();
+
+const difficultyColors: Record<string, string> = {
+  Beginner: 'bg-green-50 text-green-700 border-green-200',
+  Intermediate: 'bg-gold-50 text-gold-600 border-gold-200',
+  Advanced: 'bg-red-50 text-red-700 border-red-200',
+};
+
+const breadcrumbSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    {
+      '@type': 'ListItem',
+      position: 1,
+      name: 'Home',
+      item: 'https://sandycoveschoolofmusic.com',
+    },
+    {
+      '@type': 'ListItem',
+      position: 2,
+      name: 'Sheet Music',
+      item: 'https://sandycoveschoolofmusic.com/sheet-music',
+    },
+  ],
+};
+---
+
+<Layout
+  title="Free Piano Sheet Music | Sandycove School of Music"
+  description="Browse free public-domain piano sheet music from Beethoven, Chopin, Debussy, Bach, Mozart, and more. Download scores from IMSLP and start learning with Sandycove School of Music."
+>
+  <Header />
+  <main class="flex-1 pt-24 pb-20">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      <!-- Breadcrumbs -->
+      <nav aria-label="Breadcrumb" class="mb-8">
+        <ol class="flex items-center gap-2 text-sm text-navy-400">
+          <li>
+            <a href="/" class="hover:text-gold-500 transition-colors">Home</a>
+          </li>
+          <li aria-hidden="true">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+            </svg>
+          </li>
+          <li class="text-navy-600 font-medium" aria-current="page">Sheet Music</li>
+        </ol>
+      </nav>
+
+      <!-- Page header -->
+      <div class="text-center mb-12">
+        <h1 class="text-3xl sm:text-4xl font-bold text-navy-900 mb-4" style="font-family: 'Playfair Display', Georgia, serif;">Free Piano Sheet Music</h1>
+        <div class="w-16 h-1 bg-gold-500 mx-auto mb-6"></div>
+        <p class="text-navy-600 text-lg max-w-2xl mx-auto">Browse our collection of famous public-domain piano works. All scores are freely available via IMSLP.</p>
+      </div>
+
+      <!-- Filters -->
+      <div id="filters" class="flex flex-col sm:flex-row gap-3 mb-8">
+        <div class="relative flex-1">
+          <svg class="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-navy-300 pointer-events-none" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+          </svg>
+          <input
+            type="text"
+            id="search-input"
+            placeholder="Search pieces or composers..."
+            class="w-full pl-10 pr-4 py-2.5 rounded-lg bg-navy-50 border border-navy-200 text-navy-900 placeholder-navy-300 focus:outline-none focus:ring-2 focus:ring-gold-400 focus:border-transparent transition-colors text-sm"
+          />
+        </div>
+        <select
+          id="difficulty-filter"
+          class="px-4 py-2.5 rounded-lg bg-navy-50 border border-navy-200 text-navy-700 focus:outline-none focus:ring-2 focus:ring-gold-400 focus:border-transparent transition-colors text-sm appearance-none cursor-pointer"
+        >
+          <option value="">All Difficulties</option>
+          {difficulties.map((d) => (
+            <option value={d}>{d}</option>
+          ))}
+        </select>
+        <select
+          id="era-filter"
+          class="px-4 py-2.5 rounded-lg bg-navy-50 border border-navy-200 text-navy-700 focus:outline-none focus:ring-2 focus:ring-gold-400 focus:border-transparent transition-colors text-sm appearance-none cursor-pointer"
+        >
+          <option value="">All Eras</option>
+          {eras.map((e) => (
+            <option value={e}>{e}</option>
+          ))}
+        </select>
+        <select
+          id="composer-filter"
+          class="px-4 py-2.5 rounded-lg bg-navy-50 border border-navy-200 text-navy-700 focus:outline-none focus:ring-2 focus:ring-gold-400 focus:border-transparent transition-colors text-sm appearance-none cursor-pointer"
+        >
+          <option value="">All Composers</option>
+          {composers.map((c) => (
+            <option value={c}>{c}</option>
+          ))}
+        </select>
+      </div>
+
+      <!-- Results count -->
+      <p id="results-count" class="text-sm text-navy-400 mb-6"></p>
+
+      <!-- Piece cards grid -->
+      <div id="pieces-grid" class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        {sortedPieces.map((piece) => (
+          <a
+            href={`/sheet-music/${piece.slug}`}
+            class="piece-card group rounded-2xl border border-navy-100 bg-white p-6 shadow-sm hover:shadow-md hover:border-gold-400 transition-all"
+            data-title={piece.piece_title.toLowerCase()}
+            data-composer={piece.composer.toLowerCase()}
+            data-difficulty={piece.difficulty}
+            data-era={piece.era}
+            data-composer-exact={piece.composer}
+          >
+            <div class="flex items-center gap-2 mb-3 flex-wrap">
+              <span class={`text-xs px-2 py-0.5 rounded-full border font-medium ${difficultyColors[piece.difficulty] ?? 'bg-navy-50 text-navy-600 border-navy-200'}`}>
+                {piece.difficulty}
+              </span>
+              <span class="text-xs px-2 py-0.5 rounded-full bg-navy-50 text-navy-600 border border-navy-200 font-medium">
+                {piece.era}
+              </span>
+            </div>
+            <h2 class="font-bold text-navy-900 group-hover:text-gold-600 transition-colors mb-1 leading-snug" style="font-family: 'Playfair Display', Georgia, serif;">
+              {piece.piece_title}
+            </h2>
+            <p class="text-sm text-navy-500 mb-3">{piece.composer}</p>
+            <span class="inline-flex items-center gap-1 text-sm font-medium text-gold-500 group-hover:text-gold-600">
+              View sheet music
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+              </svg>
+            </span>
+          </a>
+        ))}
+      </div>
+
+      <!-- No results message -->
+      <div id="no-results" class="hidden text-center py-16">
+        <svg class="w-12 h-12 text-navy-200 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+        </svg>
+        <p class="text-navy-500 font-medium">No pieces match your filters.</p>
+        <button id="clear-filters" class="mt-3 text-sm text-gold-500 hover:text-gold-600 font-medium">Clear all filters</button>
+      </div>
+    </div>
+  </main>
+  <ContactForm />
+  <Footer />
+
+  <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />
+</Layout>
+
+<script>
+  const searchInput = document.getElementById('search-input') as HTMLInputElement;
+  const difficultyFilter = document.getElementById('difficulty-filter') as HTMLSelectElement;
+  const eraFilter = document.getElementById('era-filter') as HTMLSelectElement;
+  const composerFilter = document.getElementById('composer-filter') as HTMLSelectElement;
+  const grid = document.getElementById('pieces-grid')!;
+  const noResults = document.getElementById('no-results')!;
+  const resultsCount = document.getElementById('results-count')!;
+  const clearBtn = document.getElementById('clear-filters')!;
+  const cards = Array.from(grid.querySelectorAll('.piece-card')) as HTMLElement[];
+
+  function filterPieces() {
+    const query = searchInput.value.toLowerCase().trim();
+    const difficulty = difficultyFilter.value;
+    const era = eraFilter.value;
+    const composer = composerFilter.value;
+
+    let visible = 0;
+
+    cards.forEach((card) => {
+      const title = card.dataset.title ?? '';
+      const cardComposer = card.dataset.composer ?? '';
+      const cardDifficulty = card.dataset.difficulty ?? '';
+      const cardEra = card.dataset.era ?? '';
+      const cardComposerExact = card.dataset.composerExact ?? '';
+
+      const matchesSearch = !query || title.includes(query) || cardComposer.includes(query);
+      const matchesDifficulty = !difficulty || cardDifficulty === difficulty;
+      const matchesEra = !era || cardEra === era;
+      const matchesComposer = !composer || cardComposerExact === composer;
+
+      const show = matchesSearch && matchesDifficulty && matchesEra && matchesComposer;
+      card.style.display = show ? '' : 'none';
+      if (show) visible++;
+    });
+
+    noResults.classList.toggle('hidden', visible > 0);
+    grid.classList.toggle('hidden', visible === 0);
+    resultsCount.textContent = `Showing ${visible} of ${cards.length} pieces`;
+  }
+
+  searchInput.addEventListener('input', filterPieces);
+  difficultyFilter.addEventListener('change', filterPieces);
+  eraFilter.addEventListener('change', filterPieces);
+  composerFilter.addEventListener('change', filterPieces);
+
+  clearBtn.addEventListener('click', () => {
+    searchInput.value = '';
+    difficultyFilter.value = '';
+    eraFilter.value = '';
+    composerFilter.value = '';
+    filterPieces();
+  });
+
+  // Initial count
+  filterPieces();
+</script>

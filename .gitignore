@@ -1,0 +1,10 @@
+node_modules/
+dist/
+.astro/
+.DS_Store
+*.log
+api/node_modules/
+seo-tracking.md
+.env
+.env.local
+.env.production

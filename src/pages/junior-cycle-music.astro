@@ -1,0 +1,329 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import Accreditations from '../components/Accreditations.astro';
+import ContactForm from '../components/ContactForm.astro';
+import Footer from '../components/Footer.astro';
+import LocalBusinessSchema from '../components/LocalBusinessSchema.astro';
+
+const faqs = [
+  {
+    question: 'What does the Junior Cycle Music practical exam involve?',
+    answer: 'Students perform three pieces — solo, in a group, or a mix of both. The examiner assesses fluency, technical control, and musicality. Students also sit an unprepared test in sight-reading, aural memory, or improvisation.',
+  },
+  {
+    question: 'When does the Junior Cycle Music practical take place?',
+    answer: 'The practical performance exams typically take place in March of third year. An examiner visits your school to hear your performances. The written exam follows in June.',
+  },
+  {
+    question: 'Does my child need to play piano for Junior Cycle Music?',
+    answer: "No — students can perform on any instrument or use their voice. However, piano is one of the most popular choices and gives students a strong foundation in music theory, sight reading, and performance that benefits all aspects of the exam.",
+  },
+  {
+    question: 'What level of piano does my child need for Junior Cycle?',
+    answer: "There's no strict grade requirement, but students performing at around Grade 3–4 standard will be well positioned to score highly. The examiner is looking for musicality and control, not just difficulty.",
+  },
+  {
+    question: 'How much do piano lessons cost?',
+    answer: 'Lessons start from €30 for 30 minutes, €40 for 40 minutes, and €50 for a full hour. We offer discounted packages of 10 lessons. Your first lesson is available at 50% off.',
+  },
+  {
+    question: 'Can you help with the Classroom-Based Assessments too?',
+    answer: "Our primary focus is preparing students for the practical performance, but piano lessons naturally develop the musicianship skills — theory, aural awareness, and composition understanding — that support the Classroom-Based Assessments as well.",
+  },
+];
+
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faqs.map(({ question, answer }) => ({
+    '@type': 'Question',
+    name: question,
+    acceptedAnswer: {
+      '@type': 'Answer',
+      text: answer,
+    },
+  })),
+};
+
+const serviceSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Service',
+  serviceType: 'Junior Cycle Music Preparation',
+  name: 'Junior Cycle Music & Piano Preparation',
+  description: 'Piano tuition and Junior Cycle Music performance preparation in Dublin. Practical exam coaching, technique development, and musicianship for secondary school students.',
+  provider: {
+    '@type': 'MusicSchool',
+    name: 'Sandycove School of Music',
+    url: 'https://sandycoveschoolofmusic.com',
+    telephone: '+353868729764',
+  },
+  areaServed: [
+    { '@type': 'City', name: 'Dublin' },
+    { '@type': 'City', name: 'Dun Laoghaire' },
+    { '@type': 'City', name: 'Sandycove' },
+    { '@type': 'City', name: 'Dalkey' },
+  ],
+  offers: [
+    { '@type': 'Offer', name: '30-Minute Lesson', price: '30', priceCurrency: 'EUR' },
+    { '@type': 'Offer', name: '40-Minute Lesson', price: '40', priceCurrency: 'EUR' },
+    { '@type': 'Offer', name: '1-Hour Lesson', price: '50', priceCurrency: 'EUR' },
+  ],
+};
+
+const individual = [
+  { duration: '30 minutes', price: '€30' },
+  { duration: '40 minutes', price: '€40' },
+  { duration: '1 hour', price: '€50' },
+];
+
+const packages = [
+  { sessions: '10 × 30 min', price: '€270', saving: 'Save €30' },
+  { sessions: '10 × 40 min', price: '€330', saving: 'Save €70' },
+  { sessions: '10 × 1 hour', price: '€400', saving: 'Save €100' },
+];
+---
+
+<Layout
+  title="Junior Cycle Music & Piano Preparation | Sandycove Music Dublin"
+  description="Piano tuition and Junior Cycle Music practical exam preparation in Dublin. Build performance skills, technique, and musicianship. Book a free trial lesson."
+>
+  <Header />
+  <main class="flex-1">
+    <!-- Hero -->
+    <section class="relative pt-16 py-20 bg-gradient-to-br from-navy-900 via-navy-800 to-navy-900 overflow-hidden">
+      <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_50%_40%,_rgba(201,149,46,0.07)_0%,_transparent_60%)]"></div>
+      <div class="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center py-16">
+        <h1 class="text-4xl sm:text-5xl lg:text-6xl font-bold text-white leading-tight mb-6" style="font-family: 'Playfair Display', Georgia, serif;">
+          Junior Cycle Music Preparation
+        </h1>
+        <p class="text-xl sm:text-2xl text-navy-200 max-w-2xl mx-auto mb-8 leading-relaxed">
+          Build the performance skills, technique, and confidence your child needs for Junior Cycle Music — and beyond.
+        </p>
+        <div class="flex flex-col sm:flex-row gap-4 justify-center">
+          <a href="/contact" class="inline-flex items-center justify-center gap-2 px-8 py-3.5 rounded-full text-lg font-semibold bg-gold-500 text-white hover:bg-gold-600 transition-colors shadow-lg shadow-gold-500/25">
+            Book a Free Trial
+          </a>
+          <a href="#what-to-expect" class="inline-flex items-center justify-center gap-2 px-8 py-3.5 rounded-full text-lg font-semibold border-2 border-white/30 text-white hover:bg-white/10 transition-colors">
+            What to Expect
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Intro -->
+    <section class="py-20 bg-white">
+      <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="max-w-3xl mx-auto">
+          <p class="text-navy-700 text-lg leading-relaxed mb-6">
+            The Junior Cycle Music practical exam is your child's first experience of performing under formal exam conditions. It's a big moment — and with the right preparation, it can also be a really positive one. At Sandycove School of Music, we help secondary school students develop the performance skills, technique, and musicianship they need to do their best.
+          </p>
+          <p class="text-navy-700 text-lg leading-relaxed">
+            Whether your child has been playing piano for years or is still building their skills, we'll tailor lessons to their level and help them prepare a strong programme for the practical exam. And because the skills they develop now carry directly into Leaving Cert Music, getting a solid foundation at Junior Cycle makes a real difference down the line.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- What the Exam Involves -->
+    <section id="what-to-expect" class="py-20 bg-navy-50">
+      <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="max-w-3xl mx-auto text-center mb-12">
+          <h2 class="text-3xl sm:text-4xl font-bold text-navy-900 mb-4" style="font-family: 'Playfair Display', Georgia, serif;">What the Practical Exam Involves</h2>
+          <div class="w-16 h-1 bg-gold-500 mx-auto"></div>
+        </div>
+        <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-5xl mx-auto">
+          {[
+            { title: 'Three Performances', desc: 'Students perform three pieces — solo, in a group, or a combination. Piano is one of the most popular solo instruments for the exam.' },
+            { title: 'Fluency & Control', desc: 'The examiner assesses technical control, fluency, and accuracy. Clean, confident playing is rewarded over difficulty.' },
+            { title: 'Musicality', desc: "It's not just about the right notes. Expression, dynamics, phrasing, and overall musicality are key to scoring well." },
+            { title: 'Unprepared Test', desc: 'Students also sit a short unprepared test — sight-reading, aural memory, or improvisation. Regular piano lessons build these skills naturally.' },
+            { title: 'Classroom-Based Assessments', desc: 'Two CBAs — a composition portfolio and programme notes — are completed during the year. Piano skills support both of these.' },
+            { title: 'Exam Timing', desc: 'The practical typically takes place in March of third year, with the written exam following in June. Preparation should start well in advance.' },
+          ].map(({ title, desc }) => (
+            <div class="p-6 rounded-2xl bg-white border border-navy-100 hover:border-gold-400 hover:shadow-lg transition-all">
+              <h3 class="text-lg font-semibold text-navy-900 mb-2">{title}</h3>
+              <p class="text-navy-500 text-sm leading-relaxed">{desc}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- How We Prepare Students -->
+    <section class="py-20 bg-white">
+      <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid md:grid-cols-2 gap-12 items-center">
+          <div>
+            <h2 class="text-3xl sm:text-4xl font-bold text-navy-900 mb-4" style="font-family: 'Playfair Display', Georgia, serif;">How We Prepare Your Child</h2>
+            <div class="w-16 h-1 bg-gold-500 mb-6"></div>
+            <p class="text-navy-700 leading-relaxed mb-6">
+              Our approach to Junior Cycle preparation goes beyond just learning three pieces. We build the underlying musicianship skills that help students perform confidently and score well across every aspect of the exam.
+            </p>
+            <p class="text-navy-700 leading-relaxed mb-6">
+              Piano is an ideal instrument for Junior Cycle Music because it develops sight-reading, music theory, and aural skills alongside performance — all of which feed directly into the written exam and CBAs too.
+            </p>
+            <a href="/contact" class="inline-flex items-center gap-2 text-gold-600 hover:text-gold-700 font-semibold transition-colors">
+              Get in touch to discuss preparation
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+            </a>
+          </div>
+          <div class="space-y-4">
+            {[
+              { title: 'Piece Selection', desc: 'We help choose three pieces that showcase your child\'s strengths and show variety to the examiner.' },
+              { title: 'Technical Development', desc: 'Focused work on the technique needed for each piece — fingering, dynamics, pedalling, and tempo control.' },
+              { title: 'Performance Practice', desc: 'Regular run-throughs in exam-like conditions so your child feels confident and prepared on the day.' },
+              { title: 'Sight-Reading & Aural Skills', desc: 'Ongoing development of the skills needed for the unprepared test — built into every lesson, not crammed at the end.' },
+            ].map(({ title, desc }) => (
+              <div class="flex items-start gap-4 p-4 rounded-xl bg-navy-50 border border-navy-100">
+                <div class="w-8 h-8 rounded-lg bg-gold-50 border border-gold-200 flex items-center justify-center shrink-0 mt-0.5">
+                  <svg class="w-4 h-4 text-gold-500" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+                </div>
+                <div>
+                  <h3 class="font-semibold text-navy-900">{title}</h3>
+                  <p class="text-navy-500 text-sm">{desc}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Building Towards Leaving Cert -->
+    <section class="py-20 bg-navy-50">
+      <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="max-w-3xl mx-auto text-center mb-12">
+          <h2 class="text-3xl sm:text-4xl font-bold text-navy-900 mb-4" style="font-family: 'Playfair Display', Georgia, serif;">Building Towards Leaving Cert</h2>
+          <div class="w-16 h-1 bg-gold-500 mx-auto mb-6"></div>
+        </div>
+        <div class="max-w-3xl mx-auto">
+          <p class="text-navy-700 leading-relaxed mb-6">
+            If your child is planning to take Leaving Cert Music, the Junior Cycle is the perfect time to build the foundation. The performance component at Leaving Cert is worth 50% of the overall mark and requires six pieces at Grade 6 standard or above.
+          </p>
+          <p class="text-navy-700 leading-relaxed mb-6">
+            Students who develop strong piano skills at Junior Cycle are in a much better position to achieve a high mark at Leaving Cert. The technique, sight-reading, and performance confidence they build now will pay dividends in 5th and 6th Year.
+          </p>
+          <div class="text-center">
+            <a href="/leaving-cert-music" class="inline-flex items-center gap-2 text-gold-600 hover:text-gold-700 font-semibold transition-colors">
+              Learn about Leaving Cert Music preparation
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Pricing -->
+    <section id="pricing" class="py-20 bg-white">
+      <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="max-w-3xl mx-auto text-center mb-12">
+          <h2 class="text-3xl sm:text-4xl font-bold text-navy-900 mb-4" style="font-family: 'Playfair Display', Georgia, serif;">Lesson Pricing</h2>
+          <div class="w-16 h-1 bg-gold-500 mx-auto mb-6"></div>
+          <p class="text-navy-600 text-lg">For Junior Cycle students, we recommend 30 or 40-minute weekly lessons to build skills progressively.</p>
+        </div>
+
+        <div class="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+          <div class="rounded-2xl border border-navy-200 bg-white p-8 shadow-sm">
+            <div class="flex items-center gap-3 mb-6">
+              <div class="w-10 h-10 rounded-lg bg-navy-50 flex items-center justify-center">
+                <svg class="w-5 h-5 text-navy-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v10.55A4 4 0 1014 17V7h4V3h-6z"/>
+                </svg>
+              </div>
+              <h3 class="text-xl font-semibold text-navy-900">Individual Lessons</h3>
+            </div>
+            <div class="space-y-4">
+              {individual.map(({ duration, price }) => (
+                <div class="flex items-center justify-between py-3 border-b border-navy-100 last:border-0">
+                  <span class="text-navy-600">{duration}</span>
+                  <span class="text-xl font-bold text-navy-900">{price}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <div class="rounded-2xl border-2 border-gold-400 bg-gold-50/50 p-8 shadow-sm relative">
+            <div class="absolute -top-3 left-1/2 -translate-x-1/2 px-4 py-1 bg-gold-500 text-white text-xs font-bold rounded-full uppercase tracking-wider shadow-sm">
+              Best Value
+            </div>
+            <div class="flex items-center gap-3 mb-6">
+              <div class="w-10 h-10 rounded-lg bg-gold-100 flex items-center justify-center">
+                <svg class="w-5 h-5 text-gold-600" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"/>
+                </svg>
+              </div>
+              <h3 class="text-xl font-semibold text-navy-900">Lesson Packages</h3>
+            </div>
+            <div class="space-y-4">
+              {packages.map(({ sessions, price, saving }) => (
+                <div class="flex items-center justify-between py-3 border-b border-gold-200 last:border-0">
+                  <div>
+                    <span class="text-navy-700 block">{sessions}</span>
+                    <span class="text-gold-600 text-xs font-semibold">{saving}</span>
+                  </div>
+                  <span class="text-xl font-bold text-navy-900">{price}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        <p class="text-center text-navy-400 text-sm mt-8">
+          All prices are inclusive. First lesson available at 50% off — <a href="/contact" class="text-gold-500 hover:text-gold-600 underline">get in touch</a> to avail.
+        </p>
+      </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="py-20 bg-navy-50">
+      <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-12">
+          <h2 class="text-3xl sm:text-4xl font-bold text-navy-900 mb-4" style="font-family: 'Playfair Display', Georgia, serif;">Junior Cycle Music — FAQs</h2>
+          <div class="w-16 h-1 bg-gold-500 mx-auto mb-6"></div>
+        </div>
+        <div class="space-y-4">
+          {faqs.map(({ question, answer }) => (
+            <details class="group rounded-2xl border border-navy-100 bg-white shadow-sm overflow-hidden">
+              <summary class="flex items-center justify-between cursor-pointer px-6 py-5 text-left font-semibold text-navy-900 hover:text-gold-600 transition-colors">
+                <span>{question}</span>
+                <svg class="w-5 h-5 text-navy-400 group-open:rotate-180 transition-transform shrink-0 ml-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                </svg>
+              </summary>
+              <div class="px-6 pb-5 text-navy-600 leading-relaxed">
+                {answer}
+              </div>
+            </details>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="py-20 bg-navy-900">
+      <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+        <h2 class="text-3xl sm:text-4xl font-bold text-white mb-4" style="font-family: 'Playfair Display', Georgia, serif;">Prepare for Junior Cycle Music</h2>
+        <div class="w-16 h-1 bg-gold-500 mx-auto mb-6"></div>
+        <p class="text-navy-200 text-lg mb-8 max-w-2xl mx-auto">
+          Give your child the best start with piano lessons that build real musicianship. Book a free trial lesson and see the difference expert tuition makes.
+        </p>
+        <div class="flex flex-col sm:flex-row gap-4 justify-center">
+          <a href="/contact" class="inline-flex items-center justify-center gap-2 px-8 py-3.5 rounded-full text-lg font-semibold bg-gold-500 text-white hover:bg-gold-600 transition-colors shadow-lg shadow-gold-500/25">
+            Book a Free Trial
+          </a>
+          <a href="tel:+353868729764" class="inline-flex items-center justify-center gap-2 px-8 py-3.5 rounded-full text-lg font-semibold border-2 border-white/30 text-white hover:bg-white/10 transition-colors">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/></svg>
+            Call 086 872 9764
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <ContactForm />
+  </main>
+  <Footer />
+  <LocalBusinessSchema />
+  <script type="application/ld+json" set:html={JSON.stringify(serviceSchema)} />
+  <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+</Layout>

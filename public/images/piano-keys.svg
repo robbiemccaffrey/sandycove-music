@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 120">
+  <!-- White keys -->
+  <rect x="0" y="0" width="56" height="120" fill="white" stroke="#ddd" stroke-width="1" rx="0 0 4 4"/>
+  <rect x="57" y="0" width="56" height="120" fill="white" stroke="#ddd" stroke-width="1"/>
+  <rect x="114" y="0" width="56" height="120" fill="white" stroke="#ddd" stroke-width="1"/>
+  <rect x="171" y="0" width="56" height="120" fill="white" stroke="#ddd" stroke-width="1"/>
+  <rect x="228" y="0" width="56" height="120" fill="white" stroke="#ddd" stroke-width="1"/>
+  <rect x="285" y="0" width="56" height="120" fill="white" stroke="#ddd" stroke-width="1"/>
+  <rect x="342" y="0" width="56" height="120" fill="white" stroke="#ddd" stroke-width="1"/>
+  <!-- Black keys -->
+  <rect x="38" y="0" width="36" height="75" fill="#243b53" rx="0 0 3 3"/>
+  <rect x="95" y="0" width="36" height="75" fill="#243b53" rx="0 0 3 3"/>
+  <rect x="209" y="0" width="36" height="75" fill="#243b53" rx="0 0 3 3"/>
+  <rect x="266" y="0" width="36" height="75" fill="#243b53" rx="0 0 3 3"/>
+  <rect x="323" y="0" width="36" height="75" fill="#243b53" rx="0 0 3 3"/>
+</svg>

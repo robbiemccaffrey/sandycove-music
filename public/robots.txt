@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://sandycoveschoolofmusic.com/sitemap-index.xml

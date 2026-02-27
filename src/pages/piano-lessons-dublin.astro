@@ -1,0 +1,314 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import Accreditations from '../components/Accreditations.astro';
+import ContactForm from '../components/ContactForm.astro';
+import Footer from '../components/Footer.astro';
+import LocalBusinessSchema from '../components/LocalBusinessSchema.astro';
+
+const faqs = [
+  {
+    question: 'Where in Dublin are you based?',
+    answer: "We're based in Sandycove, in the Dun Laoghaire–Rathdown area of South Dublin. We're easy to reach from across Dublin's southside, with the DART and good road links to the city centre and suburbs.",
+  },
+  {
+    question: 'How much do piano lessons in Dublin cost?',
+    answer: 'Lessons start from €30 for 30 minutes, €40 for 40 minutes, and €50 for a full hour. We offer discounted packages of 10 lessons for regular students. Your first lesson is available at 50% off.',
+  },
+  {
+    question: 'Do you offer online piano lessons in Dublin?',
+    answer: "Yes — our online piano lessons are available to students anywhere in Dublin and across Ireland. They follow the same structure and standard as in-person sessions, delivered via video call.",
+  },
+  {
+    question: 'What ages do you teach?',
+    answer: 'We teach students from age 5 upwards, with no upper age limit. Many of our Dublin students are adults who are learning piano for the first time or returning after years away.',
+  },
+  {
+    question: 'Can you prepare me for Leaving Cert Music?',
+    answer: "Absolutely. We have extensive experience preparing students for the Leaving Cert Music performance exam. We'll help you choose your pieces, build a strong programme, and develop the confidence to perform at your best on the day.",
+  },
+  {
+    question: 'Which exam boards do you work with?',
+    answer: 'We prepare students for all the major exam boards in Ireland: RIAM (Royal Irish Academy of Music), ABRSM (Associated Board of the Royal Schools of Music), and Trinity College London, as well as the Leaving Certificate.',
+  },
+];
+
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faqs.map(({ question, answer }) => ({
+    '@type': 'Question',
+    name: question,
+    acceptedAnswer: {
+      '@type': 'Answer',
+      text: answer,
+    },
+  })),
+};
+
+const serviceSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Service',
+  serviceType: 'Piano Lessons',
+  name: 'Piano Lessons in Dublin',
+  description: 'Professional piano lessons in Dublin for all ages and levels. In-person in South Dublin and online across Ireland. RIAM, ABRSM, Trinity and Leaving Cert exam preparation.',
+  provider: {
+    '@type': 'MusicSchool',
+    name: 'Sandycove School of Music',
+    url: 'https://sandycoveschoolofmusic.com',
+    telephone: '+353868729764',
+  },
+  areaServed: [
+    { '@type': 'City', name: 'Dublin' },
+    { '@type': 'City', name: 'Dun Laoghaire' },
+    { '@type': 'City', name: 'Sandycove' },
+    { '@type': 'City', name: 'Dalkey' },
+    { '@type': 'City', name: 'Blackrock' },
+    { '@type': 'City', name: 'Stillorgan' },
+    { '@type': 'City', name: 'Dundrum' },
+  ],
+  offers: [
+    { '@type': 'Offer', name: '30-Minute Piano Lesson', price: '30', priceCurrency: 'EUR' },
+    { '@type': 'Offer', name: '40-Minute Piano Lesson', price: '40', priceCurrency: 'EUR' },
+    { '@type': 'Offer', name: '1-Hour Piano Lesson', price: '50', priceCurrency: 'EUR' },
+  ],
+};
+
+const individual = [
+  { duration: '30 minutes', price: '€30' },
+  { duration: '40 minutes', price: '€40' },
+  { duration: '1 hour', price: '€50' },
+];
+
+const packages = [
+  { sessions: '10 × 30 min', price: '€270', saving: 'Save €30' },
+  { sessions: '10 × 40 min', price: '€330', saving: 'Save €70' },
+  { sessions: '10 × 1 hour', price: '€400', saving: 'Save €100' },
+];
+---
+
+<Layout
+  title="Piano Lessons Dublin | All Ages & Levels | Sandycove Music"
+  description="Professional piano lessons in Dublin for children and adults. In-person in South Dublin & online. RIAM, ABRSM, Trinity & Leaving Cert prep. From €30."
+>
+  <Header />
+  <main class="flex-1">
+    <!-- Hero -->
+    <section class="relative pt-16 py-20 bg-gradient-to-br from-navy-900 via-navy-800 to-navy-900 overflow-hidden">
+      <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_50%_40%,_rgba(201,149,46,0.07)_0%,_transparent_60%)]"></div>
+      <div class="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center py-16">
+        <h1 class="text-4xl sm:text-5xl lg:text-6xl font-bold text-white leading-tight mb-6" style="font-family: 'Playfair Display', Georgia, serif;">
+          Piano Lessons in Dublin
+        </h1>
+        <p class="text-xl sm:text-2xl text-navy-200 max-w-2xl mx-auto mb-8 leading-relaxed">
+          Professional, one-on-one piano tuition for all ages. In-person at our South Dublin studio or online from anywhere in Ireland.
+        </p>
+        <div class="flex flex-col sm:flex-row gap-4 justify-center">
+          <a href="/contact" class="inline-flex items-center justify-center gap-2 px-8 py-3.5 rounded-full text-lg font-semibold bg-gold-500 text-white hover:bg-gold-600 transition-colors shadow-lg shadow-gold-500/25">
+            Book a Free Trial
+          </a>
+          <a href="#pricing" class="inline-flex items-center justify-center gap-2 px-8 py-3.5 rounded-full text-lg font-semibold border-2 border-white/30 text-white hover:bg-white/10 transition-colors">
+            View Pricing
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Intro -->
+    <section class="py-20 bg-white">
+      <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="max-w-3xl mx-auto">
+          <p class="text-navy-700 text-lg leading-relaxed mb-6">
+            Sandycove School of Music offers professional piano lessons in Dublin for students of all ages and abilities. Based in Sandycove, South Dublin, we provide in-person tuition at our studio and online lessons for students across the greater Dublin area and beyond.
+          </p>
+          <p class="text-navy-700 text-lg leading-relaxed">
+            Whether you're a parent looking for piano lessons for your child, a teenager preparing for the Leaving Cert, or an adult who's always wanted to learn — we offer personalised, one-on-one lessons tailored to your goals. Classical, jazz, pop, and contemporary styles are all covered.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- What We Offer -->
+    <section class="py-20 bg-navy-50">
+      <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="max-w-3xl mx-auto text-center mb-12">
+          <h2 class="text-3xl sm:text-4xl font-bold text-navy-900 mb-4" style="font-family: 'Playfair Display', Georgia, serif;">What We Offer</h2>
+          <div class="w-16 h-1 bg-gold-500 mx-auto"></div>
+        </div>
+        <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-5xl mx-auto">
+          {[
+            { title: 'Piano for Children', desc: 'Fun, structured lessons from age 5. We build confidence and a love of music through patient, encouraging teaching.' },
+            { title: 'Piano for Adults', desc: "It's never too late. Whether you're a complete beginner or returning after years away, we'll meet you where you are." },
+            { title: 'Exam Preparation', desc: 'Thorough prep for RIAM, ABRSM, Trinity, and Leaving Cert Music. Our students consistently achieve excellent results.' },
+            { title: 'All Styles', desc: 'Classical, jazz, pop, film music, contemporary. Learn the music you love, not just what a textbook tells you.' },
+            { title: 'In-Person & Online', desc: 'Visit our studio in South Dublin or take lessons from home via video call. Same quality, same structure, your choice.' },
+            { title: 'Flexible Scheduling', desc: 'Morning, afternoon, evening, and Saturday availability. We work around your life, not the other way around.' },
+          ].map(({ title, desc }) => (
+            <div class="p-6 rounded-2xl bg-white border border-navy-100 hover:border-gold-400 hover:shadow-lg transition-all">
+              <h3 class="text-lg font-semibold text-navy-900 mb-2">{title}</h3>
+              <p class="text-navy-500 text-sm leading-relaxed">{desc}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- Pricing -->
+    <section id="pricing" class="py-20 bg-white">
+      <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="max-w-3xl mx-auto text-center mb-12">
+          <h2 class="text-3xl sm:text-4xl font-bold text-navy-900 mb-4" style="font-family: 'Playfair Display', Georgia, serif;">Piano Lesson Pricing</h2>
+          <div class="w-16 h-1 bg-gold-500 mx-auto mb-6"></div>
+          <p class="text-navy-600 text-lg">Transparent pricing with no hidden fees. Save with our lesson packages.</p>
+        </div>
+
+        <div class="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+          <div class="rounded-2xl border border-navy-200 bg-white p-8 shadow-sm">
+            <div class="flex items-center gap-3 mb-6">
+              <div class="w-10 h-10 rounded-lg bg-navy-50 flex items-center justify-center">
+                <svg class="w-5 h-5 text-navy-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v10.55A4 4 0 1014 17V7h4V3h-6z"/>
+                </svg>
+              </div>
+              <h3 class="text-xl font-semibold text-navy-900">Individual Lessons</h3>
+            </div>
+            <div class="space-y-4">
+              {individual.map(({ duration, price }) => (
+                <div class="flex items-center justify-between py-3 border-b border-navy-100 last:border-0">
+                  <span class="text-navy-600">{duration}</span>
+                  <span class="text-xl font-bold text-navy-900">{price}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <div class="rounded-2xl border-2 border-gold-400 bg-gold-50/50 p-8 shadow-sm relative">
+            <div class="absolute -top-3 left-1/2 -translate-x-1/2 px-4 py-1 bg-gold-500 text-white text-xs font-bold rounded-full uppercase tracking-wider shadow-sm">
+              Best Value
+            </div>
+            <div class="flex items-center gap-3 mb-6">
+              <div class="w-10 h-10 rounded-lg bg-gold-100 flex items-center justify-center">
+                <svg class="w-5 h-5 text-gold-600" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"/>
+                </svg>
+              </div>
+              <h3 class="text-xl font-semibold text-navy-900">Lesson Packages</h3>
+            </div>
+            <div class="space-y-4">
+              {packages.map(({ sessions, price, saving }) => (
+                <div class="flex items-center justify-between py-3 border-b border-gold-200 last:border-0">
+                  <div>
+                    <span class="text-navy-700 block">{sessions}</span>
+                    <span class="text-gold-600 text-xs font-semibold">{saving}</span>
+                  </div>
+                  <span class="text-xl font-bold text-navy-900">{price}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        <p class="text-center text-navy-400 text-sm mt-8">
+          All prices are inclusive. First lesson available at 50% off — <a href="/contact" class="text-gold-500 hover:text-gold-600 underline">get in touch</a> to avail.
+        </p>
+      </div>
+    </section>
+
+    <!-- Exam Prep -->
+    <section class="py-20 bg-navy-50">
+      <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="max-w-3xl mx-auto text-center mb-12">
+          <h2 class="text-3xl sm:text-4xl font-bold text-navy-900 mb-4" style="font-family: 'Playfair Display', Georgia, serif;">Exam Preparation in Dublin</h2>
+          <div class="w-16 h-1 bg-gold-500 mx-auto mb-6"></div>
+          <p class="text-navy-600 text-lg">Structured preparation for all major exam boards in Ireland.</p>
+        </div>
+        <Accreditations />
+        <div class="max-w-3xl mx-auto mt-12">
+          <p class="text-navy-700 leading-relaxed mb-6">
+            If you're working towards a piano exam in Dublin, we can help. We have years of experience preparing students for RIAM, ABRSM, and Trinity College London examinations at all levels — from initial grades right through to diploma. Our students regularly achieve distinctions and merit awards.
+          </p>
+          <p class="text-navy-700 leading-relaxed">
+            We also specialise in Leaving Cert Music performance preparation. The performance component is worth 50% of the overall mark, and with the right guidance you can maximise your result. We'll help you choose strong pieces, build a varied programme, and develop the confidence to perform under pressure.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Areas We Serve -->
+    <section class="py-20 bg-white">
+      <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="max-w-3xl mx-auto text-center mb-12">
+          <h2 class="text-3xl sm:text-4xl font-bold text-navy-900 mb-4" style="font-family: 'Playfair Display', Georgia, serif;">Areas We Serve Across Dublin</h2>
+          <div class="w-16 h-1 bg-gold-500 mx-auto mb-6"></div>
+        </div>
+        <div class="max-w-3xl mx-auto">
+          <p class="text-navy-700 text-lg leading-relaxed mb-6">
+            Our studio is in Sandycove, South Dublin — well connected by DART, bus, and road. We teach students from across Dublin, including:
+          </p>
+          <div class="grid sm:grid-cols-2 md:grid-cols-3 gap-4 mb-8">
+            {['Dun Laoghaire', 'Dalkey', 'Blackrock', 'Monkstown', 'Stillorgan', 'Dundrum', 'Killiney', 'Foxrock', 'Booterstown'].map((area) => (
+              <div class="flex items-center gap-3 p-3 rounded-xl bg-navy-50 border border-navy-100">
+                <svg class="w-5 h-5 text-gold-500 shrink-0" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+                <span class="text-navy-700 font-medium">{area}</span>
+              </div>
+            ))}
+          </div>
+          <p class="text-navy-700 text-lg leading-relaxed">
+            For students further afield — whether in Dublin city centre, North Dublin, or anywhere in Ireland — our online piano lessons offer the same quality and structure as in-person sessions.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="py-20 bg-navy-50">
+      <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-12">
+          <h2 class="text-3xl sm:text-4xl font-bold text-navy-900 mb-4" style="font-family: 'Playfair Display', Georgia, serif;">Piano Lessons in Dublin — FAQs</h2>
+          <div class="w-16 h-1 bg-gold-500 mx-auto mb-6"></div>
+        </div>
+        <div class="space-y-4">
+          {faqs.map(({ question, answer }) => (
+            <details class="group rounded-2xl border border-navy-100 bg-white shadow-sm overflow-hidden">
+              <summary class="flex items-center justify-between cursor-pointer px-6 py-5 text-left font-semibold text-navy-900 hover:text-gold-600 transition-colors">
+                <span>{question}</span>
+                <svg class="w-5 h-5 text-navy-400 group-open:rotate-180 transition-transform shrink-0 ml-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                </svg>
+              </summary>
+              <div class="px-6 pb-5 text-navy-600 leading-relaxed">
+                {answer}
+              </div>
+            </details>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="py-20 bg-navy-900">
+      <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+        <h2 class="text-3xl sm:text-4xl font-bold text-white mb-4" style="font-family: 'Playfair Display', Georgia, serif;">Start Piano Lessons in Dublin</h2>
+        <div class="w-16 h-1 bg-gold-500 mx-auto mb-6"></div>
+        <p class="text-navy-200 text-lg mb-8 max-w-2xl mx-auto">
+          Book a free trial lesson — in-person at our South Dublin studio or online from anywhere. All ages and levels welcome.
+        </p>
+        <div class="flex flex-col sm:flex-row gap-4 justify-center">
+          <a href="/contact" class="inline-flex items-center justify-center gap-2 px-8 py-3.5 rounded-full text-lg font-semibold bg-gold-500 text-white hover:bg-gold-600 transition-colors shadow-lg shadow-gold-500/25">
+            Book a Free Trial
+          </a>
+          <a href="tel:+353868729764" class="inline-flex items-center justify-center gap-2 px-8 py-3.5 rounded-full text-lg font-semibold border-2 border-white/30 text-white hover:bg-white/10 transition-colors">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/></svg>
+            Call 086 872 9764
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <ContactForm />
+  </main>
+  <Footer />
+  <LocalBusinessSchema />
+  <script type="application/ld+json" set:html={JSON.stringify(serviceSchema)} />
+  <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+</Layout>
