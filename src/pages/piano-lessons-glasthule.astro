@@ -8,28 +8,24 @@ import LocalBusinessSchema from '../components/LocalBusinessSchema.astro';
 
 const faqs = [
   {
-    question: 'Where in Dublin are you based?',
-    answer: "We're based in Sandycove, in the Dun Laoghaire–Rathdown area of South Dublin. We're easy to reach from across Dublin's southside, with the DART and good road links to the city centre and suburbs.",
+    question: 'How far are you from Glasthule and Monkstown?',
+    answer: "We're based in Sandycove, right between Glasthule and Monkstown. Most of our Glasthule and Monkstown students are just a few minutes' walk or a very short drive from our studio.",
   },
   {
-    question: 'How much do piano lessons in Dublin cost?',
-    answer: 'Lessons start from €30 for 30 minutes, €40 for 40 minutes, and €50 for a full hour. We offer discounted packages of 10 lessons for regular students. Your first lesson is available at 50% off.',
+    question: 'Do you teach children and adults?',
+    answer: 'Yes — we teach students of all ages, from children aged 5 upwards to adult beginners and returners. We have many families from Glasthule and Monkstown among our students.',
   },
   {
-    question: 'Do you offer online piano lessons in Dublin?',
-    answer: "Yes — our online piano lessons are available to students anywhere in Dublin and across Ireland. They follow the same structure and standard as in-person sessions, delivered via video call.",
+    question: 'How much do piano lessons cost?',
+    answer: 'Individual lessons start from €30 for 30 minutes, €40 for 40 minutes, and €50 for a full hour. We also offer discounted packages of 10 lessons. Your first lesson is available at 50% off.',
   },
   {
-    question: 'What ages do you teach?',
-    answer: 'We teach students from age 5 upwards, with no upper age limit. Many of our Dublin students are adults who are learning piano for the first time or returning after years away.',
+    question: 'Can you help with grade exams and Leaving Cert?',
+    answer: "Absolutely. We prepare students for RIAM, ABRSM, Trinity College London, and the Leaving Cert Music performance component. Our students consistently achieve high marks across all exam boards.",
   },
   {
-    question: 'Can you prepare me for Leaving Cert Music?',
-    answer: "Absolutely. We have extensive experience preparing students for the Leaving Cert Music performance exam. We'll help you choose your pieces, build a strong programme, and develop the confidence to perform at your best on the day.",
-  },
-  {
-    question: 'Which exam boards do you work with?',
-    answer: 'We prepare students for all the major exam boards in Ireland: RIAM (Royal Irish Academy of Music), ABRSM (Associated Board of the Royal Schools of Music), and Trinity College London, as well as the Leaving Certificate.',
+    question: 'Do you offer online lessons?',
+    answer: "Yes, we offer online piano lessons via video call. They follow the same structure as in-person sessions — a great option if you'd prefer not to travel, even for such a short distance.",
   },
 ];
 
@@ -46,11 +42,37 @@ const faqSchema = {
   })),
 };
 
+const serviceSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Service',
+  serviceType: 'Piano Lessons',
+  name: 'Piano Lessons in Glasthule & Monkstown',
+  description: 'Professional piano lessons in Glasthule and Monkstown, South Dublin. All ages and levels. Classical, jazz and pop. RIAM, ABRSM, Trinity and Leaving Cert exam preparation.',
+  provider: {
+    '@type': 'MusicSchool',
+    name: 'Sandycove School of Music',
+    url: 'https://sandycoveschoolofmusic.com',
+    telephone: '+353868729764',
+  },
+  areaServed: [
+    { '@type': 'City', name: 'Glasthule' },
+    { '@type': 'City', name: 'Monkstown' },
+    { '@type': 'City', name: 'Sandycove' },
+    { '@type': 'City', name: 'Dun Laoghaire' },
+    { '@type': 'City', name: 'Dalkey' },
+  ],
+  offers: [
+    { '@type': 'Offer', name: '30-Minute Piano Lesson', price: '30', priceCurrency: 'EUR' },
+    { '@type': 'Offer', name: '40-Minute Piano Lesson', price: '40', priceCurrency: 'EUR' },
+    { '@type': 'Offer', name: '1-Hour Piano Lesson', price: '50', priceCurrency: 'EUR' },
+  ],
+};
+
 const courseSchema = {
   '@context': 'https://schema.org',
   '@type': 'Course',
-  name: 'Piano Lessons in Dublin',
-  description: 'Professional piano lessons in Dublin for all ages and levels. In-person in South Dublin and online across Ireland. RIAM, ABRSM, Trinity and Leaving Cert exam preparation.',
+  name: 'Piano Lessons in Glasthule & Monkstown',
+  description: 'One-on-one piano lessons for all ages in Glasthule and Monkstown, South Dublin. RIAM, ABRSM, Trinity and Leaving Cert exam preparation.',
   provider: {
     '@type': 'MusicSchool',
     name: 'Sandycove School of Music',
@@ -61,34 +83,6 @@ const courseSchema = {
     price: '30',
     priceCurrency: 'EUR',
   },
-};
-
-const serviceSchema = {
-  '@context': 'https://schema.org',
-  '@type': 'Service',
-  serviceType: 'Piano Lessons',
-  name: 'Piano Lessons in Dublin',
-  description: 'Professional piano lessons in Dublin for all ages and levels. In-person in South Dublin and online across Ireland. RIAM, ABRSM, Trinity and Leaving Cert exam preparation.',
-  provider: {
-    '@type': 'MusicSchool',
-    name: 'Sandycove School of Music',
-    url: 'https://sandycoveschoolofmusic.com',
-    telephone: '+353868729764',
-  },
-  areaServed: [
-    { '@type': 'City', name: 'Dublin' },
-    { '@type': 'City', name: 'Dun Laoghaire' },
-    { '@type': 'City', name: 'Sandycove' },
-    { '@type': 'City', name: 'Dalkey' },
-    { '@type': 'City', name: 'Blackrock' },
-    { '@type': 'City', name: 'Stillorgan' },
-    { '@type': 'City', name: 'Dundrum' },
-  ],
-  offers: [
-    { '@type': 'Offer', name: '30-Minute Piano Lesson', price: '30', priceCurrency: 'EUR' },
-    { '@type': 'Offer', name: '40-Minute Piano Lesson', price: '40', priceCurrency: 'EUR' },
-    { '@type': 'Offer', name: '1-Hour Piano Lesson', price: '50', priceCurrency: 'EUR' },
-  ],
 };
 
 const individual = [
@@ -105,8 +99,8 @@ const packages = [
 ---
 
 <Layout
-  title="Piano Lessons Dublin | All Ages & Levels | Sandycove Music"
-  description="Professional piano lessons in Dublin for children and adults. In-person in South Dublin & online. RIAM, ABRSM, Trinity & Leaving Cert prep. From €30."
+  title="Piano Lessons Glasthule & Monkstown | From €30 | Sandycove Music"
+  description="Piano lessons in Glasthule and Monkstown for children and adults. Minutes from your door. RIAM, ABRSM, Trinity & Leaving Cert prep. Book a free trial."
 >
   <Header />
   <main class="flex-1">
@@ -115,10 +109,10 @@ const packages = [
       <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_50%_40%,_rgba(201,149,46,0.07)_0%,_transparent_60%)]"></div>
       <div class="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center py-16">
         <h1 class="text-4xl sm:text-5xl lg:text-6xl font-bold text-white leading-tight mb-6" style="font-family: 'Playfair Display', Georgia, serif;">
-          Piano Lessons in Dublin
+          Piano Lessons in Glasthule & Monkstown
         </h1>
         <p class="text-xl sm:text-2xl text-navy-200 max-w-2xl mx-auto mb-8 leading-relaxed">
-          Professional, one-on-one piano tuition for all ages. In-person at our South Dublin studio or online from anywhere in Ireland.
+          Expert piano tuition right on your doorstep. All ages, all levels — from first-time beginners to advanced exam preparation.
         </p>
         <div class="flex flex-col sm:flex-row gap-4 justify-center">
           <a href="/contact" class="inline-flex items-center justify-center gap-2 px-8 py-3.5 rounded-full text-lg font-semibold bg-gold-500 text-white hover:bg-gold-600 transition-colors shadow-lg shadow-gold-500/25">
@@ -136,30 +130,30 @@ const packages = [
       <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="max-w-3xl mx-auto">
           <p class="text-navy-700 text-lg leading-relaxed mb-6">
-            Sandycove School of Music offers professional piano lessons in Dublin for students of all ages and abilities. Based in Sandycove, South Dublin, we provide in-person tuition at our studio and online lessons for students across the greater Dublin area and beyond.
+            If you're looking for piano lessons in Glasthule or Monkstown, you won't find a closer option than Sandycove School of Music. Our studio is right in the heart of Sandycove — just a few minutes' walk from Glasthule village and a short stroll from Monkstown. We offer one-on-one piano tuition for children, teenagers, and adults, tailored to each student's goals.
           </p>
           <p class="text-navy-700 text-lg leading-relaxed">
-            Whether you're a parent looking for piano lessons for your child, a teenager preparing for the Leaving Cert, or an adult who's always wanted to learn — we offer personalised, one-on-one lessons tailored to your goals. Classical, jazz, pop, and contemporary styles are all covered.
+            Many of our students come from Glasthule, Monkstown, and the surrounding streets. Whether your child is starting their musical journey, you're preparing for grade exams, or you're an adult who has always wanted to learn — we'd love to help. Online lessons are also available if you'd prefer to learn from home.
           </p>
         </div>
       </div>
     </section>
 
-    <!-- What We Offer -->
+    <!-- Why Choose Us -->
     <section class="py-20 bg-navy-50">
       <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="max-w-3xl mx-auto text-center mb-12">
-          <h2 class="text-3xl sm:text-4xl font-bold text-navy-900 mb-4" style="font-family: 'Playfair Display', Georgia, serif;">What We Offer</h2>
+          <h2 class="text-3xl sm:text-4xl font-bold text-navy-900 mb-4" style="font-family: 'Playfair Display', Georgia, serif;">Piano Lessons for Glasthule & Monkstown</h2>
           <div class="w-16 h-1 bg-gold-500 mx-auto"></div>
         </div>
         <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-5xl mx-auto">
           {[
-            { title: 'Piano for Children', desc: 'Fun, structured lessons from age 5. We build confidence and a love of music through patient, encouraging teaching.' },
-            { title: 'Piano for Adults', desc: "It's never too late. Whether you're a complete beginner or returning after years away, we'll meet you where you are." },
-            { title: 'Exam Preparation', desc: 'Thorough prep for RIAM, ABRSM, Trinity, and Leaving Cert Music. Our students consistently achieve excellent results.' },
-            { title: 'All Styles', desc: 'Classical, jazz, pop, film music, contemporary. Learn the music you love, not just what a textbook tells you.' },
-            { title: 'In-Person & Online', desc: 'Visit our studio in South Dublin or take lessons from home via video call. Same quality, same structure, your choice.' },
-            { title: 'Flexible Scheduling', desc: 'Morning, afternoon, evening, and Saturday availability. We work around your life, not the other way around.' },
+            { title: 'On Your Doorstep', desc: 'Our Sandycove studio is the closest music school to Glasthule and Monkstown. Just a few minutes\' walk from either village.' },
+            { title: 'Children from Age 5', desc: 'Fun, patient lessons that build a love of music. Shorter 30-minute sessions for younger children, with longer lessons as they grow.' },
+            { title: 'Adult Beginners Welcome', desc: "It's never too late to start. Many of our local students are adults learning piano for the first time — no pressure, just enjoyment." },
+            { title: 'Exam Preparation', desc: 'Thorough preparation for RIAM, ABRSM, Trinity and Leaving Cert Music. Our students consistently achieve high marks.' },
+            { title: 'All Styles of Music', desc: 'Classical, jazz, pop, contemporary, film music — learn what you love. We build lessons around your musical interests.' },
+            { title: 'Flexible Times', desc: 'Morning, afternoon, evening, and Saturday slots. We work around school schedules, work commitments, and family life.' },
           ].map(({ title, desc }) => (
             <div class="p-6 rounded-2xl bg-white border border-navy-100 hover:border-gold-400 hover:shadow-lg transition-all">
               <h3 class="text-lg font-semibold text-navy-900 mb-2">{title}</h3>
@@ -176,7 +170,7 @@ const packages = [
         <div class="max-w-3xl mx-auto text-center mb-12">
           <h2 class="text-3xl sm:text-4xl font-bold text-navy-900 mb-4" style="font-family: 'Playfair Display', Georgia, serif;">Piano Lesson Pricing</h2>
           <div class="w-16 h-1 bg-gold-500 mx-auto mb-6"></div>
-          <p class="text-navy-600 text-lg">Transparent pricing with no hidden fees. Save with our lesson packages.</p>
+          <p class="text-navy-600 text-lg">Simple, transparent pricing. Save with our 10-lesson packages.</p>
         </div>
 
         <div class="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
@@ -231,48 +225,60 @@ const packages = [
       </div>
     </section>
 
-    <!-- Exam Prep -->
+    <!-- Getting Here -->
     <section class="py-20 bg-navy-50">
       <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="max-w-3xl mx-auto text-center mb-12">
-          <h2 class="text-3xl sm:text-4xl font-bold text-navy-900 mb-4" style="font-family: 'Playfair Display', Georgia, serif;">Exam Preparation in Dublin</h2>
+          <h2 class="text-3xl sm:text-4xl font-bold text-navy-900 mb-4" style="font-family: 'Playfair Display', Georgia, serif;">Getting Here from Glasthule & Monkstown</h2>
           <div class="w-16 h-1 bg-gold-500 mx-auto mb-6"></div>
-          <p class="text-navy-600 text-lg">Structured preparation for all major exam boards in Ireland.</p>
         </div>
-        <Accreditations />
-        <div class="max-w-3xl mx-auto mt-12">
-          <p class="text-navy-700 leading-relaxed mb-6">
-            If you're working towards a piano exam in Dublin, we can help. We have years of experience preparing students for RIAM, ABRSM, and Trinity College London examinations at all levels — from initial grades right through to diploma. Our students regularly achieve distinctions and merit awards.
+        <div class="max-w-3xl mx-auto">
+          <p class="text-navy-700 text-lg leading-relaxed mb-6">
+            Our studio in Sandycove couldn't be more convenient for Glasthule and Monkstown residents:
           </p>
-          <p class="text-navy-700 leading-relaxed">
-            We also specialise in Leaving Cert Music performance preparation. The performance component is worth 50% of the overall mark, and with the right guidance you can maximise your result. We'll help you choose strong pieces, build a varied programme, and develop the confidence to perform under pressure.
+          <div class="space-y-4 mb-8">
+            {[
+              { title: 'From Glasthule', desc: 'A 2–3 minute walk. We\'re just around the corner from Glasthule village — many of our students walk here.' },
+              { title: 'From Monkstown', desc: 'A 5-minute walk or 2-minute drive. Easy to reach via the coast road or through the residential streets.' },
+              { title: 'By DART', desc: 'Sandycove & Glasthule DART station is a short walk from the studio. One stop from Dun Laoghaire, two from Dalkey.' },
+            ].map(({ title, desc }) => (
+              <div class="flex items-start gap-4 p-4 rounded-xl bg-white border border-navy-100">
+                <div class="w-8 h-8 rounded-lg bg-gold-50 border border-gold-200 flex items-center justify-center shrink-0 mt-0.5">
+                  <svg class="w-4 h-4 text-gold-500" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+                </div>
+                <div>
+                  <h3 class="font-semibold text-navy-900">{title}</h3>
+                  <p class="text-navy-500 text-sm">{desc}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+          <p class="text-navy-700 text-lg leading-relaxed">
+            We also welcome students from Dun Laoghaire, Dalkey, Sandycove, Glenageary, and Salthill — all within easy reach.
           </p>
         </div>
       </div>
     </section>
 
-    <!-- Areas We Serve -->
-    <section class="py-20 bg-white">
+    <!-- Related Pages -->
+    <section class="py-16 bg-white">
       <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="max-w-3xl mx-auto text-center mb-12">
-          <h2 class="text-3xl sm:text-4xl font-bold text-navy-900 mb-4" style="font-family: 'Playfair Display', Georgia, serif;">Areas We Serve Across Dublin</h2>
-          <div class="w-16 h-1 bg-gold-500 mx-auto mb-6"></div>
+        <div class="max-w-3xl mx-auto text-center mb-8">
+          <h2 class="text-2xl font-bold text-navy-900 mb-4" style="font-family: 'Playfair Display', Georgia, serif;">You Might Also Be Interested In</h2>
+          <div class="w-16 h-1 bg-gold-500 mx-auto"></div>
         </div>
-        <div class="max-w-3xl mx-auto">
-          <p class="text-navy-700 text-lg leading-relaxed mb-6">
-            Our studio is in Sandycove, South Dublin — well connected by DART, bus, and road. We teach students from across Dublin, including:
-          </p>
-          <div class="grid sm:grid-cols-2 md:grid-cols-3 gap-4 mb-8">
-            {['Dun Laoghaire', 'Dalkey', 'Blackrock', 'Monkstown', 'Stillorgan', 'Dundrum', 'Killiney', 'Foxrock', 'Booterstown'].map((area) => (
-              <div class="flex items-center gap-3 p-3 rounded-xl bg-navy-50 border border-navy-100">
-                <svg class="w-5 h-5 text-gold-500 shrink-0" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
-                <span class="text-navy-700 font-medium">{area}</span>
-              </div>
-            ))}
-          </div>
-          <p class="text-navy-700 text-lg leading-relaxed">
-            For students further afield — whether in Dublin city centre, North Dublin, or anywhere in Ireland — our online piano lessons offer the same quality and structure as in-person sessions.
-          </p>
+        <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 max-w-4xl mx-auto">
+          {[
+            { href: '/piano-lessons', label: 'Piano Lessons Overview' },
+            { href: '/adult-piano-lessons', label: 'Adult Piano Lessons' },
+            { href: '/kids-music-lessons', label: 'Kids Music Lessons' },
+            { href: '/piano-lessons-dun-laoghaire', label: 'Lessons in Dun Laoghaire' },
+          ].map(({ href, label }) => (
+            <a href={href} class="flex items-center gap-2 p-4 rounded-xl bg-navy-50 border border-navy-100 hover:border-gold-400 hover:shadow-sm transition-all text-navy-700 font-medium text-sm">
+              <svg class="w-4 h-4 text-gold-500 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+              {label}
+            </a>
+          ))}
         </div>
       </div>
     </section>
@@ -281,7 +287,7 @@ const packages = [
     <section class="py-20 bg-navy-50">
       <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="text-center mb-12">
-          <h2 class="text-3xl sm:text-4xl font-bold text-navy-900 mb-4" style="font-family: 'Playfair Display', Georgia, serif;">Piano Lessons in Dublin — FAQs</h2>
+          <h2 class="text-3xl sm:text-4xl font-bold text-navy-900 mb-4" style="font-family: 'Playfair Display', Georgia, serif;">Piano Lessons Glasthule & Monkstown — FAQs</h2>
           <div class="w-16 h-1 bg-gold-500 mx-auto mb-6"></div>
         </div>
         <div class="space-y-4">
@@ -302,36 +308,13 @@ const packages = [
       </div>
     </section>
 
-    <!-- Related Pages -->
-    <section class="py-16 bg-white">
-      <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="max-w-3xl mx-auto text-center mb-8">
-          <h2 class="text-2xl font-bold text-navy-900 mb-4" style="font-family: 'Playfair Display', Georgia, serif;">You Might Also Be Interested In</h2>
-          <div class="w-16 h-1 bg-gold-500 mx-auto"></div>
-        </div>
-        <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 max-w-4xl mx-auto">
-          {[
-            { href: '/piano-lessons-dun-laoghaire', label: 'Lessons in Dun Laoghaire' },
-            { href: '/piano-lessons-dalkey', label: 'Lessons near Dalkey' },
-            { href: '/piano-lessons-glasthule', label: 'Lessons in Glasthule' },
-            { href: '/adult-piano-lessons', label: 'Adult Piano Lessons' },
-          ].map(({ href, label }) => (
-            <a href={href} class="flex items-center gap-2 p-4 rounded-xl bg-navy-50 border border-navy-100 hover:border-gold-400 hover:shadow-sm transition-all text-navy-700 font-medium text-sm">
-              <svg class="w-4 h-4 text-gold-500 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
-              {label}
-            </a>
-          ))}
-        </div>
-      </div>
-    </section>
-
     <!-- CTA -->
     <section class="py-20 bg-navy-900">
       <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-        <h2 class="text-3xl sm:text-4xl font-bold text-white mb-4" style="font-family: 'Playfair Display', Georgia, serif;">Start Piano Lessons in Dublin</h2>
+        <h2 class="text-3xl sm:text-4xl font-bold text-white mb-4" style="font-family: 'Playfair Display', Georgia, serif;">Start Piano Lessons in Glasthule & Monkstown</h2>
         <div class="w-16 h-1 bg-gold-500 mx-auto mb-6"></div>
         <p class="text-navy-200 text-lg mb-8 max-w-2xl mx-auto">
-          Book a free trial lesson — in-person at our South Dublin studio or online from anywhere. All ages and levels welcome.
+          Book a free trial lesson at our Sandycove studio — just minutes from Glasthule village and Monkstown. Children and adults welcome.
         </p>
         <div class="flex flex-col sm:flex-row gap-4 justify-center">
           <a href="/contact" class="inline-flex items-center justify-center gap-2 px-8 py-3.5 rounded-full text-lg font-semibold bg-gold-500 text-white hover:bg-gold-600 transition-colors shadow-lg shadow-gold-500/25">

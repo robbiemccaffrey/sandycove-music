@@ -42,6 +42,23 @@ const faqSchema = {
   })),
 };
 
+const courseSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Course',
+  name: 'Piano Lessons in Dun Laoghaire',
+  description: 'Professional piano lessons in Dun Laoghaire for all ages and levels. Classical, jazz and pop. RIAM, ABRSM, Trinity and Leaving Cert exam preparation.',
+  provider: {
+    '@type': 'MusicSchool',
+    name: 'Sandycove School of Music',
+    url: 'https://sandycoveschoolofmusic.com',
+  },
+  offers: {
+    '@type': 'Offer',
+    price: '30',
+    priceCurrency: 'EUR',
+  },
+};
+
 const serviceSchema = {
   '@context': 'https://schema.org',
   '@type': 'Service',
@@ -279,6 +296,29 @@ const packages = [
       </div>
     </section>
 
+    <!-- Related Pages -->
+    <section class="py-16 bg-white">
+      <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="max-w-3xl mx-auto text-center mb-8">
+          <h2 class="text-2xl font-bold text-navy-900 mb-4" style="font-family: 'Playfair Display', Georgia, serif;">You Might Also Be Interested In</h2>
+          <div class="w-16 h-1 bg-gold-500 mx-auto"></div>
+        </div>
+        <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 max-w-4xl mx-auto">
+          {[
+            { href: '/piano-lessons-glasthule', label: 'Lessons in Glasthule' },
+            { href: '/piano-lessons-dalkey', label: 'Lessons near Dalkey' },
+            { href: '/adult-piano-lessons', label: 'Adult Piano Lessons' },
+            { href: '/kids-music-lessons', label: 'Kids Music Lessons' },
+          ].map(({ href, label }) => (
+            <a href={href} class="flex items-center gap-2 p-4 rounded-xl bg-navy-50 border border-navy-100 hover:border-gold-400 hover:shadow-sm transition-all text-navy-700 font-medium text-sm">
+              <svg class="w-4 h-4 text-gold-500 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+              {label}
+            </a>
+          ))}
+        </div>
+      </div>
+    </section>
+
     <!-- CTA -->
     <section class="py-20 bg-navy-900">
       <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
@@ -305,4 +345,5 @@ const packages = [
   <LocalBusinessSchema />
   <script type="application/ld+json" set:html={JSON.stringify(serviceSchema)} />
   <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+  <script type="application/ld+json" set:html={JSON.stringify(courseSchema)} />
 </Layout>

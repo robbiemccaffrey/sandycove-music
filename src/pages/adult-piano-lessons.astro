@@ -1,35 +1,34 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import Header from '../components/Header.astro';
-import Accreditations from '../components/Accreditations.astro';
 import ContactForm from '../components/ContactForm.astro';
 import Footer from '../components/Footer.astro';
 import LocalBusinessSchema from '../components/LocalBusinessSchema.astro';
 
 const faqs = [
   {
-    question: 'What does the Junior Cycle Music practical exam involve?',
-    answer: 'Students perform three pieces — solo, in a group, or a mix of both. The examiner assesses fluency, technical control, and musicality. Students also sit an unprepared test in sight-reading, aural memory, or improvisation.',
+    question: "I've never played before — is it too late to start?",
+    answer: "Absolutely not. Many of our adult students are complete beginners who are picking up the piano for the first time. Adults bring focus, motivation, and a lifetime of listening to music — all of which help you progress faster than you might expect.",
   },
   {
-    question: 'When does the Junior Cycle Music practical take place?',
-    answer: 'The practical performance exams typically take place in March of third year. An examiner visits your school to hear your performances. The written exam follows in June.',
+    question: 'How long does it take an adult to learn piano?',
+    answer: "Within a few months of weekly lessons and regular practice, most adult beginners can play simple pieces with both hands. Within a year, you'll have a small repertoire and a solid foundation in technique and music reading. Progress depends on practice — even 15–20 minutes a day makes a real difference.",
   },
   {
-    question: 'Does my child need to play piano for Junior Cycle Music?',
-    answer: "No — students can perform on any instrument or use their voice. However, piano is one of the most popular choices and gives students a strong foundation in music theory, sight reading, and performance that benefits all aspects of the exam.",
+    question: 'Do I need my own piano at home?',
+    answer: "You'll need something to practise on. A full-size digital piano with weighted keys is a great starting point — you can pick one up from around €400–€700. We're happy to recommend specific models if you need guidance.",
   },
   {
-    question: 'What level of piano does my child need for Junior Cycle?',
-    answer: "There's no strict grade requirement, but students performing at around Grade 3–4 standard will be well positioned to score highly. The examiner is looking for musicality and control, not just difficulty.",
+    question: 'Do I have to do exams?',
+    answer: "Not at all. Exams are entirely optional. Many of our adult students prefer to learn the music they love without the pressure of formal exams. Others enjoy the structure and sense of achievement that grades provide. It's completely up to you.",
   },
   {
-    question: 'How much do piano lessons cost?',
-    answer: 'Lessons start from €30 for 30 minutes, €40 for 40 minutes, and €50 for a full hour. We offer discounted packages of 10 lessons. Your first lesson is available at 50% off.',
+    question: 'What styles can I learn?',
+    answer: "Whatever you like. Classical, jazz, pop, film music, contemporary — we build your lessons around your musical interests. Many adult students enjoy a mix of styles, and we'll help you find what suits you best.",
   },
   {
-    question: 'Can you help with the Classroom-Based Assessments too?',
-    answer: "Our primary focus is preparing students for the practical performance, but piano lessons naturally develop the musicianship skills — theory, aural awareness, and composition understanding — that support the Classroom-Based Assessments as well.",
+    question: 'Do you offer online lessons for adults?',
+    answer: "Yes. Our online piano lessons work particularly well for adults who have busy schedules or prefer to learn from home. They follow the same structure and standard as in-person sessions, delivered via video call.",
   },
 ];
 
@@ -46,29 +45,12 @@ const faqSchema = {
   })),
 };
 
-const courseSchema = {
-  '@context': 'https://schema.org',
-  '@type': 'Course',
-  name: 'Junior Cycle Music & Piano Preparation',
-  description: 'Piano tuition and Junior Cycle Music performance preparation in Dublin. Practical exam coaching, technique development, and musicianship for secondary school students.',
-  provider: {
-    '@type': 'MusicSchool',
-    name: 'Sandycove School of Music',
-    url: 'https://sandycoveschoolofmusic.com',
-  },
-  offers: {
-    '@type': 'Offer',
-    price: '30',
-    priceCurrency: 'EUR',
-  },
-};
-
 const serviceSchema = {
   '@context': 'https://schema.org',
   '@type': 'Service',
-  serviceType: 'Junior Cycle Music Preparation',
-  name: 'Junior Cycle Music & Piano Preparation',
-  description: 'Piano tuition and Junior Cycle Music performance preparation in Dublin. Practical exam coaching, technique development, and musicianship for secondary school students.',
+  serviceType: 'Adult Piano Lessons',
+  name: 'Adult Piano Lessons in Dublin',
+  description: 'Piano lessons for adults in Dublin. Complete beginners welcome. Classical, jazz, pop — learn at your own pace. In-person in Sandycove or online. From €30.',
   provider: {
     '@type': 'MusicSchool',
     name: 'Sandycove School of Music',
@@ -80,12 +62,31 @@ const serviceSchema = {
     { '@type': 'City', name: 'Dun Laoghaire' },
     { '@type': 'City', name: 'Sandycove' },
     { '@type': 'City', name: 'Dalkey' },
+    { '@type': 'City', name: 'Glasthule' },
+    { '@type': 'City', name: 'Blackrock' },
   ],
   offers: [
-    { '@type': 'Offer', name: '30-Minute Lesson', price: '30', priceCurrency: 'EUR' },
-    { '@type': 'Offer', name: '40-Minute Lesson', price: '40', priceCurrency: 'EUR' },
-    { '@type': 'Offer', name: '1-Hour Lesson', price: '50', priceCurrency: 'EUR' },
+    { '@type': 'Offer', name: '30-Minute Piano Lesson', price: '30', priceCurrency: 'EUR' },
+    { '@type': 'Offer', name: '40-Minute Piano Lesson', price: '40', priceCurrency: 'EUR' },
+    { '@type': 'Offer', name: '1-Hour Piano Lesson', price: '50', priceCurrency: 'EUR' },
   ],
+};
+
+const courseSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Course',
+  name: 'Adult Piano Lessons',
+  description: 'One-on-one piano lessons for adults in Dublin. Beginners welcome. Classical, jazz, pop — learn at your own pace with flexible scheduling.',
+  provider: {
+    '@type': 'MusicSchool',
+    name: 'Sandycove School of Music',
+    url: 'https://sandycoveschoolofmusic.com',
+  },
+  offers: {
+    '@type': 'Offer',
+    price: '30',
+    priceCurrency: 'EUR',
+  },
 };
 
 const individual = [
@@ -102,8 +103,8 @@ const packages = [
 ---
 
 <Layout
-  title="Junior Cycle Music & Piano Preparation | Sandycove Music Dublin"
-  description="Piano tuition and Junior Cycle Music practical exam preparation in Dublin. Build performance skills, technique, and musicianship. Book a free trial lesson."
+  title="Adult Piano Lessons Dublin | Beginners Welcome | Sandycove Music"
+  description="Adult piano lessons in Dublin for complete beginners and returners. Learn at your own pace. Classical, jazz, pop. In-person or online. From €30. Free trial."
 >
   <Header />
   <main class="flex-1">
@@ -112,17 +113,17 @@ const packages = [
       <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_50%_40%,_rgba(201,149,46,0.07)_0%,_transparent_60%)]"></div>
       <div class="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center py-16">
         <h1 class="text-4xl sm:text-5xl lg:text-6xl font-bold text-white leading-tight mb-6" style="font-family: 'Playfair Display', Georgia, serif;">
-          Junior Cycle Music Preparation
+          Adult Piano Lessons in Dublin
         </h1>
         <p class="text-xl sm:text-2xl text-navy-200 max-w-2xl mx-auto mb-8 leading-relaxed">
-          Build the performance skills, technique, and confidence your child needs for Junior Cycle Music — and beyond.
+          It's never too late to learn piano. Relaxed, one-on-one lessons tailored to your goals — from complete beginners to returning players.
         </p>
         <div class="flex flex-col sm:flex-row gap-4 justify-center">
           <a href="/contact" class="inline-flex items-center justify-center gap-2 px-8 py-3.5 rounded-full text-lg font-semibold bg-gold-500 text-white hover:bg-gold-600 transition-colors shadow-lg shadow-gold-500/25">
             Book a Free Trial
           </a>
-          <a href="#what-to-expect" class="inline-flex items-center justify-center gap-2 px-8 py-3.5 rounded-full text-lg font-semibold border-2 border-white/30 text-white hover:bg-white/10 transition-colors">
-            What to Expect
+          <a href="#pricing" class="inline-flex items-center justify-center gap-2 px-8 py-3.5 rounded-full text-lg font-semibold border-2 border-white/30 text-white hover:bg-white/10 transition-colors">
+            View Pricing
           </a>
         </div>
       </div>
@@ -133,30 +134,30 @@ const packages = [
       <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="max-w-3xl mx-auto">
           <p class="text-navy-700 text-lg leading-relaxed mb-6">
-            The Junior Cycle Music practical exam is your child's first experience of performing under formal exam conditions. It's a big moment — and with the right preparation, it can also be a really positive one. At Sandycove School of Music, we help secondary school students develop the performance skills, technique, and musicianship they need to do their best.
+            Whether you've always wanted to learn piano, played as a child and want to pick it up again, or simply fancy a new challenge — you're in the right place. At Sandycove School of Music, a large number of our students are adults, and we tailor every lesson to your pace, your interests, and your goals.
           </p>
           <p class="text-navy-700 text-lg leading-relaxed">
-            Whether your child has been playing piano for years or is still building their skills, we'll tailor lessons to their level and help them prepare a strong programme for the practical exam. And because the skills they develop now carry directly into Leaving Cert Music, getting a solid foundation at Junior Cycle makes a real difference down the line.
+            There's no pressure, no rushing, and no exams unless you want them. Just enjoyable, focused tuition that helps you make real progress — whether that's playing your favourite songs, learning to read music, or working through the grades. Lessons are available in-person at our Sandycove studio or online via video call.
           </p>
         </div>
       </div>
     </section>
 
-    <!-- What the Exam Involves -->
-    <section id="what-to-expect" class="py-20 bg-navy-50">
+    <!-- Why Adults Learn Piano -->
+    <section class="py-20 bg-navy-50">
       <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="max-w-3xl mx-auto text-center mb-12">
-          <h2 class="text-3xl sm:text-4xl font-bold text-navy-900 mb-4" style="font-family: 'Playfair Display', Georgia, serif;">What the Practical Exam Involves</h2>
+          <h2 class="text-3xl sm:text-4xl font-bold text-navy-900 mb-4" style="font-family: 'Playfair Display', Georgia, serif;">Why Adults Make Great Piano Students</h2>
           <div class="w-16 h-1 bg-gold-500 mx-auto"></div>
         </div>
         <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-5xl mx-auto">
           {[
-            { title: 'Three Performances', desc: 'Students perform three pieces — solo, in a group, or a combination. Piano is one of the most popular solo instruments for the exam.' },
-            { title: 'Fluency & Control', desc: 'The examiner assesses technical control, fluency, and accuracy. Clean, confident playing is rewarded over difficulty.' },
-            { title: 'Musicality', desc: "It's not just about the right notes. Expression, dynamics, phrasing, and overall musicality are key to scoring well." },
-            { title: 'Unprepared Test', desc: 'Students also sit a short unprepared test — sight-reading, aural memory, or improvisation. Regular piano lessons build these skills naturally.' },
-            { title: 'Classroom-Based Assessments', desc: 'Two CBAs — a composition portfolio and programme notes — are completed during the year. Piano skills support both of these.' },
-            { title: 'Exam Timing', desc: 'The practical typically takes place in March of third year, with the written exam following in June. Preparation should start well in advance.' },
+            { title: 'Motivation', desc: "You're choosing to do this — that intrinsic motivation is incredibly powerful and will carry you through the early stages far more effectively than external pressure." },
+            { title: 'Musical Experience', desc: "You've spent decades listening to music. That intuitive sense of melody, rhythm, and expression accelerates your learning enormously." },
+            { title: 'Focus & Discipline', desc: 'Adults can concentrate for longer, understand abstract concepts more easily, and follow structured practice plans. Theory clicks faster.' },
+            { title: 'Clear Goals', desc: 'Most adult learners know what they want — whether it\'s playing favourite songs, working through grades, or just enjoying a creative hobby.' },
+            { title: 'Flexible Scheduling', desc: 'Morning, afternoon, evening, and Saturday slots available. We work around your commitments, not the other way around.' },
+            { title: 'Online Option', desc: "Can't make it to the studio? Our online lessons are just as structured and effective — perfect for busy schedules." },
           ].map(({ title, desc }) => (
             <div class="p-6 rounded-2xl bg-white border border-navy-100 hover:border-gold-400 hover:shadow-lg transition-all">
               <h3 class="text-lg font-semibold text-navy-900 mb-2">{title}</h3>
@@ -167,30 +168,29 @@ const packages = [
       </div>
     </section>
 
-    <!-- How We Prepare Students -->
+    <!-- What to Expect -->
     <section class="py-20 bg-white">
       <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="grid md:grid-cols-2 gap-12 items-center">
           <div>
-            <h2 class="text-3xl sm:text-4xl font-bold text-navy-900 mb-4" style="font-family: 'Playfair Display', Georgia, serif;">How We Prepare Your Child</h2>
+            <h2 class="text-3xl sm:text-4xl font-bold text-navy-900 mb-4" style="font-family: 'Playfair Display', Georgia, serif;">What an Adult Lesson Looks Like</h2>
             <div class="w-16 h-1 bg-gold-500 mb-6"></div>
             <p class="text-navy-700 leading-relaxed mb-6">
-              Our approach to Junior Cycle preparation goes beyond just learning three pieces. We build the underlying musicianship skills that help students perform confidently and score well across every aspect of the exam.
+              Every lesson is one-on-one and tailored to you. We start by understanding what you want to achieve, then build a programme around that — whether it's classical pieces, jazz standards, pop songs, or a bit of everything.
             </p>
             <p class="text-navy-700 leading-relaxed mb-6">
-              Piano is an ideal instrument for Junior Cycle Music because it develops sight-reading, music theory, and aural skills alongside performance — all of which feed directly into the written exam and CBAs too.
+              A typical lesson includes a mix of technique work, new pieces, and music theory — all in a relaxed, supportive environment. You'll leave each session with clear practice goals so you know exactly what to work on at home.
             </p>
             <a href="/contact" class="inline-flex items-center gap-2 text-gold-600 hover:text-gold-700 font-semibold transition-colors">
-              Get in touch to discuss preparation
+              Book your first lesson
               <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
             </a>
           </div>
           <div class="space-y-4">
             {[
-              { title: 'Piece Selection', desc: 'We help choose three pieces that showcase your child\'s strengths and show variety to the examiner.' },
-              { title: 'Technical Development', desc: 'Focused work on the technique needed for each piece — fingering, dynamics, pedalling, and tempo control.' },
-              { title: 'Performance Practice', desc: 'Regular run-throughs in exam-like conditions so your child feels confident and prepared on the day.' },
-              { title: 'Sight-Reading & Aural Skills', desc: 'Ongoing development of the skills needed for the unprepared test — built into every lesson, not crammed at the end.' },
+              { title: 'Beginners: Weeks 1–4', desc: 'Hand position, reading simple notation, playing with each hand separately. Building the foundation that everything else rests on.' },
+              { title: 'Months 2–3', desc: 'Playing with both hands together, learning chords, tackling pieces that actually sound like music. This is where the first real buzz kicks in.' },
+              { title: 'Months 4–6', desc: 'A small repertoire of pieces, working knowledge of music theory, and the skills to start exploring the styles you love most.' },
             ].map(({ title, desc }) => (
               <div class="flex items-start gap-4 p-4 rounded-xl bg-navy-50 border border-navy-100">
                 <div class="w-8 h-8 rounded-lg bg-gold-50 border border-gold-200 flex items-center justify-center shrink-0 mt-0.5">
@@ -207,26 +207,31 @@ const packages = [
       </div>
     </section>
 
-    <!-- Building Towards Leaving Cert -->
+    <!-- Choose Your Style -->
     <section class="py-20 bg-navy-50">
       <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="max-w-3xl mx-auto text-center mb-12">
-          <h2 class="text-3xl sm:text-4xl font-bold text-navy-900 mb-4" style="font-family: 'Playfair Display', Georgia, serif;">Building Towards Leaving Cert</h2>
+          <h2 class="text-3xl sm:text-4xl font-bold text-navy-900 mb-4" style="font-family: 'Playfair Display', Georgia, serif;">Choose Your Style</h2>
           <div class="w-16 h-1 bg-gold-500 mx-auto mb-6"></div>
+          <p class="text-navy-600 text-lg">One of the great things about learning as an adult is that you get to choose what you play.</p>
         </div>
         <div class="max-w-3xl mx-auto">
-          <p class="text-navy-700 leading-relaxed mb-6">
-            If your child is planning to take Leaving Cert Music, the Junior Cycle is the perfect time to build the foundation. The performance component at Leaving Cert is worth 50% of the overall mark and requires six pieces at Grade 6 standard or above.
-          </p>
-          <p class="text-navy-700 leading-relaxed mb-6">
-            Students who develop strong piano skills at Junior Cycle are in a much better position to achieve a high mark at Leaving Cert. The technique, sight-reading, and performance confidence they build now will pay dividends in 5th and 6th Year.
-          </p>
-          <div class="text-center">
-            <a href="/leaving-cert-music" class="inline-flex items-center gap-2 text-gold-600 hover:text-gold-700 font-semibold transition-colors">
-              Learn about Leaving Cert Music preparation
-              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
-            </a>
+          <div class="grid sm:grid-cols-2 gap-4">
+            {[
+              { title: 'Classical', desc: 'Build technique and discipline with the great composers.' },
+              { title: 'Jazz & Blues', desc: 'Learn standards, improvisation, and chord-based playing.' },
+              { title: 'Pop & Contemporary', desc: 'Play the songs you love — from Coldplay to Einaudi.' },
+              { title: 'Film & TV Music', desc: 'Iconic soundtracks and themes that are deeply satisfying to play.' },
+            ].map(({ title, desc }) => (
+              <div class="p-5 rounded-xl bg-white border border-navy-100 hover:border-gold-400 hover:shadow-sm transition-all">
+                <h3 class="font-semibold text-navy-900 mb-1">{title}</h3>
+                <p class="text-navy-500 text-sm">{desc}</p>
+              </div>
+            ))}
           </div>
+          <p class="text-navy-700 text-lg leading-relaxed text-center mt-8">
+            Most of our adult students enjoy a mix. We'll help you find what suits you and build a programme that keeps you motivated.
+          </p>
         </div>
       </div>
     </section>
@@ -235,9 +240,9 @@ const packages = [
     <section id="pricing" class="py-20 bg-white">
       <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="max-w-3xl mx-auto text-center mb-12">
-          <h2 class="text-3xl sm:text-4xl font-bold text-navy-900 mb-4" style="font-family: 'Playfair Display', Georgia, serif;">Lesson Pricing</h2>
+          <h2 class="text-3xl sm:text-4xl font-bold text-navy-900 mb-4" style="font-family: 'Playfair Display', Georgia, serif;">Piano Lesson Pricing</h2>
           <div class="w-16 h-1 bg-gold-500 mx-auto mb-6"></div>
-          <p class="text-navy-600 text-lg">For Junior Cycle students, we recommend 30 or 40-minute weekly lessons to build skills progressively.</p>
+          <p class="text-navy-600 text-lg">Simple, transparent pricing. Save with our 10-lesson packages.</p>
         </div>
 
         <div class="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
@@ -293,7 +298,7 @@ const packages = [
     </section>
 
     <!-- Related Pages -->
-    <section class="py-16 bg-white">
+    <section class="py-16 bg-navy-50">
       <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="max-w-3xl mx-auto text-center mb-8">
           <h2 class="text-2xl font-bold text-navy-900 mb-4" style="font-family: 'Playfair Display', Georgia, serif;">You Might Also Be Interested In</h2>
@@ -301,12 +306,12 @@ const packages = [
         </div>
         <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 max-w-4xl mx-auto">
           {[
-            { href: '/leaving-cert-music', label: 'Leaving Cert Music Prep' },
             { href: '/piano-lessons', label: 'Piano Lessons Overview' },
-            { href: '/kids-music-lessons', label: 'Kids Music Lessons' },
             { href: '/piano-lessons-dun-laoghaire', label: 'Lessons in Dun Laoghaire' },
+            { href: '/piano-lessons-dalkey', label: 'Lessons near Dalkey' },
+            { href: '/piano-lessons-glasthule', label: 'Lessons in Glasthule' },
           ].map(({ href, label }) => (
-            <a href={href} class="flex items-center gap-2 p-4 rounded-xl bg-navy-50 border border-navy-100 hover:border-gold-400 hover:shadow-sm transition-all text-navy-700 font-medium text-sm">
+            <a href={href} class="flex items-center gap-2 p-4 rounded-xl bg-white border border-navy-100 hover:border-gold-400 hover:shadow-sm transition-all text-navy-700 font-medium text-sm">
               <svg class="w-4 h-4 text-gold-500 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
               {label}
             </a>
@@ -316,15 +321,15 @@ const packages = [
     </section>
 
     <!-- FAQ -->
-    <section class="py-20 bg-navy-50">
+    <section class="py-20 bg-white">
       <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="text-center mb-12">
-          <h2 class="text-3xl sm:text-4xl font-bold text-navy-900 mb-4" style="font-family: 'Playfair Display', Georgia, serif;">Junior Cycle Music — FAQs</h2>
+          <h2 class="text-3xl sm:text-4xl font-bold text-navy-900 mb-4" style="font-family: 'Playfair Display', Georgia, serif;">Adult Piano Lessons — FAQs</h2>
           <div class="w-16 h-1 bg-gold-500 mx-auto mb-6"></div>
         </div>
         <div class="space-y-4">
           {faqs.map(({ question, answer }) => (
-            <details class="group rounded-2xl border border-navy-100 bg-white shadow-sm overflow-hidden">
+            <details class="group rounded-2xl border border-navy-100 bg-navy-50 shadow-sm overflow-hidden">
               <summary class="flex items-center justify-between cursor-pointer px-6 py-5 text-left font-semibold text-navy-900 hover:text-gold-600 transition-colors">
                 <span>{question}</span>
                 <svg class="w-5 h-5 text-navy-400 group-open:rotate-180 transition-transform shrink-0 ml-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -343,10 +348,10 @@ const packages = [
     <!-- CTA -->
     <section class="py-20 bg-navy-900">
       <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-        <h2 class="text-3xl sm:text-4xl font-bold text-white mb-4" style="font-family: 'Playfair Display', Georgia, serif;">Prepare for Junior Cycle Music</h2>
+        <h2 class="text-3xl sm:text-4xl font-bold text-white mb-4" style="font-family: 'Playfair Display', Georgia, serif;">Ready to Start Playing?</h2>
         <div class="w-16 h-1 bg-gold-500 mx-auto mb-6"></div>
         <p class="text-navy-200 text-lg mb-8 max-w-2xl mx-auto">
-          Give your child the best start with piano lessons that build real musicianship. Book a free trial lesson and see the difference expert tuition makes.
+          Book a free trial lesson — no experience needed. We'll find out what you want to achieve and get you started straight away.
         </p>
         <div class="flex flex-col sm:flex-row gap-4 justify-center">
           <a href="/contact" class="inline-flex items-center justify-center gap-2 px-8 py-3.5 rounded-full text-lg font-semibold bg-gold-500 text-white hover:bg-gold-600 transition-colors shadow-lg shadow-gold-500/25">
