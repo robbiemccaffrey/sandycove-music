@@ -8,3 +8,6 @@ seo-tracking.md
 .env
 .env.local
 .env.production
+*.db
+*.db-shm
+*.db-wal

@@ -1,6 +1,10 @@
 import express from 'express';
 import cors from 'cors';
 import { SESClient, SendEmailCommand } from '@aws-sdk/client-ses';
+import OpenAI from 'openai';
+import { initDb } from './chat/db.js';
+import { chat } from './chat/agent.js';
+import { mountAdminRoutes } from './chat/admin.js';
 
 const app = express();
 const PORT = process.env.PORT || 4061;
@@ -12,7 +16,11 @@ const AWS_REGION = process.env.AWS_REGION || 'eu-west-1';
 
 const ses = new SESClient({ region: AWS_REGION });
 
-app.use(cors({ origin: ALLOWED_ORIGIN }));
+const allowedOrigins = [ALLOWED_ORIGIN];
+if (process.env.NODE_ENV !== 'production') {
+  allowedOrigins.push('http://localhost:4321', 'http://localhost:4060');
+}
+app.use(cors({ origin: allowedOrigins }));
 app.use(express.json({ limit: '10kb' }));
 
 // In-memory rate limiting: max 5 submissions per IP per hour
@@ -102,9 +110,96 @@ app.post('/api/contact', async (req, res) => {
   }
 });
 
+// --- Chat AI ---
+// Separate rate limiting for chat: 30/hr/IP
+const chatRateLimitMap = new Map();
+const CHAT_RATE_LIMIT_MAX = 30;
+const CHAT_RATE_LIMIT_WINDOW_MS = 60 * 60 * 1000;
+
+setInterval(() => {
+  const now = Date.now();
+  for (const [ip, entries] of chatRateLimitMap) {
+    const valid = entries.filter((ts) => now - ts < CHAT_RATE_LIMIT_WINDOW_MS);
+    if (valid.length === 0) {
+      chatRateLimitMap.delete(ip);
+    } else {
+      chatRateLimitMap.set(ip, valid);
+    }
+  }
+}, 10 * 60 * 1000);
+
+function checkChatRateLimit(ip) {
+  const now = Date.now();
+  const entries = (chatRateLimitMap.get(ip) || []).filter(
+    (ts) => now - ts < CHAT_RATE_LIMIT_WINDOW_MS
+  );
+  if (entries.length >= CHAT_RATE_LIMIT_MAX) return false;
+  entries.push(now);
+  chatRateLimitMap.set(ip, entries);
+  return true;
+}
+
+let openai;
+
+app.post('/api/chat', async (req, res) => {
+  if (!openai) {
+    return res.status(503).json({ error: 'Chat service not available.' });
+  }
+
+  const clientIp = req.headers['x-real-ip'] || req.headers['x-forwarded-for'] || req.ip;
+  if (!checkChatRateLimit(clientIp)) {
+    return res.status(429).json({ error: 'Too many messages. Please try again later.' });
+  }
+
+  const { sessionId, message } = req.body;
+  if (!message || typeof message !== 'string') {
+    return res.status(400).json({ error: 'Message is required.' });
+  }
+
+  try {
+    const result = await chat(openai, {
+      sessionId: sessionId || null,
+      message,
+      ipAddress: clientIp,
+      userAgent: req.headers['user-agent'] || '',
+    });
+    res.json(result);
+  } catch (err) {
+    console.error('Chat error:', err.message);
+    res.status(500).json({
+      error: 'Something went wrong. Please try again or call us on 086 872 9764.',
+    });
+  }
+});
+
+// --- Admin routes ---
+mountAdminRoutes(app);
+
+// --- Health check ---
 app.get('/api/health', (_req, res) => {
   res.json({ status: 'ok' });
 });
+
+// --- Startup ---
+function startup() {
+  // Init SQLite
+  try {
+    initDb();
+    console.log('Chat database initialized.');
+  } catch (err) {
+    console.error('Failed to initialize chat database:', err.message);
+  }
+
+  // Init OpenAI client
+  if (process.env.OPENAI_API_KEY) {
+    openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
+    console.log('OpenAI client initialized.');
+  } else {
+    console.warn('OPENAI_API_KEY not set — chat endpoint disabled.');
+  }
+}
+
+startup();
 
 app.listen(PORT, () => {
   console.log(`Sandycove Music API listening on port ${PORT}`);

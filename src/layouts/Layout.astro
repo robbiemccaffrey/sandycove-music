@@ -1,4 +1,6 @@
 ---
+import ChatWidget from '../components/ChatWidget.astro';
+
 export interface Props {
   title: string;
   description?: string;
@@ -67,5 +69,6 @@ const ogImageURL = new URL(ogImage, Astro.site ?? 'https://sandycoveschoolofmusi
   </head>
   <body class="bg-white text-navy-900 min-h-screen flex flex-col font-sans antialiased">
     <slot />
+    <ChatWidget />
   </body>
 </html>
