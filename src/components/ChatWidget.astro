@@ -628,12 +628,15 @@
 
         if (data.sessionId) sessionId = data.sessionId;
 
-        var reply = data.reply || data.error || 'Sorry, something went wrong. Please try again.';
+        var reply = data.reply || 'Sorry, something went wrong. Please try again.';
+        if (data.error) {
+          reply = "I'm not available right now, but you can leave a message using the tab above and we'll get back to you. Or call us on 086 872 9764!";
+        }
         messages.push({ role: 'assistant', text: reply, ts: Date.now() });
       } catch (_err) {
         messages.push({
           role: 'assistant',
-          text: "I'm having trouble connecting. Feel free to call us on 086 872 9764!",
+          text: "I'm having trouble connecting. You can leave a message using the tab above, or call us on 086 872 9764!",
           ts: Date.now(),
         });
       } finally {
