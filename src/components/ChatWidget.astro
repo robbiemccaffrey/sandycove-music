@@ -424,12 +424,52 @@
 
   /* ── Mobile ── */
   @media (max-width: 480px) {
+    #chat-widget.chat-open {
+      bottom: 0;
+      right: 0;
+      left: 0;
+      top: 0;
+    }
+    #chat-widget.chat-open #chat-bubble {
+      display: none;
+    }
     #chat-panel {
-      width: calc(100vw - 24px);
-      height: calc(100dvh - 100px);
-      right: -8px;
-      bottom: 70px;
-      border-radius: 16px;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      width: 100%;
+      height: 100%;
+      border-radius: 0;
+      box-shadow: none;
+    }
+    #chat-header {
+      padding: 14px 16px;
+      padding-top: max(14px, env(safe-area-inset-top));
+    }
+    #chat-messages {
+      padding: 16px;
+    }
+    #chat-input-area {
+      padding: 10px 12px;
+      padding-bottom: max(10px, env(safe-area-inset-bottom));
+    }
+    #chat-footer {
+      display: none;
+    }
+    .chat-msg.assistant {
+      max-width: 90%;
+    }
+    .chat-msg.user {
+      max-width: 82%;
+    }
+    #chat-input {
+      font-size: 16px;
+    }
+    #contact-form-wrapper {
+      padding: 16px;
+      padding-bottom: max(16px, env(safe-area-inset-bottom));
     }
   }
 </style>
@@ -652,9 +692,12 @@
       }
     }
 
+    var widget = document.getElementById('chat-widget');
+
     function togglePanel() {
       isOpen = !isOpen;
       panel.classList.toggle('chat-hidden', !isOpen);
+      widget.classList.toggle('chat-open', isOpen);
       bubbleIcon.style.display = isOpen ? 'none' : 'block';
       bubbleClose.style.display = isOpen ? 'block' : 'none';
       if (isOpen) {
