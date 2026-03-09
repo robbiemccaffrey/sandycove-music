@@ -1,6 +1,5 @@
 ---
-// ChatWidget.astro — Intercom-style chat widget
-// Two modes: Chat (AI bot) and Contact Form (leave a message)
+// ChatWidget.astro — Fin/Intercom-style chat widget
 ---
 
 <div id="chat-widget">
@@ -15,39 +14,49 @@
   </button>
 
   <div id="chat-panel" class="chat-hidden">
+    <!-- Header -->
     <div id="chat-header">
-      <div id="chat-header-inner">
-        <div id="chat-avatar">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>
+      <div id="chat-header-left">
+        <div id="chat-header-avatar">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>
         </div>
         <div id="chat-header-text">
           <span id="chat-header-title">Sandycove Music</span>
-          <span id="chat-header-sub">We typically reply instantly</span>
+          <span id="chat-header-sub">The team can also help</span>
         </div>
       </div>
       <button id="chat-close" aria-label="Close chat">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
           <line x1="18" y1="6" x2="6" y2="18"></line>
           <line x1="6" y1="6" x2="18" y2="18"></line>
         </svg>
       </button>
     </div>
 
+    <!-- Tabs -->
     <div id="chat-tabs">
       <button class="chat-tab active" data-tab="chat">Chat</button>
       <button class="chat-tab" data-tab="contact">Leave a message</button>
     </div>
 
+    <!-- Chat view -->
     <div id="chat-view">
       <div id="chat-messages"></div>
       <div id="chat-input-area">
-        <input type="text" id="chat-input" placeholder="Write a reply..." maxlength="500" autocomplete="off">
-        <button id="chat-send" aria-label="Send message">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg>
-        </button>
+        <div id="chat-input-box">
+          <textarea id="chat-input" placeholder="Message..." maxlength="500" rows="1"></textarea>
+          <button id="chat-send" aria-label="Send message">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="19" x2="12" y2="5"/><polyline points="5 12 12 5 19 12"/></svg>
+          </button>
+        </div>
+      </div>
+      <div id="chat-footer">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#aaa" stroke-width="2"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>
+        <span>Sandycove School of Music</span>
       </div>
     </div>
 
+    <!-- Contact form view -->
     <div id="contact-view" class="chat-hidden">
       <div id="contact-form-wrapper">
         <p id="contact-intro">Prefer to leave a message? We'll get back to you by email.</p>
@@ -65,79 +74,75 @@
         </form>
       </div>
     </div>
-
-    <div id="chat-footer">
-      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#999" stroke-width="2"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>
-      <span>Sandycove School of Music</span>
-    </div>
   </div>
 </div>
 
-<style>
+<style is:global>
+/* All styles scoped under #chat-widget to avoid global bleed */
   #chat-widget {
     position: fixed;
     bottom: 20px;
     right: 20px;
     z-index: 9999;
-    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
   }
 
-  /* Bubble */
+  /* ── Floating bubble ── */
   #chat-bubble {
-    width: 60px;
-    height: 60px;
+    width: 56px;
+    height: 56px;
     border-radius: 50%;
-    background: linear-gradient(135deg, #1a1a2e 0%, #2d2d4e 100%);
-    color: #d4a843;
+    background: #1a1a1a;
+    color: #fff;
     border: none;
     cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
-    box-shadow: 0 4px 16px rgba(26, 26, 46, 0.4);
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
   }
   #chat-bubble:hover {
     transform: scale(1.05);
-    box-shadow: 0 6px 20px rgba(26, 26, 46, 0.5);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
   }
 
-  /* Panel */
+  /* ── Panel ── */
   #chat-panel {
     position: absolute;
-    bottom: 74px;
+    bottom: 70px;
     right: 0;
-    width: 380px;
-    height: 560px;
+    width: 400px;
+    height: 600px;
     background: #fff;
     border-radius: 16px;
-    box-shadow: 0 5px 40px rgba(0, 0, 0, 0.16);
+    box-shadow: 0 5px 40px rgba(0, 0, 0, 0.15);
     display: flex;
     flex-direction: column;
     overflow: hidden;
   }
   #chat-panel.chat-hidden { display: none; }
 
-  /* Header */
+  /* ── Header ── */
   #chat-header {
-    background: linear-gradient(135deg, #1a1a2e 0%, #16162b 100%);
-    color: #fff;
-    padding: 16px 18px;
+    padding: 16px 20px;
     display: flex;
     justify-content: space-between;
     align-items: center;
+    border-bottom: 1px solid #f0f0f0;
     flex-shrink: 0;
+    background: #fff;
   }
-  #chat-header-inner {
+  #chat-header-left {
     display: flex;
     align-items: center;
     gap: 12px;
   }
-  #chat-avatar {
+  #chat-header-avatar {
     width: 36px;
     height: 36px;
-    border-radius: 50%;
-    background: rgba(212, 168, 67, 0.2);
+    border-radius: 10px;
+    background: #1a1a1a;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -151,39 +156,41 @@
   #chat-header-title {
     font-weight: 600;
     font-size: 0.95rem;
+    color: #1a1a1a;
   }
   #chat-header-sub {
-    font-size: 0.72rem;
-    color: rgba(255,255,255,0.55);
+    font-size: 0.78rem;
+    color: #888;
     margin-top: 1px;
   }
   #chat-close {
     background: none;
     border: none;
-    color: rgba(255,255,255,0.5);
+    color: #999;
     cursor: pointer;
     padding: 4px;
-    border-radius: 4px;
+    border-radius: 6px;
     display: flex;
     align-items: center;
     transition: color 0.15s;
   }
-  #chat-close:hover { color: #fff; }
+  #chat-close:hover { color: #333; }
 
-  /* Tabs */
+  /* ── Tabs ── */
   #chat-tabs {
     display: flex;
     border-bottom: 1px solid #f0f0f0;
     flex-shrink: 0;
-    background: #fafafa;
+    background: #fff;
+    padding: 0 20px;
   }
   .chat-tab {
-    flex: 1;
-    padding: 10px 8px;
+    padding: 10px 0;
+    margin-right: 24px;
     border: none;
     background: none;
     cursor: pointer;
-    font-size: 0.8rem;
+    font-size: 0.82rem;
     font-family: inherit;
     color: #999;
     border-bottom: 2px solid transparent;
@@ -191,12 +198,12 @@
   }
   .chat-tab:hover { color: #555; }
   .chat-tab.active {
-    color: #1a1a2e;
+    color: #1a1a1a;
     font-weight: 600;
-    border-bottom-color: #d4a843;
+    border-bottom-color: #1a1a1a;
   }
 
-  /* Chat view */
+  /* ── Chat view ── */
   #chat-view {
     flex: 1;
     display: flex;
@@ -208,168 +215,141 @@
   #chat-messages {
     flex: 1;
     overflow-y: auto;
-    padding: 16px;
+    padding: 20px;
     display: flex;
     flex-direction: column;
-    gap: 16px;
+    gap: 4px;
     background: #fff;
   }
 
-  /* Message wrappers */
-  .chat-msg-group {
-    display: flex;
-    gap: 8px;
-    max-width: 88%;
+  /* ── Assistant messages ── */
+  .chat-msg.assistant {
+    align-self: flex-start;
+    max-width: 85%;
   }
-  .chat-msg-group.assistant { align-self: flex-start; }
-  .chat-msg-group.user {
+  .chat-msg.assistant .chat-bubble {
+    background: #f5f5f5;
+    color: #1a1a1a;
+    border-radius: 18px;
+    padding: 14px 18px;
+    font-size: 0.9rem;
+    white-space: pre-wrap;
+    line-height: 1.55;
+    word-wrap: break-word;
+  }
+  .chat-msg-meta {
+    padding: 4px 4px 12px;
+    font-size: 0.72rem;
+    color: #999;
+  }
+
+  /* ── User messages ── */
+  .chat-msg.user {
     align-self: flex-end;
-    flex-direction: row-reverse;
+    max-width: 75%;
+    margin-top: 8px;
   }
-
-  .chat-msg-avatar {
-    width: 28px;
-    height: 28px;
-    border-radius: 50%;
-    flex-shrink: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 0.65rem;
-    font-weight: 700;
-    margin-top: 2px;
-  }
-  .chat-msg-group.assistant .chat-msg-avatar {
-    background: #1a1a2e;
-    color: #d4a843;
-  }
-  .chat-msg-group.user .chat-msg-avatar {
-    background: #e8e8ed;
-    color: #555;
-  }
-
-  .chat-msg-content {
-    display: flex;
-    flex-direction: column;
-    gap: 2px;
-  }
-
-  .chat-msg-bubble {
-    padding: 10px 14px;
-    font-size: 0.88rem;
+  .chat-msg.user .chat-bubble {
+    background: #1a1a1a;
+    color: #fff;
+    border-radius: 20px;
+    padding: 10px 18px;
+    font-size: 0.9rem;
     line-height: 1.5;
     word-wrap: break-word;
   }
-  .chat-msg-group.assistant .chat-msg-bubble {
-    background: #f1f1f4;
-    color: #1a1a2e;
-    border-radius: 4px 16px 16px 16px;
-  }
-  .chat-msg-group.user .chat-msg-bubble {
-    background: #1a1a2e;
-    color: #fff;
-    border-radius: 16px 4px 16px 16px;
-  }
 
-  /* Typing indicator */
-  .chat-typing {
+  /* ── Typing indicator ── */
+  .chat-typing-pill {
     align-self: flex-start;
-    display: flex;
-    gap: 8px;
-    max-width: 88%;
-  }
-  .chat-typing-avatar {
-    width: 28px;
-    height: 28px;
-    border-radius: 50%;
-    background: #1a1a2e;
-    color: #d4a843;
-    display: flex;
+    display: inline-flex;
+    gap: 5px;
     align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
+    padding: 10px 16px;
+    background: #f5f5f5;
+    border-radius: 18px;
+    margin-top: 8px;
   }
-  .chat-typing-dots {
-    display: flex;
-    gap: 4px;
-    align-items: center;
-    padding: 12px 16px;
-    background: #f1f1f4;
-    border-radius: 4px 16px 16px 16px;
-  }
-  .chat-typing-dots span {
+  .chat-typing-pill span {
     width: 7px;
     height: 7px;
     background: #bbb;
     border-radius: 50%;
-    animation: chatBounce 1.2s infinite;
+    animation: chatDotPulse 1.4s infinite;
   }
-  .chat-typing-dots span:nth-child(2) { animation-delay: 0.15s; }
-  .chat-typing-dots span:nth-child(3) { animation-delay: 0.3s; }
+  .chat-typing-pill span:nth-child(2) { animation-delay: 0.2s; }
+  .chat-typing-pill span:nth-child(3) { animation-delay: 0.4s; }
 
-  @keyframes chatBounce {
-    0%, 60%, 100% { transform: translateY(0); }
-    30% { transform: translateY(-4px); }
+  @keyframes chatDotPulse {
+    0%, 60%, 100% { opacity: 0.4; transform: scale(1); }
+    30% { opacity: 1; transform: scale(1.15); }
   }
 
-  /* Input area */
+  /* ── Input area ── */
   #chat-input-area {
-    display: flex;
-    align-items: center;
-    padding: 12px 14px;
-    border-top: 1px solid #f0f0f0;
-    background: #fff;
+    padding: 12px 16px;
     flex-shrink: 0;
+    background: #fff;
+  }
+  #chat-input-box {
+    border: 1.5px solid #e0e0e0;
+    border-radius: 16px;
+    padding: 12px 14px 10px;
+    display: flex;
+    align-items: flex-end;
     gap: 8px;
+    transition: border-color 0.15s;
+  }
+  #chat-input-box:focus-within {
+    border-color: #999;
   }
   #chat-input {
     flex: 1;
-    border: 1px solid #e5e5e5;
-    border-radius: 20px;
-    padding: 10px 16px;
-    font-size: 0.88rem;
-    font-family: inherit;
+    border: none;
     outline: none;
-    background: #fafafa;
-    transition: border-color 0.15s, background 0.15s;
+    font-size: 0.9rem;
+    font-family: inherit;
+    resize: none;
+    max-height: 80px;
+    line-height: 1.4;
+    background: transparent;
+    color: #1a1a1a;
   }
-  #chat-input:focus {
-    border-color: #d4a843;
-    background: #fff;
-  }
+  #chat-input::placeholder { color: #bbb; }
   #chat-send {
-    width: 36px;
-    height: 36px;
+    width: 32px;
+    height: 32px;
     border-radius: 50%;
-    background: #1a1a2e;
-    color: #fff;
+    background: #e0e0e0;
+    color: #999;
     border: none;
     cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
     flex-shrink: 0;
-    transition: background 0.15s;
+    transition: all 0.15s;
   }
-  #chat-send:hover { background: #2d2d4e; }
+  #chat-send.active {
+    background: #1a1a1a;
+    color: #fff;
+  }
 
-  /* Footer */
+  /* ── Footer ── */
   #chat-footer {
     display: flex;
     align-items: center;
     justify-content: center;
     gap: 5px;
-    padding: 6px;
-    background: #fafafa;
-    border-top: 1px solid #f0f0f0;
+    padding: 8px;
     flex-shrink: 0;
   }
   #chat-footer span {
-    font-size: 0.65rem;
-    color: #999;
+    font-size: 0.68rem;
+    color: #aaa;
   }
 
-  /* Contact form */
+  /* ── Contact form ── */
   #contact-view {
     flex: 1;
     overflow-y: auto;
@@ -378,11 +358,11 @@
   }
   #contact-view.chat-hidden { display: none; }
 
-  #contact-form-wrapper { padding: 18px 16px; }
+  #contact-form-wrapper { padding: 20px; }
   #contact-intro {
-    font-size: 0.85rem;
+    font-size: 0.88rem;
     color: #666;
-    margin-bottom: 14px;
+    margin-bottom: 16px;
     line-height: 1.45;
   }
 
@@ -392,7 +372,7 @@
     font-weight: 600;
     color: #444;
     margin-bottom: 4px;
-    margin-top: 12px;
+    margin-top: 14px;
   }
   #chat-contact-form label:first-of-type { margin-top: 0; }
   .cf-req { color: #c0392b; }
@@ -401,38 +381,37 @@
   #chat-contact-form input,
   #chat-contact-form textarea {
     width: 100%;
-    padding: 9px 12px;
-    border: 1px solid #e5e5e5;
-    border-radius: 8px;
+    padding: 10px 12px;
+    border: 1.5px solid #e0e0e0;
+    border-radius: 10px;
     font-size: 0.88rem;
     font-family: inherit;
     outline: none;
-    background: #fafafa;
-    transition: border-color 0.15s, background 0.15s;
+    background: #fff;
+    transition: border-color 0.15s;
   }
   #chat-contact-form input:focus,
   #chat-contact-form textarea:focus {
-    border-color: #d4a843;
-    background: #fff;
+    border-color: #999;
   }
   #chat-contact-form textarea { resize: vertical; min-height: 60px; }
 
   #cf-submit {
     width: 100%;
     margin-top: 16px;
-    padding: 10px;
-    background: #1a1a2e;
+    padding: 11px;
+    background: #1a1a1a;
     color: #fff;
     border: none;
-    border-radius: 8px;
+    border-radius: 10px;
     font-size: 0.88rem;
     font-family: inherit;
     font-weight: 500;
     cursor: pointer;
     transition: background 0.15s;
   }
-  #cf-submit:hover { background: #2d2d4e; }
-  #cf-submit:disabled { opacity: 0.6; cursor: default; }
+  #cf-submit:hover { background: #333; }
+  #cf-submit:disabled { opacity: 0.5; cursor: default; }
 
   #cf-status {
     margin-top: 8px;
@@ -443,12 +422,13 @@
   #cf-status.success { color: #16a34a; }
   #cf-status.error { color: #c0392b; }
 
+  /* ── Mobile ── */
   @media (max-width: 480px) {
     #chat-panel {
       width: calc(100vw - 24px);
       height: calc(100dvh - 100px);
       right: -8px;
-      bottom: 74px;
+      bottom: 70px;
       border-radius: 16px;
     }
   }
@@ -458,7 +438,7 @@
   (function () {
     const API_URL = window.location.hostname === 'localhost' ? 'http://localhost:4061' : 'https://sandycoveschoolofmusic.com';
     const GREETING =
-      "Hi! I can help with piano lessons, pricing, or getting started at Sandycove. What would you like to know?";
+      "Hi there! 👋\n\nWelcome to Sandycove School of Music. I can help with lesson info, pricing, or getting your first lesson booked.\n\nWhat can I help you with?";
     const STORAGE_KEY = 'sandycove_chat';
 
     const bubble = document.getElementById('chat-bubble');
@@ -479,6 +459,15 @@
     let messages = [];
     let sending = false;
     let isOpen = false;
+
+    // --- Auto-resize textarea ---
+    function autoResize() {
+      input.style.height = 'auto';
+      input.style.height = Math.min(input.scrollHeight, 80) + 'px';
+      // Toggle send button active state
+      sendBtn.classList.toggle('active', input.value.trim().length > 0);
+    }
+    input.addEventListener('input', autoResize);
 
     // --- Tabs ---
     tabs.forEach(function (tab) {
@@ -566,55 +555,45 @@
       } catch (_e) {}
     }
 
-    function makeAvatar(role) {
-      var el = document.createElement('div');
-      el.className = 'chat-msg-avatar';
-      if (role === 'assistant') {
-        el.innerHTML = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>';
-      } else {
-        el.textContent = 'You';
-      }
-      return el;
+    function timeAgo(ts) {
+      if (!ts) return 'Just now';
+      var diff = Math.floor((Date.now() - ts) / 1000);
+      if (diff < 60) return 'Just now';
+      if (diff < 3600) return Math.floor(diff / 60) + 'm ago';
+      if (diff < 86400) return Math.floor(diff / 3600) + 'h ago';
+      return Math.floor(diff / 86400) + 'd ago';
     }
 
     function renderMessages() {
       messagesEl.innerHTML = '';
       for (var i = 0; i < messages.length; i++) {
         var m = messages[i];
-        var group = document.createElement('div');
-        group.className = 'chat-msg-group ' + m.role;
-
-        group.appendChild(makeAvatar(m.role));
-
-        var content = document.createElement('div');
-        content.className = 'chat-msg-content';
+        var wrapper = document.createElement('div');
+        wrapper.className = 'chat-msg ' + m.role;
 
         var bbl = document.createElement('div');
-        bbl.className = 'chat-msg-bubble';
+        bbl.className = 'chat-bubble';
         bbl.textContent = m.text;
-        content.appendChild(bbl);
+        wrapper.appendChild(bbl);
 
-        group.appendChild(content);
-        messagesEl.appendChild(group);
+        // Meta line under assistant messages
+        if (m.role === 'assistant') {
+          var meta = document.createElement('div');
+          meta.className = 'chat-msg-meta';
+          meta.textContent = 'Sandycove \u00b7 ' + timeAgo(m.ts);
+          wrapper.appendChild(meta);
+        }
+
+        messagesEl.appendChild(wrapper);
       }
       messagesEl.scrollTop = messagesEl.scrollHeight;
     }
 
     function showTyping() {
       var el = document.createElement('div');
-      el.className = 'chat-typing';
+      el.className = 'chat-typing-pill';
       el.id = 'chat-typing-indicator';
-
-      var av = document.createElement('div');
-      av.className = 'chat-typing-avatar';
-      av.innerHTML = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>';
-      el.appendChild(av);
-
-      var dots = document.createElement('div');
-      dots.className = 'chat-typing-dots';
-      dots.innerHTML = '<span></span><span></span><span></span>';
-      el.appendChild(dots);
-
+      el.innerHTML = '<span></span><span></span><span></span>';
       messagesEl.appendChild(el);
       messagesEl.scrollTop = messagesEl.scrollHeight;
     }
@@ -628,13 +607,16 @@
       var text = input.value.trim();
       if (!text || sending) return;
 
-      messages.push({ role: 'user', text: text });
+      messages.push({ role: 'user', text: text, ts: Date.now() });
       input.value = '';
+      input.style.height = 'auto';
+      sendBtn.classList.remove('active');
       renderMessages();
       saveState();
 
       sending = true;
       showTyping();
+      var typingStart = Date.now();
 
       try {
         var res = await fetch(API_URL + '/api/chat', {
@@ -647,17 +629,23 @@
         if (data.sessionId) sessionId = data.sessionId;
 
         var reply = data.reply || data.error || 'Sorry, something went wrong. Please try again.';
-        messages.push({ role: 'assistant', text: reply });
+        messages.push({ role: 'assistant', text: reply, ts: Date.now() });
       } catch (_err) {
         messages.push({
           role: 'assistant',
           text: "I'm having trouble connecting. Feel free to call us on 086 872 9764!",
+          ts: Date.now(),
         });
       } finally {
-        sending = false;
-        hideTyping();
-        renderMessages();
-        saveState();
+        var elapsed = Date.now() - typingStart;
+        var minTypingMs = 800;
+        var remaining = Math.max(0, minTypingMs - elapsed);
+        setTimeout(function () {
+          sending = false;
+          hideTyping();
+          renderMessages();
+          saveState();
+        }, remaining);
       }
     }
 

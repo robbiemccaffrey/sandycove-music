@@ -118,8 +118,12 @@ describe('System prompt — Tool rules', () => {
     assert.ok(SYSTEM_PROMPT.toLowerCase().includes('email or phone'));
   });
 
-  it('instructs not to push for contact details', () => {
-    assert.ok(SYSTEM_PROMPT.toLowerCase().includes('never push'));
+  it('instructs to respect declined contact requests', () => {
+    assert.ok(SYSTEM_PROMPT.toLowerCase().includes('respect that'));
+  });
+
+  it('instructs to collect both email and phone', () => {
+    assert.ok(SYSTEM_PROMPT.toLowerCase().includes('both email and phone'));
   });
 });
 

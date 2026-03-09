@@ -1,4 +1,6 @@
 const VALID_PRICES = [30, 40, 50, 270, 330, 400];
+// Savings amounts mentioned in package deals (save €30, save €70, save €100)
+const VALID_SAVINGS = [30, 70, 100];
 
 const SAFE_FALLBACK =
   "I'd be happy to help! For detailed information, feel free to give us a call on 086 872 9764 or use the contact form on our website.";
@@ -26,7 +28,7 @@ function layer1CrossReference(response, toolResults) {
       const amount = parseFloat(match.replace(/€\s*/, ''));
       // Allow half-price amounts for the 50% first lesson offer
       const halfPrices = VALID_PRICES.map((p) => p / 2);
-      if (!VALID_PRICES.includes(amount) && !halfPrices.includes(amount)) {
+      if (!VALID_PRICES.includes(amount) && !halfPrices.includes(amount) && !VALID_SAVINGS.includes(amount)) {
         issues.push(`Invalid price mentioned: ${match}. Not in our price list.`);
       }
     }
@@ -143,4 +145,4 @@ function buildCorrectionPrompt(issues) {
   );
 }
 
-export { validateResponse, buildCorrectionPrompt, SAFE_FALLBACK, VALID_PRICES };
+export { validateResponse, buildCorrectionPrompt, SAFE_FALLBACK, VALID_PRICES, VALID_SAVINGS };

@@ -48,6 +48,12 @@ describe('Layer 1 — Price verification', () => {
     const { valid } = validateResponse(response);
     assert.equal(valid, true);
   });
+
+  it('passes savings amounts in package descriptions', () => {
+    const response = 'Our 10-lesson package for 30-minute lessons is €270 — you save €30! The 40-minute package is €330 (save €70), and the 1-hour package is €400 (save €100).';
+    const { valid, issues } = validateResponse(response);
+    assert.equal(valid, true, `Unexpected issues: ${issues.join(', ')}`);
+  });
 });
 
 // ─── Layer 1: Tool result cross-reference ─────────────────────────────
