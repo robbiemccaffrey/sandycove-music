@@ -35,9 +35,10 @@ const blogPostingSchema = {
   url: canonicalURL.toString(),
   author: {
     '@type': 'Organization',
-    name: 'Sandycove School of Music',
+    name: post.data.author ?? 'Sandycove School of Music',
     url: 'https://sandycoveschoolofmusic.com',
   },
+  ...(post.data.image ? { image: new URL(post.data.image, 'https://sandycoveschoolofmusic.com').toString() } : {}),
   publisher: {
     '@type': 'Organization',
     name: 'Sandycove School of Music',
@@ -84,6 +85,7 @@ const breadcrumbSchema = {
   title={`${post.data.title} — Sandycove School of Music`}
   description={post.data.description}
   ogType="article"
+  ogImage={post.data.image}
 >
   <Header />
   <main class="flex-1 pt-24 pb-20">
