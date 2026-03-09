@@ -1,6 +1,6 @@
 import { describe, it } from 'node:test';
 import assert from 'node:assert/strict';
-import { validatePhone } from '../chat/tools.js';
+import { validatePhone, validateEmail } from '../chat/tools.js';
 
 // ─── Irish mobile numbers ────────────────────────────────────────────
 
@@ -131,6 +131,96 @@ describe('validatePhone — Invalid input', () => {
 
   it('rejects too long (20 digits)', () => {
     const r = validatePhone('+1234567890123456789');
+    assert.equal(r.valid, false);
+  });
+});
+
+// ─── Email validation — valid ────────────────────────────────────────
+
+describe('validateEmail — Valid emails', () => {
+  it('accepts standard email', () => {
+    const r = validateEmail('john@example.com');
+    assert.equal(r.valid, true);
+    assert.equal(r.normalized, 'john@example.com');
+  });
+
+  it('normalizes to lowercase', () => {
+    const r = validateEmail('John.Doe@Gmail.COM');
+    assert.equal(r.valid, true);
+    assert.equal(r.normalized, 'john.doe@gmail.com');
+  });
+
+  it('trims whitespace', () => {
+    const r = validateEmail('  jane@example.ie  ');
+    assert.equal(r.valid, true);
+    assert.equal(r.normalized, 'jane@example.ie');
+  });
+
+  it('accepts .ie domain', () => {
+    const r = validateEmail('info@sandycove.ie');
+    assert.equal(r.valid, true);
+  });
+
+  it('accepts subdomain emails', () => {
+    const r = validateEmail('user@mail.example.co.uk');
+    assert.equal(r.valid, true);
+  });
+
+  it('accepts + in local part', () => {
+    const r = validateEmail('user+tag@gmail.com');
+    assert.equal(r.valid, true);
+  });
+});
+
+// ─── Email validation — invalid ──────────────────────────────────────
+
+describe('validateEmail — Invalid emails', () => {
+  it('rejects null', () => {
+    const r = validateEmail(null);
+    assert.equal(r.valid, false);
+  });
+
+  it('rejects empty string', () => {
+    const r = validateEmail('');
+    assert.equal(r.valid, false);
+  });
+
+  it('rejects no @ symbol', () => {
+    const r = validateEmail('johngmail.com');
+    assert.equal(r.valid, false);
+    assert.ok(r.error.includes('@'));
+  });
+
+  it('rejects multiple @ symbols', () => {
+    const r = validateEmail('john@@gmail.com');
+    assert.equal(r.valid, false);
+  });
+
+  it('rejects missing local part', () => {
+    const r = validateEmail('@gmail.com');
+    assert.equal(r.valid, false);
+    assert.ok(r.error.includes('before'));
+  });
+
+  it('rejects missing domain', () => {
+    const r = validateEmail('john@');
+    assert.equal(r.valid, false);
+    assert.ok(r.error.includes('domain'));
+  });
+
+  it('rejects domain without TLD', () => {
+    const r = validateEmail('john@gmail');
+    assert.equal(r.valid, false);
+    assert.ok(r.error.includes('domain'));
+  });
+
+  it('rejects single-char TLD', () => {
+    const r = validateEmail('john@gmail.c');
+    assert.equal(r.valid, false);
+  });
+
+  it('rejects spaces in email', () => {
+    const r = validateEmail('john doe@gmail.com');
     assert.equal(r.valid, false);
   });
 });

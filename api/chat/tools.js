@@ -96,6 +96,50 @@ function validatePhone(raw) {
   return { valid: false, error: 'Please provide a valid phone number.' };
 }
 
+function validateEmail(raw) {
+  if (!raw) return { valid: false, error: 'No email address provided.' };
+
+  const trimmed = raw.trim().toLowerCase();
+
+  if (trimmed.length > 200) {
+    return { valid: false, error: 'Email address is too long.' };
+  }
+
+  // Must have exactly one @
+  const parts = trimmed.split('@');
+  if (parts.length !== 2) {
+    return { valid: false, error: 'That doesn\'t look like a valid email address. It should have an @ symbol, like name@example.com.' };
+  }
+
+  const [local, domain] = parts;
+
+  if (!local || local.length === 0) {
+    return { valid: false, error: 'The email address is missing the part before the @.' };
+  }
+
+  if (!domain || domain.length === 0) {
+    return { valid: false, error: 'The email address is missing the domain after the @.' };
+  }
+
+  // Domain must have at least one dot and a valid TLD (2+ chars)
+  const domainParts = domain.split('.');
+  if (domainParts.length < 2 || domainParts.some(p => p.length === 0)) {
+    return { valid: false, error: 'The email domain doesn\'t look right. It should be something like gmail.com or outlook.ie.' };
+  }
+
+  const tld = domainParts[domainParts.length - 1];
+  if (tld.length < 2) {
+    return { valid: false, error: 'The email domain doesn\'t look right. Check the part after the last dot.' };
+  }
+
+  // Basic character check — no spaces or obviously invalid chars
+  if (/\s/.test(trimmed) || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(trimmed)) {
+    return { valid: false, error: 'That email address contains invalid characters. Please double-check it.' };
+  }
+
+  return { valid: true, normalized: trimmed };
+}
+
 async function captureLead({ name, email, phone, interest }, conversationId) {
   // Rate limit: max 3 leads per conversation per hour
   const recentCount = countRecentLeads(conversationId, LEAD_RATE_WINDOW_MINUTES);
@@ -112,10 +156,18 @@ async function captureLead({ name, email, phone, interest }, conversationId) {
 
   const sanitized = {
     name: name.trim().slice(0, 200),
-    email: email ? email.trim().slice(0, 200) : null,
+    email: null,
     phone: null,
     interest: interest ? interest.trim().slice(0, 500) : null,
   };
+
+  if (email) {
+    const emailResult = validateEmail(email);
+    if (!emailResult.valid) {
+      return { error: emailResult.error };
+    }
+    sanitized.email = emailResult.normalized;
+  }
 
   if (phone) {
     const phoneResult = validatePhone(phone);
@@ -123,10 +175,6 @@ async function captureLead({ name, email, phone, interest }, conversationId) {
       return { error: phoneResult.error };
     }
     sanitized.phone = phoneResult.normalized;
-  }
-
-  if (sanitized.email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(sanitized.email)) {
-    return { error: 'Invalid email format.' };
   }
 
   const leadId = createLead(
@@ -174,4 +222,4 @@ async function captureLead({ name, email, phone, interest }, conversationId) {
   return { captured: true, leadId };
 }
 
-export { TOOL_SCHEMAS, executeTool, validatePhone, LEAD_RATE_LIMIT, LEAD_RATE_WINDOW_MINUTES };
+export { TOOL_SCHEMAS, executeTool, validatePhone, validateEmail, LEAD_RATE_LIMIT, LEAD_RATE_WINDOW_MINUTES };
