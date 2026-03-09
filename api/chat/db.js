@@ -117,6 +117,14 @@ function createLead(conversationId, name, email, phone, interest) {
   return result.lastInsertRowid;
 }
 
+function countRecentLeads(conversationId, windowMinutes) {
+  const db = getDb();
+  return db.prepare(`
+    SELECT COUNT(*) as count FROM leads
+    WHERE conversation_id = ? AND created_at > datetime('now', '-' || ? || ' minutes')
+  `).get(conversationId, windowMinutes).count;
+}
+
 function markLeadEmailSent(leadId) {
   const db = getDb();
   db.prepare(`UPDATE leads SET email_sent = 1 WHERE id = ?`).run(leadId);
@@ -198,6 +206,7 @@ export {
   updateConversation,
   listConversations,
   createLead,
+  countRecentLeads,
   markLeadEmailSent,
   listLeads,
   updateLeadNotes,
