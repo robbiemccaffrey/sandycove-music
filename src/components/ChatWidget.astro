@@ -4,6 +4,7 @@
 
 <div id="chat-widget">
   <button id="chat-bubble" aria-label="Open chat">
+    <span id="chat-badge">1</span>
     <svg id="chat-bubble-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
       <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
     </svg>
@@ -89,6 +90,7 @@
 
   /* ── Floating bubble ── */
   #chat-bubble {
+    position: relative;
     width: 56px;
     height: 56px;
     border-radius: 50%;
@@ -105,6 +107,31 @@
   #chat-bubble:hover {
     transform: scale(1.05);
     box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+  }
+
+  /* ── Notification badge ── */
+  #chat-badge {
+    position: absolute;
+    top: -4px;
+    right: -4px;
+    width: 20px;
+    height: 20px;
+    background: #e53e3e;
+    color: #fff;
+    font-size: 11px;
+    font-weight: 700;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid #fff;
+    animation: chatBadgePulse 2s ease-in-out 3;
+  }
+  #chat-badge.hidden { display: none; }
+
+  @keyframes chatBadgePulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.15); }
   }
 
   /* ── Panel ── */
@@ -482,6 +509,7 @@
     const STORAGE_KEY = 'sandycove_chat';
 
     const bubble = document.getElementById('chat-bubble');
+    const badge = document.getElementById('chat-badge');
     const bubbleIcon = document.getElementById('chat-bubble-icon');
     const bubbleClose = document.getElementById('chat-bubble-close');
     const panel = document.getElementById('chat-panel');
@@ -585,6 +613,9 @@
 
       if (messages.length === 0) {
         messages.push({ role: 'assistant', text: GREETING });
+      } else {
+        // Returning visitor who already interacted — hide badge
+        badge.classList.add('hidden');
       }
       renderMessages();
     }
@@ -700,6 +731,7 @@
       widget.classList.toggle('chat-open', isOpen);
       bubbleIcon.style.display = isOpen ? 'none' : 'block';
       bubbleClose.style.display = isOpen ? 'block' : 'none';
+      if (isOpen) badge.classList.add('hidden');
       if (isOpen) {
         var isMobile = window.innerWidth <= 480;
         if (!contactView.classList.contains('chat-hidden')) {
