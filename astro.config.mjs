@@ -4,6 +4,7 @@ import sitemap from '@astrojs/sitemap';
 
 export default defineConfig({
   site: 'https://sandycoveschoolofmusic.com',
+  trailingSlash: 'always',
   image: {
     service: passthroughImageService(),
   },
