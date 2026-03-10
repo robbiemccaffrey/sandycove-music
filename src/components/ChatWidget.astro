@@ -701,11 +701,14 @@
       bubbleIcon.style.display = isOpen ? 'none' : 'block';
       bubbleClose.style.display = isOpen ? 'block' : 'none';
       if (isOpen) {
+        var isMobile = window.innerWidth <= 480;
         if (!contactView.classList.contains('chat-hidden')) {
-          var nameField = document.getElementById('cf-name');
-          if (nameField) nameField.focus();
+          if (!isMobile) {
+            var nameField = document.getElementById('cf-name');
+            if (nameField) nameField.focus();
+          }
         } else {
-          input.focus();
+          if (!isMobile) input.focus();
           messagesEl.scrollTop = messagesEl.scrollHeight;
         }
       }
