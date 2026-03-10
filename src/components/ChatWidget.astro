@@ -732,6 +732,10 @@
       bubbleIcon.style.display = isOpen ? 'none' : 'block';
       bubbleClose.style.display = isOpen ? 'block' : 'none';
       if (isOpen) badge.classList.add('hidden');
+      if (!isOpen) {
+        panel.style.height = '';
+        panel.style.top = '';
+      }
       if (isOpen) {
         var isMobile = window.innerWidth <= 480;
         if (!contactView.classList.contains('chat-hidden')) {
@@ -755,6 +759,20 @@
         sendMessage();
       }
     });
+
+    // Handle iOS virtual keyboard resizing
+    if (window.visualViewport) {
+      var onViewportResize = function () {
+        if (!isOpen || window.innerWidth > 480) return;
+        var vvh = window.visualViewport.height;
+        var offset = window.visualViewport.offsetTop;
+        panel.style.height = vvh + 'px';
+        panel.style.top = offset + 'px';
+        messagesEl.scrollTop = messagesEl.scrollHeight;
+      };
+      window.visualViewport.addEventListener('resize', onViewportResize);
+      window.visualViewport.addEventListener('scroll', onViewportResize);
+    }
 
     loadState();
   })();
