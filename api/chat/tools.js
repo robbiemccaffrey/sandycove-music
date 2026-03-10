@@ -41,15 +41,44 @@ const TOOL_SCHEMAS = [
   },
 ];
 
-async function executeTool(name, args, conversationId) {
+async function executeTool(name, args, conversationId, ipAddress) {
   if (name === 'capture_lead') {
-    return await captureLead(args, conversationId);
+    return await captureLead(args, conversationId, ipAddress);
   }
   return { error: `Unknown tool: ${name}` };
 }
 
 const LEAD_RATE_LIMIT = 3;
 const LEAD_RATE_WINDOW_MINUTES = 60;
+
+// IP-based lead rate limiting: max 10 leads per hour per IP
+const ipLeadRateLimitMap = new Map();
+const IP_LEAD_RATE_LIMIT = 10;
+const IP_LEAD_RATE_WINDOW_MS = 60 * 60 * 1000;
+
+setInterval(() => {
+  const now = Date.now();
+  for (const [ip, entries] of ipLeadRateLimitMap) {
+    const valid = entries.filter((ts) => now - ts < IP_LEAD_RATE_WINDOW_MS);
+    if (valid.length === 0) {
+      ipLeadRateLimitMap.delete(ip);
+    } else {
+      ipLeadRateLimitMap.set(ip, valid);
+    }
+  }
+}, 10 * 60 * 1000);
+
+function checkIpLeadRateLimit(ip) {
+  if (!ip) return true;
+  const now = Date.now();
+  const entries = (ipLeadRateLimitMap.get(ip) || []).filter(
+    (ts) => now - ts < IP_LEAD_RATE_WINDOW_MS
+  );
+  if (entries.length >= IP_LEAD_RATE_LIMIT) return false;
+  entries.push(now);
+  ipLeadRateLimitMap.set(ip, entries);
+  return true;
+}
 
 function validatePhone(raw) {
   if (!raw) return { valid: false, error: 'No phone number provided.' };
@@ -140,10 +169,15 @@ function validateEmail(raw) {
   return { valid: true, normalized: trimmed };
 }
 
-async function captureLead({ name, email, phone, interest }, conversationId) {
+async function captureLead({ name, email, phone, interest }, conversationId, ipAddress) {
   // Rate limit: max 3 leads per conversation per hour
   const recentCount = countRecentLeads(conversationId, LEAD_RATE_WINDOW_MINUTES);
   if (recentCount >= LEAD_RATE_LIMIT) {
+    return { error: "We already have your details — the team will be in touch soon!" };
+  }
+
+  // IP-based rate limit: max 10 leads per hour per IP
+  if (!checkIpLeadRateLimit(ipAddress)) {
     return { error: "We already have your details — the team will be in touch soon!" };
   }
 
@@ -154,11 +188,13 @@ async function captureLead({ name, email, phone, interest }, conversationId) {
     return { error: 'At least one contact method (email or phone) is required.' };
   }
 
+  const stripControl = (s) => s.replace(/[\x00-\x1f\x7f]/g, '');
+
   const sanitized = {
-    name: name.trim().slice(0, 200),
+    name: stripControl(name.trim()).slice(0, 200),
     email: null,
     phone: null,
-    interest: interest ? interest.trim().slice(0, 500) : null,
+    interest: interest ? stripControl(interest.trim()).slice(0, 500) : null,
   };
 
   if (email) {

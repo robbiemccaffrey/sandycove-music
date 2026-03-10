@@ -15,6 +15,7 @@ import {
 const MODEL = 'gpt-4o-mini';
 const MAX_ITERATIONS = 10;
 const INPUT_MAX_LENGTH = 500;
+const MAX_TURNS_PER_CONVERSATION = 50;
 const COMPRESS_THRESHOLD = 20; // non-system messages before compression
 const KEEP_RECENT = 6;
 
@@ -36,6 +37,15 @@ async function chat(openai, { sessionId, message, ipAddress, userAgent }) {
 
   // Load or create conversation
   let conversation = sessionId ? getConversation(sessionId) : null;
+
+  // Turn cap: prevent runaway conversations
+  if (conversation && conversation.turn_count >= MAX_TURNS_PER_CONVERSATION) {
+    return {
+      sessionId,
+      reply: "We've had a great chat! For anything else, feel free to call us on 086 872 9764 or use the 'Leave a message' form.",
+    };
+  }
+
   if (!conversation) {
     const { randomUUID } = await import('crypto');
     sessionId = randomUUID();
@@ -104,7 +114,7 @@ async function chat(openai, { sessionId, message, ipAddress, userAgent }) {
           args = {};
         }
 
-        const result = await executeTool(toolCall.function.name, args, sessionId);
+        const result = await executeTool(toolCall.function.name, args, sessionId, ipAddress);
         toolResults.push({ name: toolCall.function.name, output: result });
 
         apiMessages.push({

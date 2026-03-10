@@ -2,6 +2,7 @@ import { readFileSync } from 'fs';
 import { fileURLToPath } from 'url';
 import { dirname, join } from 'path';
 import express from 'express';
+import helmet from 'helmet';
 import cors from 'cors';
 import { SESClient, SendEmailCommand } from '@aws-sdk/client-ses';
 import OpenAI from 'openai';
@@ -25,6 +26,7 @@ try {
 } catch (_e) {}
 
 const app = express();
+app.set('trust proxy', 1); // Trust first proxy (nginx)
 const PORT = process.env.PORT || 4061;
 
 const ALLOWED_ORIGIN = process.env.ALLOWED_ORIGIN || 'https://sandycoveschoolofmusic.com';
@@ -38,6 +40,7 @@ const allowedOrigins = [ALLOWED_ORIGIN];
 if (process.env.NODE_ENV !== 'production') {
   allowedOrigins.push('http://localhost:4321', 'http://localhost:4060');
 }
+app.use(helmet());
 app.use(cors({ origin: allowedOrigins }));
 app.use(express.json({ limit: '10kb' }));
 
@@ -75,9 +78,7 @@ function checkRateLimit(ip) {
 }
 
 app.post('/api/contact', async (req, res) => {
-  const clientIp = req.headers['x-real-ip'] || req.headers['x-forwarded-for'] || req.ip;
-
-  if (!checkRateLimit(clientIp)) {
+  if (!checkRateLimit(req.ip)) {
     return res.status(429).json({ error: 'Too many requests. Please try again later.' });
   }
 
@@ -164,8 +165,7 @@ app.post('/api/chat', async (req, res) => {
     return res.status(503).json({ error: 'Chat service not available.' });
   }
 
-  const clientIp = req.headers['x-real-ip'] || req.headers['x-forwarded-for'] || req.ip;
-  if (!checkChatRateLimit(clientIp)) {
+  if (!checkChatRateLimit(req.ip)) {
     return res.status(429).json({ error: 'Too many messages. Please try again later.' });
   }
 
@@ -178,7 +178,7 @@ app.post('/api/chat', async (req, res) => {
     const result = await chat(openai, {
       sessionId: sessionId || null,
       message,
-      ipAddress: clientIp,
+      ipAddress: req.ip,
       userAgent: req.headers['user-agent'] || '',
     });
     res.json(result);

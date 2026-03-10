@@ -1,4 +1,5 @@
 import crypto from 'crypto';
+import bcrypt from 'bcryptjs';
 import {
   createAdminSession,
   getAdminSession,
@@ -93,14 +94,12 @@ function mountAdminRoutes(app) {
   });
 
   // Login
-  app.post('/api/chat/admin/login', (req, res) => {
+  app.post('/api/chat/admin/login', async (req, res) => {
     if (!ADMIN_PASSWORD) {
       return res.status(503).json({ error: 'Admin not configured.' });
     }
 
-    const clientIp =
-      req.headers['x-real-ip'] || req.headers['x-forwarded-for'] || req.ip;
-    if (!checkLoginRateLimit(clientIp)) {
+    if (!checkLoginRateLimit(req.ip)) {
       return res.status(429).json({ error: 'Too many login attempts. Try again later.' });
     }
 
@@ -109,13 +108,8 @@ function mountAdminRoutes(app) {
       return res.status(400).json({ error: 'Password required.' });
     }
 
-    // Timing-safe comparison
-    const expected = Buffer.from(ADMIN_PASSWORD);
-    const provided = Buffer.from(password);
-    if (
-      expected.length !== provided.length ||
-      !crypto.timingSafeEqual(expected, provided)
-    ) {
+    const match = await bcrypt.compare(password, ADMIN_PASSWORD);
+    if (!match) {
       return res.status(401).json({ error: 'Invalid password.' });
     }
 
