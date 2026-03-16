@@ -59,4 +59,4 @@ If you're wondering about the right time to start, have a read of our guide on [
 
 At Sandycove School of Music, we offer one-on-one piano lessons for children of all ages and abilities, from complete beginners to advanced students preparing for grade exams. Every lesson is tailored to your child's pace and interests, with a focus on building skills while keeping things enjoyable.
 
-Your child's first lesson is available at 50% off — [get in touch](/#contact) to book.
+No commitment — [get in touch](/#contact) to book your first lesson.

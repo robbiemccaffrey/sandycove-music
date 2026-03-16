@@ -62,6 +62,6 @@ While most piano teachers are dedicated professionals, there are a few warning s
 
 ## Our Approach
 
-At Sandycove School of Music, every lesson is one-on-one and tailored to the individual student. We teach all styles — classical, jazz, contemporary, and pop — and prepare students for RIAM, ABRSM, Trinity, and Leaving Cert Music exams. Our first lesson is available at 50% off, so you can try us out with no pressure.
+At Sandycove School of Music, every lesson is one-on-one and tailored to the individual student. We teach all styles — classical, jazz, contemporary, and pop — and prepare students for RIAM, ABRSM, Trinity, and Leaving Cert Music exams. There's no commitment, so you can try us out with no pressure.
 
 If you're looking for a piano teacher in Dublin, [get in touch](/#contact) — we'd be happy to chat about what you're looking for and whether we'd be a good fit.

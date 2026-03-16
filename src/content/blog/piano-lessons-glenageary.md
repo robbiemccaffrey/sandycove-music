@@ -34,7 +34,7 @@ By DART, take the southbound train one stop from Glenageary to Sandycove and Gla
 
 ## Pricing
 
-Lessons start from €30 for 30 minutes, with packages of ten lessons available at a reduced rate. Your first lesson is half price.
+Lessons start from €30 for 30 minutes, with packages of ten lessons available at a reduced rate. No commitment — just try your first lesson.
 
 ## Get Started
 

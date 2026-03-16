@@ -50,4 +50,4 @@ If your child is in 5th or 6th Year and taking Leaving Cert Music, look for a te
 
 The best way to find the right piano teacher near Dalkey is to book a trial lesson. Most good teachers offer one, and it gives you a chance to see the teaching style, the environment, and whether it feels like a good fit.
 
-At Sandycove School of Music, we offer a first lesson at 50% off. We're just a few minutes from Dalkey, teach all ages and levels, and cover classical, jazz, pop, and exam preparation. If you'd like to try us out, [get in touch](/contact) — we'd love to hear from you.
+At Sandycove School of Music, there's no commitment — just try your first lesson. We're just a few minutes from Dalkey, teach all ages and levels, and cover classical, jazz, pop, and exam preparation. If you'd like to try us out, [get in touch](/contact) — we'd love to hear from you.

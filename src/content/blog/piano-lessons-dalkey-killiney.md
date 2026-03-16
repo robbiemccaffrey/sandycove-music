@@ -29,7 +29,7 @@ Our students regularly achieve distinctions and merit awards across all boards.
 
 ## Pricing
 
-Individual lessons start from €30 for 30 minutes. We also offer packages of ten lessons at a discounted rate, which most of our regular students opt for. Your first lesson is available at half price.
+Individual lessons start from €30 for 30 minutes. We also offer packages of ten lessons at a discounted rate, which most of our regular students opt for. There's no commitment — just try your first lesson.
 
 | Duration | Price | Package of 10 |
 |----------|-------|---------------|

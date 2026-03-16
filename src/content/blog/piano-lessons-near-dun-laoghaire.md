@@ -55,4 +55,4 @@ Don't be afraid to try a couple of different teachers before committing. The rig
 
 At Sandycove School of Music, we're based just minutes from Dun Laoghaire town centre. We teach piano to students of all ages — from children aged 5 through to adult beginners and advanced players. Our lessons cover classical, jazz, pop, and exam preparation for RIAM, ABRSM, Trinity, and Leaving Cert Music.
 
-We offer a first lesson at 50% off, so you can try us out with no pressure. If you're looking for piano lessons in the Dun Laoghaire area, [get in touch](/contact) — we'd be happy to chat about what you're looking for.
+There's no commitment, so you can try us out with no pressure. If you're looking for piano lessons in the Dun Laoghaire area, [get in touch](/contact) — we'd be happy to chat about what you're looking for.

@@ -60,4 +60,4 @@ You'll need something to practise on at home. If you're not ready to invest in a
 
 If you've been thinking about learning piano, the hardest part is booking that first lesson. Everything after that gets easier. At Sandycove School of Music, we teach plenty of adult beginners and we tailor every lesson to your pace, your interests, and your goals.
 
-Your first lesson is available at 50% off — [get in touch](/#contact) and let's get started.
+No commitment — [get in touch](/#contact) and let's get started.

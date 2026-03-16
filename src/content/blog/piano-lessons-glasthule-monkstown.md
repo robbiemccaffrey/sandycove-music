@@ -62,4 +62,4 @@ If you use the DART, Glasthule/Sandycove station is right beside us, and Monksto
 
 At Sandycove School of Music, we teach piano to all ages and levels — from young beginners through to adults and Leaving Cert students. We cover classical, jazz, pop, and full exam preparation.
 
-We offer a first lesson at 50% off so you can try us out with no commitment. If you're in Glasthule, Monkstown, or anywhere nearby, [get in touch](/contact) — we'd love to hear from you.
+There's no commitment — just try your first lesson. If you're in Glasthule, Monkstown, or anywhere nearby, [get in touch](/contact) — we'd love to hear from you.

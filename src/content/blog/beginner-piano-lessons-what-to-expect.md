@@ -83,4 +83,4 @@ The key is **consistency, not duration**. Fifteen minutes every day is far more 
 
 The hardest part is booking that first lesson. Everything after that gets easier. At Sandycove School of Music, we teach plenty of beginners — both children and adults — and every lesson is tailored to your pace and your goals.
 
-Interested in [adult piano lessons](/adult-piano-lessons)? Or looking for [music lessons for your child](/kids-music-lessons)? Your first lesson is available at 50% off — [get in touch](/contact) and let's get you started.
+Interested in [adult piano lessons](/adult-piano-lessons)? Or looking for [music lessons for your child](/kids-music-lessons)? No commitment — [get in touch](/contact) and let's get you started.

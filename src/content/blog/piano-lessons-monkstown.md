@@ -32,4 +32,4 @@ Evening and weekend slots are available to fit around work.
 
 ## Ready to Get Started?
 
-Your first lesson is available at 50% off. [Get in touch](/contact) to book a free trial, or learn more about our [piano lessons](/piano-lessons) and [adult piano lessons](/adult-piano-lessons).
+No commitment — try your first lesson. [Get in touch](/contact) to book a free trial, or learn more about our [piano lessons](/piano-lessons) and [adult piano lessons](/adult-piano-lessons).

@@ -78,6 +78,6 @@ A few practical things that make online lessons work better:
 
 If you'd like to try an online piano lesson, the process is straightforward. Get in touch, tell us about your level and what you'd like to learn, and we'll set up a first lesson over Zoom.
 
-We offer a first lesson at 50% off — online or in-person. We teach all ages, all levels, and cover classical, jazz, pop, exam preparation, and everything in between.
+No commitment — try your first lesson online or in-person. We teach all ages, all levels, and cover classical, jazz, pop, exam preparation, and everything in between.
 
 Whether you're in Dublin, elsewhere in Ireland, or further afield — [contact us](/contact) and we'll take it from there.

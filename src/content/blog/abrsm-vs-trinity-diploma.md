@@ -101,4 +101,4 @@ Diploma preparation is about more than just learning the notes — it's about bu
 
 Whether you've just finished your Grade 8 and are thinking about next steps, or you've been playing for years and feel ready for a serious challenge, we'd love to work with you.
 
-[Get in touch](/#contact) to book a lesson — we're offering 50% off your first session.
+[Get in touch](/#contact) to book a lesson — no commitment.
